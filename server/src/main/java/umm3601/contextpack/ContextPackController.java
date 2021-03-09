@@ -1,4 +1,4 @@
-package umm3601.user;
+package umm3601.contextpack;
 
 import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.eq;
@@ -25,9 +25,9 @@ import io.javalin.http.Context;
 import io.javalin.http.NotFoundResponse;
 
 /**
- * Controller that manages requests for info about users.
+ * Controller that manages requests for info about context packs.
  */
-public class UserController {
+public class ContextPackController{
 
   private static final String AGE_KEY = "age";
   private static final String COMPANY_KEY = "company";
@@ -35,15 +35,15 @@ public class UserController {
 
   static String emailRegex = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
 
-  private final JacksonMongoCollection<User> userCollection;
+  private final JacksonMongoCollection<ContextPack> contextPackCollection;
 
   /**
    * Construct a controller for users.
    *
    * @param database the database containing user data
    */
-  public UserController(MongoDatabase database) {
-    userCollection = JacksonMongoCollection.builder().build(database, "users", User.class);
+  public ContextPackController(MongoDatabase database) {
+    contextPackCollection = JacksonMongoCollection.builder().build(database, "contextPack", ContextPack.class);
   }
 
   /**
@@ -51,9 +51,9 @@ public class UserController {
    *
    * @param ctx a Javalin HTTP context
    */
-  public void getUser(Context ctx) {
+  public void getContextPack(Context ctx) {
     String id = ctx.pathParam("id");
-    User user;
+    ContextPack contextPack;
 
     try {
       user = userCollection.find(eq("_id", new ObjectId(id))).first();

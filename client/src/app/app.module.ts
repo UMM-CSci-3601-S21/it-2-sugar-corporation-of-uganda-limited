@@ -24,14 +24,14 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 
-import { UserListComponent } from './users/user-list.component';
-import { HomeComponent } from './home/home.component';
-import { UserService } from './users/user.service';
+
+import { HomeComponent } from './contextpack/contextpack.component';
+
 import { HttpClientModule } from '@angular/common/http';
 import { LayoutModule } from '@angular/cdk/layout';
-import { UserCardComponent } from './users/user-card.component';
-import { UserProfileComponent } from './users/user-profile.component';
-import { AddUserComponent } from './users/add-user.component';
+import { WordpackComponent } from './wordpack/wordpack.component';
+import { WordsComponent } from './words/words.component';
+
 
 const MATERIAL_MODULES: any[] = [
   MatListModule,
@@ -56,10 +56,9 @@ const MATERIAL_MODULES: any[] = [
   declarations: [
     AppComponent,
     HomeComponent,
-    UserListComponent,
-    UserCardComponent,
-    UserProfileComponent,
-    AddUserComponent,
+    WordpackComponent,
+    WordsComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -73,7 +72,7 @@ const MATERIAL_MODULES: any[] = [
     LayoutModule,
   ],
   providers: [
-    UserService
+
   ],
   bootstrap: [AppComponent]
 })

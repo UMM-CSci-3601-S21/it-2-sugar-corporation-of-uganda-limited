@@ -1,14 +1,13 @@
-package umm3601.user;
+package umm3601.contextpack;
 
 import org.mongojack.Id;
 import org.mongojack.ObjectId;
 
-public class User {
+public class ContextPack {
 
   @ObjectId @Id
-  public String _id;
-
   public String name;
+
   public int age;
   public String company;
   public String email;
