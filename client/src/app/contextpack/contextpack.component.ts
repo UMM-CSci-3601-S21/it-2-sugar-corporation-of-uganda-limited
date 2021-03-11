@@ -6,7 +6,7 @@ import {Component} from '@angular/core';
   styleUrls: ['./contextpack.component.scss'],
   providers: []
 })
-export class HomeComponent {
+export class ContextPackComponent {
 
   constructor() {
   }

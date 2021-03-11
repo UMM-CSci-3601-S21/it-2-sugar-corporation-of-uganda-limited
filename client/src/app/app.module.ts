@@ -25,7 +25,7 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 
-import { HomeComponent } from './contextpack/contextpack.component';
+import { ContextPackComponent } from './contextpack/contextpack.component';
 
 import { HttpClientModule } from '@angular/common/http';
 import { LayoutModule } from '@angular/cdk/layout';
@@ -55,7 +55,7 @@ const MATERIAL_MODULES: any[] = [
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
+    ContextPackComponent,
     WordpackComponent,
     WordsComponent,
 
