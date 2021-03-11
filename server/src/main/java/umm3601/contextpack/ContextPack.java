@@ -8,16 +8,16 @@ import org.mongojack.ObjectId;
 public class ContextPack {
 
   @ObjectId @Id
-  public String contextPackName;
+  public String name;
 
   public String icon;
-  public boolean enabledOne;
-  public Array[] wordPacks;
+  public boolean enabled;
+  public Array[] wordpacks;
 
   public class WordPacks {
 
-    public String wordPackName;
-    public boolean enabledTwo;
+    public String name;
+    public boolean enabled;
 
     public Array[] nouns;
     public Array[] verbs;

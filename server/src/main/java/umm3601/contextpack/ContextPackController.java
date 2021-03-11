@@ -1,22 +1,16 @@
 package umm3601.contextpack;
 
-import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.eq;
-import static com.mongodb.client.model.Filters.regex;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Pattern;
 
 import com.google.common.collect.ImmutableMap;
 import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.model.Sorts;
 
 import org.bson.Document;
-import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 import org.mongojack.JacksonMongoCollection;
 
@@ -25,89 +19,81 @@ import io.javalin.http.Context;
 import io.javalin.http.NotFoundResponse;
 
 /**
- * Controller that manages requests for info about context packs.
+ * Controller that manages request for info about context Packs.
  */
-public class ContextPackController{
+public class ContextPackController {
 
-  private static final String NAME_KEY = "name";
 
-  private final JacksonMongoCollection<ContextPack> contextPackCollection;
 
-  /**
-   * Construct a controller for context pack.
-   *
-   * @param database the database containing pack data
-   */
-  public ContextPackController(MongoDatabase database) {
-    contextPackCollection = JacksonMongoCollection.builder().build(database, "contextPack", ContextPack.class);
+
+
+private final JacksonMongoCollection<ContextPack> contextPackCollection;
+
+/**
+ * Construct a controller for the context Packs
+ *
+ * @param database the database containing context Pack data
+ */
+public ContextPackController(MongoDatabase database) {
+  contextPackCollection = JacksonMongoCollection.builder().build(database, "context Packs", ContextPack.class);
+}
+
+/**
+ * Get the single context Pack specified by the 'id' parameter in the request.
+ *
+ * @param ctx a Javalin HTTP context
+ */
+public void getContextPack(Context ctx) {
+  String id = ctx.pathParam("id");
+  ContextPack contextPack;
+
+  try {
+    contextPack = contextPackCollection.find(eq("_id", new ObjectId(id))).first();
+  } catch(IllegalArgumentException e) {
+    throw new BadRequestResponse(" The requested context Pack id wasn't a legal Mongo Object ID.");
   }
-
-  /**
-   * Get the single pack specified by the `id` parameter in the request.
-   *
-   * @param ctx a Javalin HTTP context
-   */
-  public void getPack(Context ctx) {
-    String id = ctx.pathParam("id");
-    ContextPack contextPack;
-
-    try {
-      contextPack = contextPackCollection.find(eq("_id", new ObjectId(id))).first();
-    } catch(IllegalArgumentException e) {
-      throw new BadRequestResponse("The requested context pack id wasn't a legal Mongo Object ID.");
-    }
-    if (contextPack == null) {
-      throw new NotFoundResponse("The requested context pack was not found");
-    } else {
-      ctx.json(contextPack);
-    }
+  if (contextPack == null) {
+    throw new NotFoundResponse("The requested context Pack was not found.");
+  } {
+    ctx.json(contextPack);
   }
+}
 
-  /**
-   * Get a JSON response with a list of all the context packs.
+public void getContextPacks(Context ctx) {
+  ctx.json(contextPackCollection.find(new Document()).into(new ArrayList<>()));
+}
+
+/**
+ *  Get a JSON response with a list of all the context Packs.
+ *
+ * @param ctx a Javalin HTTP context
+ */
+public void addNewContextPack(Context ctx) {
+  ContextPack newContextPack = ctx.bodyValidator(ContextPack.class)
+    .check(cp -> cp.name != null && cp.name.length() > 0) //Verify that the context Pack has a name that is not blank
+    .check(cp -> cp.enabled == false || cp.enabled == true)//Verify that the enabled is true or false
+    .check(cp -> cp.wordpacks != null)//Verify that the array is not empty
+    .get();
+
+  contextPackCollection.insertOne(newContextPack);
+  ctx.status(201);
+  ctx.json(ImmutableMap.of("id", newContextPack.name));
+}
+
+/**
+   * Utility function to generate the md5 hash for a given string
    *
-   * @param ctx a Javalin HTTP context
+   * @param str the string to generate a md5 for
    */
-  public void getPacks(Context ctx) {
+  @SuppressWarnings("lgtm[java/weak-cryptographic-algorithm]")
+  public String md5(String str) throws NoSuchAlgorithmException {
+    MessageDigest md = MessageDigest.getInstance("MD5");
+    byte[] hashInBytes = md.digest(str.toLowerCase().getBytes(StandardCharsets.UTF_8));
 
-    List<Bson> filters = new ArrayList<>(); // start with a blank document
-
-    if (ctx.queryParamMap().containsKey(NAME_KEY)) {
-      filters.add(regex(NAME_KEY,  Pattern.quote(ctx.queryParam(NAME_KEY)), "i"));
+    StringBuilder result = new StringBuilder();
+    for (byte b : hashInBytes) {
+      result.append(String.format("%02x", b));
     }
-
-    String sortBy = ctx.queryParam("sortby", "name"); //Sort by sort query param, default is name
-    String sortOrder = ctx.queryParam("sortorder", "asc");
-
-    ctx.json(contextPackCollection.find(filters.isEmpty() ? new Document() : and(filters))
-      .sort(sortOrder.equals("desc") ?  Sorts.descending(sortBy) : Sorts.ascending(sortBy))
-      .into(new ArrayList<>()));
+    return result.toString();
   }
-
-  /**
-   * Add a new context pack JSON object to the database.
-   *
-   * @param ctx a Javalin HTTP context
-   */
-  public void addNewPack(Context ctx) {
-    User newUser = ctx.bodyValidator(User.class)
-      .check(usr -> usr.name != null && usr.name.length() > 0) //Verify that the user has a name that is not blank
-      .check(usr -> usr.email.matches(emailRegex)) // Verify that the provided email is a valid email
-      .check(usr -> usr.age > 0) // Verify that the provided age is > 0
-      .check(usr -> usr.role.matches("^(admin|editor|viewer)$")) // Verify that the role is one of the valid roles
-      .check(usr -> usr.company != null && usr.company.length() > 0) // Verify that the user has a company that is not blank
-      .get();
-
-    // Generate user avatar (you won't need this part for todos)
-    try {
-      newUser.avatar = "https://gravatar.com/avatar/" + md5(newUser.email) + "?d=identicon";  // generate unique md5 code for identicon
-    } catch (NoSuchAlgorithmException ignored) {
-      newUser.avatar = "https://gravatar.com/avatar/?d=mp";                           // set to mystery person
-    }
-
-    userCollection.insertOne(newUser);
-    ctx.status(201);
-    ctx.json(ImmutableMap.of("id", newUser._id));
-  }
-
 }

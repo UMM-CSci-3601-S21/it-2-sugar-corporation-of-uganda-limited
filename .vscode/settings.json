@@ -13,6 +13,7 @@
       "Javalin",
       "sidenav",
       "todos",
+      "wordpacks",
       "xdescribe"
     ],
     "angular.enable-experimental-ivy-prompt": false,
