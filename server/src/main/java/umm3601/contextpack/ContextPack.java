@@ -1,33 +1,18 @@
 package umm3601.contextpack;
 
-import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 import org.mongojack.Id;
 import org.mongojack.ObjectId;
 
-public class ContextPack {
+public class Contextpack {
 
   @ObjectId @Id
+  public String _id;
+
+  public String schema;
   public String name;
-
-  public String icon;
   public boolean enabled;
-  public Array[] wordpacks;
+  public ArrayList<WordPack> wordPack;
 
-  public class WordPacks {
-
-    public String name;
-    public boolean enabled;
-
-    public Array[] nouns;
-    public Array[] verbs;
-    public Array[] adjectives;
-    public Array[] misc;
-
-    public class Type {
-
-      public String word;
-      public Array[] forms;
-    }
-  }
 }
