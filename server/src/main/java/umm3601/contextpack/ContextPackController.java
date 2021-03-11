@@ -29,90 +29,67 @@ import io.javalin.http.NotFoundResponse;
  */
 public class ContextPackController{
 
-  private static final String AGE_KEY = "age";
-  private static final String COMPANY_KEY = "company";
-  private static final String ROLE_KEY = "role";
-
-  static String emailRegex = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
+  private static final String NAME_KEY = "name";
 
   private final JacksonMongoCollection<ContextPack> contextPackCollection;
 
   /**
-   * Construct a controller for users.
+   * Construct a controller for context pack.
    *
-   * @param database the database containing user data
+   * @param database the database containing pack data
    */
   public ContextPackController(MongoDatabase database) {
     contextPackCollection = JacksonMongoCollection.builder().build(database, "contextPack", ContextPack.class);
   }
 
   /**
-   * Get the single user specified by the `id` parameter in the request.
+   * Get the single pack specified by the `id` parameter in the request.
    *
    * @param ctx a Javalin HTTP context
    */
-  public void getContextPack(Context ctx) {
+  public void getPack(Context ctx) {
     String id = ctx.pathParam("id");
     ContextPack contextPack;
 
     try {
-      user = userCollection.find(eq("_id", new ObjectId(id))).first();
+      contextPack = contextPackCollection.find(eq("_id", new ObjectId(id))).first();
     } catch(IllegalArgumentException e) {
-      throw new BadRequestResponse("The requested user id wasn't a legal Mongo Object ID.");
+      throw new BadRequestResponse("The requested context pack id wasn't a legal Mongo Object ID.");
     }
-    if (user == null) {
-      throw new NotFoundResponse("The requested user was not found");
+    if (contextPack == null) {
+      throw new NotFoundResponse("The requested context pack was not found");
     } else {
-      ctx.json(user);
+      ctx.json(contextPack);
     }
   }
 
   /**
-   * Delete the user specified by the `id` parameter in the request.
+   * Get a JSON response with a list of all the context packs.
    *
    * @param ctx a Javalin HTTP context
    */
-  public void deleteUser(Context ctx) {
-    String id = ctx.pathParam("id");
-    userCollection.deleteOne(eq("_id", new ObjectId(id)));
-  }
-
-  /**
-   * Get a JSON response with a list of all the users.
-   *
-   * @param ctx a Javalin HTTP context
-   */
-  public void getUsers(Context ctx) {
+  public void getPacks(Context ctx) {
 
     List<Bson> filters = new ArrayList<>(); // start with a blank document
 
-    if (ctx.queryParamMap().containsKey(AGE_KEY)) {
-        int targetAge = ctx.queryParam(AGE_KEY, Integer.class).get();
-        filters.add(eq(AGE_KEY, targetAge));
-    }
-
-    if (ctx.queryParamMap().containsKey(COMPANY_KEY)) {
-      filters.add(regex(COMPANY_KEY,  Pattern.quote(ctx.queryParam(COMPANY_KEY)), "i"));
-    }
-
-    if (ctx.queryParamMap().containsKey(ROLE_KEY)) {
-      filters.add(eq(ROLE_KEY, ctx.queryParam(ROLE_KEY)));
+    if (ctx.queryParamMap().containsKey(NAME_KEY)) {
+      filters.add(regex(NAME_KEY,  Pattern.quote(ctx.queryParam(NAME_KEY)), "i"));
     }
 
     String sortBy = ctx.queryParam("sortby", "name"); //Sort by sort query param, default is name
     String sortOrder = ctx.queryParam("sortorder", "asc");
 
-    ctx.json(userCollection.find(filters.isEmpty() ? new Document() : and(filters))
+    ctx.json(contextPackCollection.find(filters.isEmpty() ? new Document() : and(filters))
       .sort(sortOrder.equals("desc") ?  Sorts.descending(sortBy) : Sorts.ascending(sortBy))
       .into(new ArrayList<>()));
   }
 
   /**
-   * Get a JSON response with a list of all the users.
+   * Add a new context pack JSON object to the database.
    *
    * @param ctx a Javalin HTTP context
    */
-  public void addNewUser(Context ctx) {
+  public void addNewPack(Context ctx) {
     User newUser = ctx.bodyValidator(User.class)
       .check(usr -> usr.name != null && usr.name.length() > 0) //Verify that the user has a name that is not blank
       .check(usr -> usr.email.matches(emailRegex)) // Verify that the provided email is a valid email
@@ -133,20 +110,4 @@ public class ContextPackController{
     ctx.json(ImmutableMap.of("id", newUser._id));
   }
 
-  /**
-   * Utility function to generate the md5 hash for a given string
-   *
-   * @param str the string to generate a md5 for
-   */
-  @SuppressWarnings("lgtm[java/weak-cryptographic-algorithm]")
-  public String md5(String str) throws NoSuchAlgorithmException {
-    MessageDigest md = MessageDigest.getInstance("MD5");
-    byte[] hashInBytes = md.digest(str.toLowerCase().getBytes(StandardCharsets.UTF_8));
-
-    StringBuilder result = new StringBuilder();
-    for (byte b : hashInBytes) {
-      result.append(String.format("%02x", b));
-    }
-    return result.toString();
-  }
 }
