@@ -23,10 +23,7 @@ import io.javalin.http.NotFoundResponse;
  */
 public class ContextPackController {
 
-
-
-
-
+private static final String NAME_KEY = "name";
 private final JacksonMongoCollection<ContextPack> contextPackCollection;
 
 /**
@@ -38,30 +35,26 @@ public ContextPackController(MongoDatabase database) {
   contextPackCollection = JacksonMongoCollection.builder().build(database, "context Packs", ContextPack.class);
 }
 
-/**
- * Get the single context Pack specified by the 'id' parameter in the request.
- *
- * @param ctx a Javalin HTTP context
- */
-public void getContextPack(Context ctx) {
-  String id = ctx.pathParam("id");
-  ContextPack contextPack;
+ /**
+   * Get a JSON response with a list of all the context packs.
+   *
+   * @param ctx a Javalin HTTP context
+   */
+  public void getContextPacks(Context ctx) {
 
-  try {
-    contextPack = contextPackCollection.find(eq("_id", new ObjectId(id))).first();
-  } catch(IllegalArgumentException e) {
-    throw new BadRequestResponse(" The requested context Pack id wasn't a legal Mongo Object ID.");
-  }
-  if (contextPack == null) {
-    throw new NotFoundResponse("The requested context Pack was not found.");
-  } {
-    ctx.json(contextPack);
-  }
-}
+    List<Bson> filters = new ArrayList<>(); // start with a blank document
 
-public void getContextPacks(Context ctx) {
-  ctx.json(contextPackCollection.find(new Document()).into(new ArrayList<>()));
-}
+    if (ctx.queryParamMap().containsKey(NAME_KEY)) {
+      filters.add(eq(NAME_KEY, ctx.queryParam(NAME_KEY)));
+    }
+
+    String sortBy = ctx.queryParam("sortby", "name"); //Sort by sort query param, default is name
+    String sortOrder = ctx.queryParam("sortorder", "asc");
+
+    ctx.json(contextPackCollection.find(filters.isEmpty() ? new Document() : and(filters))
+      .sort(sortOrder.equals("desc") ?  Sorts.descending(sortBy) : Sorts.ascending(sortBy))
+      .into(new ArrayList<>()));
+  }
 
 /**
  *  Get a JSON response with a list of all the context Packs.
@@ -71,29 +64,14 @@ public void getContextPacks(Context ctx) {
 public void addNewContextPack(Context ctx) {
   ContextPack newContextPack = ctx.bodyValidator(ContextPack.class)
     .check(cp -> cp.name != null && cp.name.length() > 0) //Verify that the context Pack has a name that is not blank
+    .check(cp -> cp.icon != null && cp.icon.length() > 0) //Verify that the context Pack has a icon that is not blank
     .check(cp -> cp.enabled == false || cp.enabled == true)//Verify that the enabled is true or false
-    .check(cp -> cp.wordpacks != null)//Verify that the array is not empty
+    .check(cp -> cp.wordPack != null)//Verify that the array is not empty
     .get();
 
   contextPackCollection.insertOne(newContextPack);
   ctx.status(201);
-  ctx.json(ImmutableMap.of("id", newContextPack.name));
+  ctx.json(ImmutableMap.of("name", newContextPack.name));
 }
 
-/**
-   * Utility function to generate the md5 hash for a given string
-   *
-   * @param str the string to generate a md5 for
-   */
-  @SuppressWarnings("lgtm[java/weak-cryptographic-algorithm]")
-  public String md5(String str) throws NoSuchAlgorithmException {
-    MessageDigest md = MessageDigest.getInstance("MD5");
-    byte[] hashInBytes = md.digest(str.toLowerCase().getBytes(StandardCharsets.UTF_8));
-
-    StringBuilder result = new StringBuilder();
-    for (byte b : hashInBytes) {
-      result.append(String.format("%02x", b));
-    }
-    return result.toString();
-  }
 }

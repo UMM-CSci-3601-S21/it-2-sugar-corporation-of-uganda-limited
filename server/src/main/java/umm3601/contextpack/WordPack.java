@@ -2,11 +2,7 @@ package umm3601.contextpack;
 
 import java.util.ArrayList;
 
-import org.mongojack.ObjectId;
-
 public class WordPack {
-  @ObjectId
-  public String _id;
 
   public String name;
   public boolean enabled;
