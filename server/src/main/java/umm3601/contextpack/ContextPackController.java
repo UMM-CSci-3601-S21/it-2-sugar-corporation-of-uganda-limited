@@ -1,38 +1,31 @@
 package umm3601.contextpack;
 
-import static com.mongodb.client.model.Filters.eq;
-
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.google.common.collect.ImmutableMap;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Sorts;
 
 import org.bson.Document;
-import org.bson.types.ObjectId;
+import org.bson.conversions.Bson;
 import org.mongojack.JacksonMongoCollection;
-
-import io.javalin.http.BadRequestResponse;
 import io.javalin.http.Context;
-import io.javalin.http.NotFoundResponse;
+import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Filters.and;
 
-/**
- * Controller that manages request for info about context Packs.
- */
 public class ContextPackController {
 
 private static final String NAME_KEY = "name";
 private final JacksonMongoCollection<ContextPack> contextPackCollection;
 
 /**
- * Construct a controller for the context Packs
+ * Construct a controller for the context packs
  *
  * @param database the database containing context Pack data
  */
 public ContextPackController(MongoDatabase database) {
-  contextPackCollection = JacksonMongoCollection.builder().build(database, "context Packs", ContextPack.class);
+  contextPackCollection = JacksonMongoCollection.builder().build(database, "contextPacks", ContextPack.class);
 }
 
  /**
@@ -48,12 +41,10 @@ public ContextPackController(MongoDatabase database) {
       filters.add(eq(NAME_KEY, ctx.queryParam(NAME_KEY)));
     }
 
-    String sortBy = ctx.queryParam("sortby", "name"); //Sort by sort query param, default is name
-    String sortOrder = ctx.queryParam("sortorder", "asc");
+    //String sortBy = ctx.queryParam("sortby", "name"); //Sort by sort query param, default is name
+    //String sortOrder = ctx.queryParam("sortorder", "asc");
 
-    ctx.json(contextPackCollection.find(filters.isEmpty() ? new Document() : and(filters))
-      .sort(sortOrder.equals("desc") ?  Sorts.descending(sortBy) : Sorts.ascending(sortBy))
-      .into(new ArrayList<>()));
+    ctx.json(contextPackCollection.find(filters.isEmpty() ? new Document() : and(filters)).into(new ArrayList<>()));
   }
 
 /**
@@ -66,7 +57,7 @@ public void addNewContextPack(Context ctx) {
     .check(cp -> cp.name != null && cp.name.length() > 0) //Verify that the context Pack has a name that is not blank
     .check(cp -> cp.icon != null && cp.icon.length() > 0) //Verify that the context Pack has a icon that is not blank
     .check(cp -> cp.enabled == false || cp.enabled == true)//Verify that the enabled is true or false
-    .check(cp -> cp.wordPack != null)//Verify that the array is not empty
+    .check(cp -> cp.wordPacks != null)//Verify that the array is not empty
     .get();
 
   contextPackCollection.insertOne(newContextPack);

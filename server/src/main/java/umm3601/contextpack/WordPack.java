@@ -10,6 +10,4 @@ public class WordPack {
   public ArrayList<Word> verbs;
   public ArrayList<Word> adjectives;
   public ArrayList<Word> misc;
-
-
 }
