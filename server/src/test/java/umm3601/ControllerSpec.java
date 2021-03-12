@@ -74,7 +74,7 @@ public class ControllerSpec {
     mockRes.resetAll();
 
     //set up db
-    contextPackDocuments = db.getCollection("packs");
+    contextPackDocuments = db.getCollection("contextPacks");
     contextPackDocuments.drop();
     testIDOne = new ObjectId();
     testIDTwo = new ObjectId();
@@ -172,23 +172,20 @@ public class ControllerSpec {
   @Test
   public void shouldGetAllPacks() throws IOException {
 
-    Context ctx = ContextUtil.init(mockReq, mockRes, "api/packs");
+    Context ctx = ContextUtil.init(mockReq, mockRes, "api/contextPacks");
     packController.getContextPacks(ctx);
 
     assertEquals(200, mockRes.getStatus());
 
     String result = ctx.resultString();
-    System.out.println(result.toString());
-    System.out.println(contextPackDocuments.countDocuments());
-    System.out.println(JavalinJson.fromJson(result, ContextPack[].class).length);
-
+    assertEquals(contextPackDocuments.countDocuments(), JavalinJson.fromJson(result, ContextPack[].class).length);
   }
 
   @Test
   public void shouldGetExampleOnePack() {
 
-    mockReq.setQueryString("contextPackName=Example 1");
-    Context ctx = ContextUtil.init(mockReq, mockRes, "api/packs");
+    mockReq.setQueryString("name=Example 1");
+    Context ctx = ContextUtil.init(mockReq, mockRes, "api/contextPacks");
     packController.getContextPacks(ctx);
 
     assertEquals(200, mockRes.getStatus());
