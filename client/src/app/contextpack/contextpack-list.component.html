@@ -1,0 +1,41 @@
+<div fxLayout="row">
+  <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10">
+
+    <mat-card class="search-card">
+      <mat-card-title class="contextpack-list-title">Context Packs</mat-card-title>
+      <mat-card-content fxLayout="column" >
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+<div fxLayout="row">
+  <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10" *ngIf="serverFilteredPacks; else packsError" >
+    <!-- Switch between card and list view based on the viewType variable, set above in the mar-radio-group -->
+    <div [ngSwitch]="viewType">
+
+      <!-- Card grid view -->
+      <div *ngSwitchCase="'card'" fxLayout="row wrap" fxLayoutGap="10px" class="packs-cards-container">
+        <app-contextpack-card simple="true" *ngFor="let Packs of filteredPacks" class="packs-card" [pack]="pack" fxFlex="1 1 280px"></app-contextpack-card>
+      </div>
+
+
+
+    </div>
+  </div>
+
+  <!-- Maybe this should be a pop-up instead of just a text message? Not sure. -->
+  <ng-template #todosError>
+    <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10" class="todo-error">
+      <mat-error>
+        There was a problem loading the todos. Possibly the server is down or perhaps there are network
+        issues.
+      </mat-error>
+      <mat-error>
+        Please wait a bit and try again or start the server.
+      </mat-error>
+    </div>
+  </ng-template>
+
+</div>
+

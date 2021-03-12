@@ -1,13 +1,15 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ContextPackComponent } from './contextpack/contextpack.component';
-
-
+import { ContextpackListComponent } from './contextpack/contextpack-list.component';
+import { ContextpackProfileComponent } from './contextpack/contextpack-profile.component';
+import { WordpackComponent } from './wordpack/wordpack.component';
 
 const routes: Routes = [
-  {path: '', component: ContextPackComponent},
+  {path: '', component: ContextpackListComponent},
+  {path: 'contextpacks', component: ContextpackListComponent},
+  {path: 'contextpacks/:id', component: ContextpackProfileComponent},
+  {path: 'wordpacks', component: WordpackComponent },
 ];
-
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

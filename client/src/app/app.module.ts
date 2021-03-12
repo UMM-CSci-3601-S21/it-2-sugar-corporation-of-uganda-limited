@@ -24,14 +24,17 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 
-
-import { ContextPackComponent } from './contextpack/contextpack.component';
-
 import { HttpClientModule } from '@angular/common/http';
 import { LayoutModule } from '@angular/cdk/layout';
+
 import { WordpackComponent } from './wordpack/wordpack.component';
+
 import { WordsComponent } from './words/words.component';
 
+import { ContextpackCardComponent } from './contextpack/contextpack-card.component';
+import { ContextpackService } from './contextpack.service';
+import { ContextpackListComponent } from './contextpack/contextpack-list.component';
+import { ContextpackProfileComponent } from './contextpack/contextpack-profile.component';
 
 const MATERIAL_MODULES: any[] = [
   MatListModule,
@@ -55,9 +58,11 @@ const MATERIAL_MODULES: any[] = [
 @NgModule({
   declarations: [
     AppComponent,
-    ContextPackComponent,
+    ContextpackCardComponent,
     WordpackComponent,
     WordsComponent,
+    ContextpackListComponent,
+    ContextpackProfileComponent,
 
   ],
   imports: [
@@ -72,7 +77,7 @@ const MATERIAL_MODULES: any[] = [
     LayoutModule,
   ],
   providers: [
-
+    ContextpackService
   ],
   bootstrap: [AppComponent]
 })
