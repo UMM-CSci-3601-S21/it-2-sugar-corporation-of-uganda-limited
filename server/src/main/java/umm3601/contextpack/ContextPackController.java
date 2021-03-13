@@ -41,10 +41,11 @@ public ContextPackController(MongoDatabase database) {
       filters.add(eq(NAME_KEY, ctx.queryParam(NAME_KEY)));
     }
 
-    //String sortBy = ctx.queryParam("sortby", "name"); //Sort by sort query param, default is name
-    //String sortOrder = ctx.queryParam("sortorder", "asc");
+    String sortBy = ctx.queryParam("sortby", "name"); //Sort by sort query param, default is name
+    String sortOrder = ctx.queryParam("sortorder", "asc");
 
-    ctx.json(contextPackCollection.find(filters.isEmpty() ? new Document() : and(filters)).into(new ArrayList<>()));
+    ctx.json(contextPackCollection.find(filters.isEmpty() ? new Document() : and(filters))
+    .sort(sortOrder.equals("desc") ?  Sorts.descending(sortBy) : Sorts.ascending(sortBy)).into(new ArrayList<>()));
   }
 
 /**

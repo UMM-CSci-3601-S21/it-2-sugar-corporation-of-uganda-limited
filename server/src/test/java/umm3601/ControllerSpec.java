@@ -3,6 +3,7 @@ package umm3601;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static com.mongodb.client.model.Filters.eq;
 
@@ -11,6 +12,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.swing.SortOrder;
+
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.mockrunner.mock.web.MockHttpServletRequest;
@@ -206,6 +210,22 @@ public class ControllerSpec {
   }
 
   @Test
+  public void ShouldSortByName() {
+
+    Context ctx = ContextUtil.init(mockReq, mockRes, "api/contextPacks");
+    packController.getContextPacks(ctx);
+
+    assertEquals(200, mockRes.getStatus());
+    String result = ctx.resultString();
+    ContextPack[] resultPacks = JavalinJson.fromJson(result, ContextPack[].class);
+
+    assertEquals(3, resultPacks.length, "Should be 3");
+    assertEquals("Example 1",resultPacks[0].name);
+    assertEquals("Example 2", resultPacks[1].name);
+    assertEquals("Example 3", resultPacks[2].name);
+  }
+
+  @Test
   public void shouldGetNoPacks() throws IOException {
 
     mockReq.setQueryString("name=Example 100000");
@@ -261,7 +281,7 @@ public class ControllerSpec {
   @Test
   public void shouldThrowBadRequestNullName() throws IOException{
     String newContextPack = "{"
-      + " \"name\": ,"
+      + " \"name\": \"\","
       + " \"icon\": \"testIcon.png\" ,"
       + " \"enabled\": false ,"
       + " \"wordPacks\": [{"
@@ -314,6 +334,34 @@ public class ControllerSpec {
 
   }
 
+  @Test
+  public void shouldThrowBadRequestNullIcon() throws IOException{
+    String newContextPack = "{"
+      + " \"name\": \"Test Pack\" ,"
+      + " \"icon\": \"\","
+      + " \"enabled\": false ,"
+      + " \"wordPacks\": [{"
+      + " \"name\": \"Test Word Pack\" ,"
+      + " \"enabled\": false ,"
+      + " \"nouns\":"
+      + "[{\"word\": \"Practice\", \"forms\": [ \"Practices\", \"Practice\" ] }],"
+      + " \"verbs\":"
+      + "[{\"word\": \"Makes\", \"forms\": [ \"Makes\", \"Make\" ] }],"
+      + " \"adjectives\":"
+      + "[{\"word\": \"Perfect\", \"forms\": [ \"Perfect\" ] }],"
+      + " \"misc\":"
+      + "[{\"word\": \"Yay\", \"forms\": [ \"Yay\"] }]"
+      + "}]}";
+
+    mockReq.setBodyContent(newContextPack);
+    mockReq.setMethod("POST");
+    Context ctx = ContextUtil.init(mockReq, mockRes, "api/contextPacks");
+
+    assertThrows(BadRequestResponse.class, () -> {
+      packController.addNewContextPack(ctx);
+    });
+
+  }
 
   @Test
   public void shouldThrowBadRequestNoName() throws IOException{
@@ -413,5 +461,6 @@ public class ControllerSpec {
       packController.addNewContextPack(ctx);
     });
   }
-
 }
+
+
