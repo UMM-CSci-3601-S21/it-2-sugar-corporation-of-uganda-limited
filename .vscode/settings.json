@@ -11,8 +11,11 @@
       "Bson",
       "CSCI",
       "Javalin",
+      "contextpack",
       "sidenav",
       "todos",
+      "wordpacks",
+      "workpacks",
       "xdescribe"
     ],
     "angular.enable-experimental-ivy-prompt": false,
