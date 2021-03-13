@@ -48,21 +48,21 @@ public ContextPackController(MongoDatabase database) {
   }
 
 /**
- *  Get a JSON response with a list of all the context Packs.
+ *  Add a context pack to the database.
  *
  * @param ctx a Javalin HTTP context
  */
 public void addNewContextPack(Context ctx) {
   ContextPack newContextPack = ctx.bodyValidator(ContextPack.class)
     .check(cp -> cp.name != null && cp.name.length() > 0) //Verify that the context Pack has a name that is not blank
-    .check(cp -> cp.icon != null && cp.icon.length() > 0) //Verify that the context Pack has a icon that is not blank
-    .check(cp -> cp.enabled == false || cp.enabled == true)//Verify that the enabled is true or false
+    .check(cp -> cp.icon != null && cp.icon.contains("png") && cp.icon.length() > 0) //Verify that the context Pack has a icon that is not blank
+    .check(cp -> cp.enabled == true || cp.enabled == false)//Verify that the enabled is true or false
     .check(cp -> cp.wordPacks != null)//Verify that the array is not empty
     .get();
 
   contextPackCollection.insertOne(newContextPack);
   ctx.status(201);
-  ctx.json(ImmutableMap.of("name", newContextPack.name));
+  ctx.json(ImmutableMap.of("_id", newContextPack._id));
 }
 
 }

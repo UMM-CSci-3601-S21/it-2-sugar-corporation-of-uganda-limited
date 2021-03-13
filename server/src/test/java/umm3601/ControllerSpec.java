@@ -1,12 +1,18 @@
 package umm3601;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static com.mongodb.client.model.Filters.eq;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.mockrunner.mock.web.MockHttpServletRequest;
 import com.mockrunner.mock.web.MockHttpServletResponse;
 import com.mongodb.MongoClientSettings;
@@ -24,6 +30,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import io.javalin.http.BadRequestResponse;
 import io.javalin.http.Context;
 import io.javalin.http.util.ContextUtil;
 import io.javalin.plugin.json.JavalinJson;
@@ -46,6 +53,8 @@ public class ControllerSpec {
   private ObjectId testIDOne;
   private ObjectId testIDTwo;
   private ObjectId testIDThree;
+
+  static ObjectMapper jsonMapper = new ObjectMapper();
 
   @BeforeAll
   public static void setupDB() {
@@ -182,7 +191,7 @@ public class ControllerSpec {
   }
 
   @Test
-  public void shouldGetExampleOnePack() {
+  public void shouldGetExampleOnePack() throws IOException {
 
     mockReq.setQueryString("name=Example 1");
     Context ctx = ContextUtil.init(mockReq, mockRes, "api/contextPacks");
@@ -195,4 +204,214 @@ public class ControllerSpec {
     assertEquals(1,resultPacks.length);
     assertEquals("Example 1", resultPacks[0].name);
   }
+
+  @Test
+  public void shouldGetNoPacks() throws IOException {
+
+    mockReq.setQueryString("name=Example 100000");
+    Context ctx = ContextUtil.init(mockReq, mockRes, "api/contextPacks");
+    packController.getContextPacks(ctx);
+
+    assertEquals(200, mockRes.getStatus());
+    String result = ctx.resultString();
+    ContextPack[] resultPacks = JavalinJson.fromJson(result, ContextPack[].class);
+
+    assertEquals(0,resultPacks.length);
+  }
+
+  @Test
+  public void shouldAddContextPack() throws IOException{
+    String newContextPack = "{"
+      + " \"name\": \"Test Pack\" ,"
+      + " \"icon\": \"testIcon.png\" ,"
+      + " \"enabled\": false ,"
+      + " \"wordPacks\": [{"
+      + " \"name\": \"Test Word Pack\" ,"
+      + " \"enabled\": false ,"
+      + " \"nouns\":"
+      + "[{\"word\": \"Practice\", \"forms\": [ \"Practices\", \"Practice\" ] }],"
+      + " \"verbs\":"
+      + "[{\"word\": \"Makes\", \"forms\": [ \"Makes\", \"Make\" ] }],"
+      + " \"adjectives\":"
+      + "[{\"word\": \"Perfect\", \"forms\": [ \"Perfect\" ] }],"
+      + " \"misc\":"
+      + "[{\"word\": \"Yay\", \"forms\": [ \"Yay\"] }]"
+      + "}]}";
+
+    mockReq.setBodyContent(newContextPack);
+    mockReq.setMethod("POST");
+    Context ctx = ContextUtil.init(mockReq, mockRes, "api/contextPacks");
+
+
+    packController.addNewContextPack(ctx);
+    assertEquals(201, mockRes.getStatus());
+    String result = ctx.resultString();
+    String id = jsonMapper.readValue(result, ObjectNode.class).get("_id").asText();
+
+    assertNotEquals("", id);
+    assertEquals(1, db.getCollection("contextPacks").countDocuments(eq("_id", new ObjectId(id))));
+
+    Document addedPack = db.getCollection("contextPacks").find(eq("_id", new ObjectId(id))).first();
+    assertNotNull(addedPack);
+    assertEquals("Test Pack", addedPack.getString("name"));
+    assertNotNull(addedPack);
+
+  }
+
+  @Test
+  public void shouldThrowBadRequestNullName() throws IOException{
+    String newContextPack = "{"
+      + " \"name\": ,"
+      + " \"icon\": \"testIcon.png\" ,"
+      + " \"enabled\": false ,"
+      + " \"wordPacks\": [{"
+      + " \"name\": \"Test Word Pack\" ,"
+      + " \"enabled\": false ,"
+      + " \"nouns\":"
+      + "[{\"word\": \"Practice\", \"forms\": [ \"Practices\", \"Practice\" ] }],"
+      + " \"verbs\":"
+      + "[{\"word\": \"Makes\", \"forms\": [ \"Makes\", \"Make\" ] }],"
+      + " \"adjectives\":"
+      + "[{\"word\": \"Perfect\", \"forms\": [ \"Perfect\" ] }],"
+      + " \"misc\":"
+      + "[{\"word\": \"Yay\", \"forms\": [ \"Yay\"] }]"
+      + "}]}";
+
+      mockReq.setBodyContent(newContextPack);
+      mockReq.setMethod("POST");
+      Context ctx = ContextUtil.init(mockReq, mockRes, "api/contextPacks");
+
+      assertThrows(BadRequestResponse.class, () -> {
+        packController.addNewContextPack(ctx);
+      });
+  }
+
+  @Test
+  public void shouldThrowBadRequestNoIcon() throws IOException{
+    String newContextPack = "{"
+      + " \"name\": \"Test Pack\" ,"
+      + " \"enabled\": false ,"
+      + " \"wordPacks\": [{"
+      + " \"name\": \"Test Word Pack\" ,"
+      + " \"enabled\": false ,"
+      + " \"nouns\":"
+      + "[{\"word\": \"Practice\", \"forms\": [ \"Practices\", \"Practice\" ] }],"
+      + " \"verbs\":"
+      + "[{\"word\": \"Makes\", \"forms\": [ \"Makes\", \"Make\" ] }],"
+      + " \"adjectives\":"
+      + "[{\"word\": \"Perfect\", \"forms\": [ \"Perfect\" ] }],"
+      + " \"misc\":"
+      + "[{\"word\": \"Yay\", \"forms\": [ \"Yay\"] }]"
+      + "}]}";
+
+    mockReq.setBodyContent(newContextPack);
+    mockReq.setMethod("POST");
+    Context ctx = ContextUtil.init(mockReq, mockRes, "api/contextPacks");
+
+    assertThrows(BadRequestResponse.class, () -> {
+      packController.addNewContextPack(ctx);
+    });
+
+  }
+
+
+  @Test
+  public void shouldThrowBadRequestNoName() throws IOException{
+    String newContextPack = "{"
+      + " \"icon\": \"testIcon.png\","
+      + " \"enabled\": false ,"
+      + " \"wordPacks\": [{"
+      + " \"name\": \"Test Word Pack\" ,"
+      + " \"enabled\": false ,"
+      + " \"nouns\":"
+      + "[{\"word\": \"Practice\", \"forms\": [ \"Practices\", \"Practice\" ] }],"
+      + " \"verbs\":"
+      + "[{\"word\": \"Makes\", \"forms\": [ \"Makes\", \"Make\" ] }],"
+      + " \"adjectives\":"
+      + "[{\"word\": \"Perfect\", \"forms\": [ \"Perfect\" ] }],"
+      + " \"misc\":"
+      + "[{\"word\": \"Yay\", \"forms\": [ \"Yay\"] }]"
+      + "}]}";
+
+    mockReq.setBodyContent(newContextPack);
+    mockReq.setMethod("POST");
+    Context ctx = ContextUtil.init(mockReq, mockRes, "api/contextPacks");
+
+    assertThrows(BadRequestResponse.class, () -> {
+      packController.addNewContextPack(ctx);
+    });
+
+  }
+
+  @Test
+  public void shouldThrowBadRequestNotBoolean() throws IOException{
+    String newContextPack = "{"
+      + " \"name\": \"Test Pack\" ,"
+      + " \"icon\": \"testIcon.png\" ,"
+      + " \"enabled\": \"notaboolean\" ,"
+      + " \"wordPacks\": [{"
+      + " \"name\": \"Test Word Pack\" ,"
+      + " \"enabled\": false ,"
+      + " \"nouns\":"
+      + "[{\"word\": \"Practice\", \"forms\": [ \"Practices\", \"Practice\" ] }],"
+      + " \"verbs\":"
+      + "[{\"word\": \"Makes\", \"forms\": [ \"Makes\", \"Make\" ] }],"
+      + " \"adjectives\":"
+      + "[{\"word\": \"Perfect\", \"forms\": [ \"Perfect\" ] }],"
+      + " \"misc\":"
+      + "[{\"word\": \"Yay\", \"forms\": [ \"Yay\"] }]"
+      + "}]}";
+
+    mockReq.setBodyContent(newContextPack);
+    mockReq.setMethod("POST");
+    Context ctx = ContextUtil.init(mockReq, mockRes, "api/contextPacks");
+
+    assertThrows(BadRequestResponse.class, () -> {
+      packController.addNewContextPack(ctx);
+    });
+  }
+
+  @Test
+  public void shouldThrowBadRequestNoWordPack() throws IOException{
+    String newContextPack = "{"
+      + " \"name\": \"Test Pack\" ,"
+      + " \"icon\": \"testIcon.png\" ,"
+      + " \"enabled\": \"false\" }";
+    mockReq.setBodyContent(newContextPack);
+    mockReq.setMethod("POST");
+    Context ctx = ContextUtil.init(mockReq, mockRes, "api/contextPacks");
+
+    assertThrows(BadRequestResponse.class, () -> {
+      packController.addNewContextPack(ctx);
+    });
+  }
+
+  @Test
+  public void shouldThrowBadRequestNoPNG() throws IOException{
+    String newContextPack = "{"
+      + " \"name\": \"Test Pack\" ,"
+      + " \"icon\": \"testIcon\" ,"
+      + " \"enabled\": false ,"
+      + " \"wordPacks\": [{"
+      + " \"name\": \"Test Word Pack\" ,"
+      + " \"enabled\": false ,"
+      + " \"nouns\":"
+      + "[{\"word\": \"Practice\", \"forms\": [ \"Practices\", \"Practice\" ] }],"
+      + " \"verbs\":"
+      + "[{\"word\": \"Makes\", \"forms\": [ \"Makes\", \"Make\" ] }],"
+      + " \"adjectives\":"
+      + "[{\"word\": \"Perfect\", \"forms\": [ \"Perfect\" ] }],"
+      + " \"misc\":"
+      + "[{\"word\": \"Yay\", \"forms\": [ \"Yay\"] }]"
+      + "}]}";
+
+    mockReq.setBodyContent(newContextPack);
+    mockReq.setMethod("POST");
+    Context ctx = ContextUtil.init(mockReq, mockRes, "api/contextPacks");
+
+    assertThrows(BadRequestResponse.class, () -> {
+      packController.addNewContextPack(ctx);
+    });
+  }
+
 }
