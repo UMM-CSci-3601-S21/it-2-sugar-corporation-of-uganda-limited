@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { }
+import { ContextPack } from './contextpack';
 
 @Component({
   selector: 'app-contextpack-card',
@@ -8,7 +8,9 @@ import { }
 })
 export class ContextpackCardComponent implements OnInit {
 
-  @Input() pack: C
+  @Input() contextPack: ContextPack;
+  @Input() simple?: boolean = false;
+
   constructor() { }
 
   ngOnInit(): void {
