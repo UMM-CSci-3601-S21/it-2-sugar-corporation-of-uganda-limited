@@ -8,11 +8,8 @@ import com.mongodb.client.model.Aggregates;
 import com.mongodb.client.model.Sorts;
 import org.bson.Document;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.List;
 
 import static com.mongodb.client.model.Filters.*;
@@ -22,11 +19,7 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import umm3601.contextpack.ContextPack;
-
 import static org.junit.jupiter.api.Assertions.*;
-
 /**
  * Some simple "tests" that demonstrate our ability to
  * connect to a Mongo database and run some basic queries
@@ -63,105 +56,102 @@ public class MongoSpec {
 
   @BeforeEach
   public void clearAndPopulateDB() {
-    contextPackDocuments = db.getCollection("packs");
-    contextPackDocuments.drop();
-    List<Document> testPacks = new ArrayList<>();
-    testPacks.add(
-      new Document()
-        .append("contextPackName", "Example 1")
-        .append("icon", "example.png")
-        .append("enabled", false)
-        .append("wordPacks",
-          new Document()
-          .append("wordPackName", "Example 1")
+      //set up db
+      contextPackDocuments = db.getCollection("packs");
+      contextPackDocuments.drop();
+      List<Document> testPacks = new ArrayList<>();
+      testPacks.add(
+        new Document()
+          .append("name", "Example 1")
+          .append("icon", "example.png")
           .append("enabled", false)
-          .append("nouns",
+          .append("wordPacks", Arrays.asList(
             new Document()
-            .append("word", "This")
-            .append("forms", Arrays.asList("THIS"))
-          )
-          .append("verbs",
+            .append("name", "Example 1")
+            .append("enabled", false)
+            .append("nouns", Arrays.asList(
+              new Document()
+              .append("word", "This")
+              .append("forms", Arrays.asList("THIS"))
+            ))
+            .append("verbs", Arrays.asList(
+              new Document()
+              .append("word", "Is")
+              .append("forms", Arrays.asList("IS"))
+            ))
+            .append("adjectives", Arrays.asList(
+              new Document()
+              .append("word", "An")
+              .append("forms", Arrays.asList("AN"))
+            ))
+            .append("misc", Arrays.asList(
+              new Document()
+              .append("word", "Example")
+              .append("forms", Arrays.asList("EXAMPLE"))
+            ))
+          )));
+      testPacks.add(
+        new Document()
+          .append("name", "Example 2")
+          .append("icon", "example.png")
+          .append("enabled", true)
+          .append("wordPacks", Arrays.asList(
             new Document()
-            .append("word", "Is")
-            .append("forms", Arrays.asList("IS"))
-          )
-          .append("adjectives",
-            new Document()
-            .append("word", "An")
-            .append("forms", Arrays.asList("AN"))
-          )
-          .append("misc",
-            new Document()
-            .append("word", "Example")
-            .append("forms", Arrays.asList("EXAMPLE"))
-          )
-        )
-    );
-    testPacks.add(
-      new Document()
-        .append("contextPackName", "Example 2")
-        .append("icon", "example.png")
-        .append("enabled", false)
-        .append("wordPacks",
-          new Document()
-          .append("wordPackName", "Example 2")
+            .append("name", "Example 2")
+            .append("enabled", true)
+            .append("nouns", Arrays.asList(
+              new Document()
+              .append("word", "This")
+              .append("forms", Arrays.asList("THIS"))
+            ))
+            .append("verbs", Arrays.asList(
+              new Document()
+              .append("word", "Is")
+              .append("forms", Arrays.asList("IS"))
+            ))
+            .append("adjectives", Arrays.asList(
+              new Document()
+              .append("word", "An")
+              .append("forms", Arrays.asList("AN"))
+            ))
+            .append("misc", Arrays.asList(
+              new Document()
+              .append("word", "Example")
+              .append("forms", Arrays.asList("EXAMPLE"))
+            ))
+          )));
+      testPacks.add(
+        new Document()
+          .append("name", "Example 3")
+          .append("icon", "example.png")
           .append("enabled", false)
-          .append("nouns",
+          .append("wordPacks", Arrays.asList(
             new Document()
-            .append("word", "This")
-            .append("forms", Arrays.asList("THIS"))
-          )
-          .append("verbs",
-            new Document()
-            .append("word", "Is")
-            .append("forms", Arrays.asList("IS"))
-          )
-          .append("adjectives",
-            new Document()
-            .append("word", "An")
-            .append("forms", Arrays.asList("AN"))
-          )
-          .append("misc",
-            new Document()
-            .append("word", "Example")
-            .append("forms", Arrays.asList("EXAMPLE"))
-          )
-        )
-    );
-    testPacks.add(
-      new Document()
-        .append("contextPackName", "Example 3")
-        .append("icon", "example.png")
-        .append("enabled", false)
-        .append("wordPacks",
-          new Document()
-          .append("wordPackName", "Example 3")
-          .append("enabled", false)
-          .append("nouns",
-            new Document()
-            .append("word", "This")
-            .append("forms", Arrays.asList("THIS"))
-          )
-          .append("verbs",
-            new Document()
-            .append("word", "Is")
-            .append("forms", Arrays.asList("IS"))
-          )
-          .append("adjectives",
-            new Document()
-            .append("word", "An")
-            .append("forms", Arrays.asList("AN"))
-          )
-          .append("misc",
-            new Document()
-            .append("word", "Example")
-            .append("forms", Arrays.asList("EXAMPLE"))
-          )
-        )
-    );
-
-    contextPackDocuments.insertMany(testPacks);
-  }
+            .append("name", "Example 3")
+            .append("enabled", false)
+            .append("nouns", Arrays.asList(
+              new Document()
+              .append("word", "This")
+              .append("forms", Arrays.asList("THIS"))
+            ))
+            .append("verbs", Arrays.asList(
+              new Document()
+              .append("word", "Is")
+              .append("forms", Arrays.asList("IS"))
+            ))
+            .append("adjectives", Arrays.asList(
+              new Document()
+              .append("word", "An")
+              .append("forms", Arrays.asList("AN"))
+            ))
+            .append("misc", Arrays.asList(
+              new Document()
+              .append("word", "Example")
+              .append("forms", Arrays.asList("EXAMPLE"))
+            ))
+          )));
+      contextPackDocuments.insertMany(testPacks);
+    }
 
   private List<Document> intoList(MongoIterable<Document> documents) {
     List<Document> contextPacks = new ArrayList<>();
@@ -181,28 +171,33 @@ public class MongoSpec {
     assertEquals(3, numberOfPacks, "Should be 3 total context packs");
   }
 
-  /**
-   * Checks that deeper level fields can be grabbed and checked
-   * and that it produces the correct context pack document that
-   * the field exists in.
-   */
-  /**
   @Test
-  public void shouldFindCorrectFields() {
-    //Surface layer
-    FindIterable<Document> surface = contextPackDocuments.find(eq("contextPackName", "Example 1"));
+  public void shouldBeOneExampleOne() {
+    FindIterable<Document> documents = contextPackDocuments.find(eq("name", "Example 1"));
     int numberOfPacks = countPacks(documents);
-    assertEquals(1, numberOfPacks, "Only exists in 'Example 1'");
-
-    //Second Layer
-    FindIterable<Document> second = contextPackDocuments.find( {"wordPacks.wordPackName":"Example 2"} );
-    numberOfPacks = countPacks(documents);
-    assertEquals(1, numberOfPacks, "Only exists in 'Example 2'");
-
-    //Third Layer
-    documents = contextPackDocuments.find(eq("word", "Example"));
-    numberOfPacks = countPacks(documents);
-    assertEquals(3, numberOfPacks, "Exists in all Examples");
+    assertEquals(1, numberOfPacks, "Should be 1 Example 1");
   }
-  */
+
+  @Test
+  public void samePNGSortedByName() {
+    FindIterable<Document> documents
+      = contextPackDocuments.find(eq("icon", "example.png"))
+      .sort(Sorts.ascending("name"));
+    List<Document> docs = intoList(documents);
+    assertEquals(3, docs.size(), "Should be 3");
+    assertEquals("Example 1", docs.get(0).get("name"), "First should be Example 1");
+    assertEquals("Example 2", docs.get(1).get("name"), "Second should be Example 2");
+  }
+
+  @Test
+  public void justNameAndIcon() {
+    FindIterable<Document> documents
+      = contextPackDocuments.find().projection(fields(include("name", "icon")));
+    List<Document> docs = intoList(documents);
+    assertEquals(3, docs.size(), "Should be 3");
+    assertEquals("Example 1", docs.get(0).get("name"), "First should be Example 1");
+    assertNotNull(docs.get(0).get("icon"), "First should have icon");
+    assertNull(docs.get(0).get("enabled"), "First shouldn't have 'enabled'");
+    assertNotNull(docs.get(0).get("_id"), "First should have '_id'");
+  }
 }

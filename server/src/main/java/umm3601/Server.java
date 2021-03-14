@@ -54,14 +54,12 @@ public class Server {
     server.start(4567);
 
     // List context packs, filtered using query parameters
-    server.get("/api/packs", contextPackController::getPacks);
+    server.get("/api/packs", contextPackController::getContextPacks);
 
-    // Get the specified context pack
-    server.get("/api/packs/:id", contextPackController::getPack);
 
     // Add new context pack with the info being in the JSON body
     // of the HTTP request
-    server.post("/api/packs", contextPackController::addNewPack);
+    server.post("/api/packs", contextPackController::addNewContextPack);
 
     server.exception(Exception.class, (e, ctx) -> {
       ctx.status(500);
