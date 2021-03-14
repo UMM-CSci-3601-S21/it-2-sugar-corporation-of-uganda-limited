@@ -4,15 +4,13 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../environments/environment';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class ContextpackService {
   readonly contextPacksUrl: string = environment.apiUrl + 'contextpacks';
 
   constructor(private httpClient: HttpClient) {
 
-   }
+  }
 
   getContextPacks(): Observable<ContextPack[]> {
     //change this to 'let' instead of 'const' when implementing filtering

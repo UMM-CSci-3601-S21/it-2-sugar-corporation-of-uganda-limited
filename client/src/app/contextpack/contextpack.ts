@@ -5,5 +5,5 @@ export interface ContextPack {
   name: string;
   icon: string;
   enabled: boolean;
-  wordPacks: Array<WordPack>[];
+  wordPacks?: WordPack[];
 }
