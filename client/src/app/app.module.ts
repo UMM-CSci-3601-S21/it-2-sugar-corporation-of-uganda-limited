@@ -27,14 +27,14 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { HttpClientModule } from '@angular/common/http';
 import { LayoutModule } from '@angular/cdk/layout';
 
-import { WordpackComponent } from './wordpack/wordpack.component';
+import { WordPackComponent } from './wordpack/wordpack.component';
 
 import { WordsComponent } from './words/words.component';
 
 import { ContextpackCardComponent } from './contextpack/contextpack-card.component';
 import { ContextpackService } from './contextpack.service';
 import { ContextpackListComponent } from './contextpack/contextpack-list.component';
-import { ContextpackProfileComponent } from './contextpack/contextpack-profile.component';
+
 
 const MATERIAL_MODULES: any[] = [
   MatListModule,
@@ -59,10 +59,9 @@ const MATERIAL_MODULES: any[] = [
   declarations: [
     AppComponent,
     ContextpackCardComponent,
-    WordpackComponent,
+    WordPackComponent,
     WordsComponent,
     ContextpackListComponent,
-    ContextpackProfileComponent,
 
   ],
   imports: [
