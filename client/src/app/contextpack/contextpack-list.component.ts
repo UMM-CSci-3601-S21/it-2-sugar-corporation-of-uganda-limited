@@ -9,7 +9,7 @@ import { Subscription } from 'rxjs/internal/Subscription';
   styleUrls: ['./contextpack-list.component.scss']
 })
 export class ContextpackListComponent implements OnInit {
-  public serverFilteredContextPacks: ContextPack[] = [];
+  public serverFilteredContextPacks: ContextPack[];
   public filteredPacks: ContextPack[];
 
   public contextPackName: string;

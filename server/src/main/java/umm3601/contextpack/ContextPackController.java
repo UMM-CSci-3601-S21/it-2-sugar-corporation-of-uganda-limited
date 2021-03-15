@@ -1,5 +1,6 @@
 package umm3601.contextpack;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -53,8 +54,8 @@ public ContextPackController(MongoDatabase database) {
     String sortOrder = ctx.queryParam("sortorder", "asc");
 
     ctx.json(contextPackCollection.find(filters.isEmpty() ? new Document() : and(filters))
-    .sort(sortOrder.equals("desc") ?  Sorts.descending(sortBy) : Sorts.ascending(sortBy))
-    .into(new ArrayList<>()));
+      .sort(sortOrder.equals("desc") ?  Sorts.descending(sortBy) : Sorts.ascending(sortBy))
+      .into(new ArrayList<>()));
   }
 
   public void getContextPack(Context ctx){

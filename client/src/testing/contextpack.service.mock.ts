@@ -76,7 +76,7 @@ export class MockContextPackService extends ContextpackService {
     return of(MockContextPackService.testContextPacks);
   }
 
-  getTodoById(id: string): Observable<ContextPack> {
+  getContextPackById(id: string): Observable<ContextPack> {
     // If the specified ID is for the first test user,
     // return that user, otherwise return `null` so
     // we can test illegal user requests.

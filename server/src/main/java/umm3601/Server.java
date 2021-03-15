@@ -63,6 +63,7 @@ public class Server {
     server.post("/api/packs", contextPackController::addNewContextPack);
 
     server.exception(Exception.class, (e, ctx) -> {
+      ctx.json(e.getStackTrace());
       ctx.status(500);
     });
   }

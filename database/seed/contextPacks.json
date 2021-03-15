@@ -7,7 +7,7 @@
     "name": "Mayotte",
     "icon": "http://placehold.it/32x32",
     "enabled": true,
-    "wordpacks": [
+    "wordPacks": [
       {
         "name": "Macedonia",
         "enabled": true,
@@ -310,7 +310,7 @@
     "name": "Yemen",
     "icon": "http://placehold.it/32x32",
     "enabled": true,
-    "wordpacks": [
+    "wordPacks": [
       {
         "name": "Qatar",
         "enabled": true,
@@ -613,7 +613,7 @@
     "name": "Germany",
     "icon": "http://placehold.it/32x32",
     "enabled": true,
-    "wordpacks": [
+    "wordPacks": [
       {
         "name": "Belize",
         "enabled": true,
@@ -916,7 +916,7 @@
     "name": "Swaziland",
     "icon": "http://placehold.it/32x32",
     "enabled": true,
-    "wordpacks": [
+    "wordPacks": [
       {
         "name": "France, Metropolitan",
         "enabled": true,
@@ -1219,7 +1219,7 @@
     "name": "Niger",
     "icon": "http://placehold.it/32x32",
     "enabled": true,
-    "wordpacks": [
+    "wordPacks": [
       {
         "name": "Australia",
         "enabled": true,
@@ -1522,7 +1522,7 @@
     "name": "United Arab Emirates",
     "icon": "http://placehold.it/32x32",
     "enabled": true,
-    "wordpacks": [
+    "wordPacks": [
       {
         "name": "Nigeria",
         "enabled": true,
@@ -1825,7 +1825,7 @@
     "name": "Sao Tome and Principe",
     "icon": "http://placehold.it/32x32",
     "enabled": true,
-    "wordpacks": [
+    "wordPacks": [
       {
         "name": "Antarctica",
         "enabled": true,
@@ -2128,7 +2128,7 @@
     "name": "France",
     "icon": "http://placehold.it/32x32",
     "enabled": true,
-    "wordpacks": [
+    "wordPacks": [
       {
         "name": "Norfolk Island",
         "enabled": true,
@@ -2431,7 +2431,7 @@
     "name": "French Guiana",
     "icon": "http://placehold.it/32x32",
     "enabled": true,
-    "wordpacks": [
+    "wordPacks": [
       {
         "name": "Iceland",
         "enabled": true,
@@ -2734,7 +2734,7 @@
     "name": "St. Pierre and Miquelon",
     "icon": "http://placehold.it/32x32",
     "enabled": true,
-    "wordpacks": [
+    "wordPacks": [
       {
         "name": "San Marino",
         "enabled": true,
@@ -3037,7 +3037,7 @@
     "name": "Nicaragua",
     "icon": "http://placehold.it/32x32",
     "enabled": true,
-    "wordpacks": [
+    "wordPacks": [
       {
         "name": "Micronesia",
         "enabled": true,
@@ -3340,7 +3340,7 @@
     "name": "Cambodia",
     "icon": "http://placehold.it/32x32",
     "enabled": true,
-    "wordpacks": [
+    "wordPacks": [
       {
         "name": "Trinidad and Tobago",
         "enabled": true,
@@ -3643,7 +3643,7 @@
     "name": "Belgium",
     "icon": "http://placehold.it/32x32",
     "enabled": true,
-    "wordpacks": [
+    "wordPacks": [
       {
         "name": "Argentina",
         "enabled": true,
@@ -3946,7 +3946,7 @@
     "name": "Heard and McDonald Islands",
     "icon": "http://placehold.it/32x32",
     "enabled": true,
-    "wordpacks": [
+    "wordPacks": [
       {
         "name": "Italy",
         "enabled": true,
@@ -4249,7 +4249,7 @@
     "name": "Bosnia and Herzegovina",
     "icon": "http://placehold.it/32x32",
     "enabled": true,
-    "wordpacks": [
+    "wordPacks": [
       {
         "name": "Iran",
         "enabled": true,
@@ -4552,7 +4552,7 @@
     "name": "Singapore",
     "icon": "http://placehold.it/32x32",
     "enabled": true,
-    "wordpacks": [
+    "wordPacks": [
       {
         "name": "Burundi",
         "enabled": true,
@@ -4855,7 +4855,7 @@
     "name": "Cyprus",
     "icon": "http://placehold.it/32x32",
     "enabled": true,
-    "wordpacks": [
+    "wordPacks": [
       {
         "name": "Croatia (Hrvatska)",
         "enabled": true,
@@ -5158,7 +5158,7 @@
     "name": "Congo",
     "icon": "http://placehold.it/32x32",
     "enabled": true,
-    "wordpacks": [
+    "wordPacks": [
       {
         "name": "Gambia",
         "enabled": true,
@@ -5461,7 +5461,7 @@
     "name": "United States",
     "icon": "http://placehold.it/32x32",
     "enabled": true,
-    "wordpacks": [
+    "wordPacks": [
       {
         "name": "Guam",
         "enabled": true,
@@ -5764,7 +5764,7 @@
     "name": "Virgin Islands (US)",
     "icon": "http://placehold.it/32x32",
     "enabled": true,
-    "wordpacks": [
+    "wordPacks": [
       {
         "name": "Sri Lanka",
         "enabled": true,

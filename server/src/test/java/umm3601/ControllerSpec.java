@@ -96,6 +96,7 @@ public class ControllerSpec {
     testPacks.add(
       new Document()
         .append("_id", testIDOne )
+        .append("schema", "../schema/pack.schema.json")
         .append("name", "Example 1")
         .append("icon", "example.png")
         .append("enabled", false)
@@ -127,6 +128,7 @@ public class ControllerSpec {
     testPacks.add(
       new Document()
         .append("_id",testIDTwo)
+        .append("schema", "../schema/pack.schema.json")
         .append("name", "Example 2")
         .append("icon", "example.png")
         .append("enabled", false)
@@ -158,6 +160,7 @@ public class ControllerSpec {
     testPacks.add(
       new Document()
         .append("_id", testIDThree)
+        .append("schema", "../schema/pack.schema.json")
         .append("name", "Example 3")
         .append("icon", "example.png")
         .append("enabled", false)
@@ -185,12 +188,13 @@ public class ControllerSpec {
   @Test
   public void shouldGetAllPacks() throws IOException {
 
-    Context ctx = ContextUtil.init(mockReq, mockRes, "api/contextPacks");
+    Context ctx = ContextUtil.init(mockReq, mockRes, "api/contextpacks");
     packController.getContextPacks(ctx);
 
     assertEquals(200, mockRes.getStatus());
 
     String result = ctx.resultString();
+    System.err.println(result);
     assertEquals(contextPackDocuments.countDocuments(), JavalinJson.fromJson(result, ContextPack[].class).length);
   }
 

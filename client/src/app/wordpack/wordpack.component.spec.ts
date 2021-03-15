@@ -67,7 +67,7 @@ describe('WordpackComponent', () => {
   });
 
   it('should have null for the user for a bad ID', () => {
-    activatedRoute.setParamMap({ id: 'badID '});
+    activatedRoute.setParamMap({ id: 'badID'});
 
     // If the given ID doesn't map to a context pack, we expect the service
     // to return `null`, so we would expect the component's contextpack

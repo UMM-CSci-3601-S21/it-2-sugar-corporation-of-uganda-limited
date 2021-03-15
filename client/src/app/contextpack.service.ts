@@ -16,7 +16,7 @@ export class ContextpackService {
     //change this to 'let' instead of 'const' when implementing filtering
     const httpParams: HttpParams = new HttpParams();
     return this.httpClient.get<ContextPack[]>(this.contextPacksUrl, {
-      params: httpParams,
+      params: httpParams
     });
   }
 
