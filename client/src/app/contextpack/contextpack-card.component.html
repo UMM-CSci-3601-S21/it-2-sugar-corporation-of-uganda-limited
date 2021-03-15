@@ -1,1 +1,9 @@
-<p>contextpack-card works!</p>
+<mat-card class= "contextpack-card" *ngIf="this.contextPack">
+  <mat-card-header>
+    <img src="  " alt="  " width="5" height="5">
+    <mat-card-title class="contextpack-card-name">{{ this.contextPack.name }}</mat-card-title>
+  </mat-card-header>
+  <mat-card-actions>
+    <button mat-button data-test="viewWordPackButton" *ngIf="this.simple" [routerLink]="['/contextpacks', this.contextPack._id]">View Word Pack</button>
+  </mat-card-actions>
+</mat-card>

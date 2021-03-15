@@ -6,7 +6,7 @@ import { ContextPack } from './contextpack';
   templateUrl: './contextpack-card.component.html',
   styleUrls: ['./contextpack-card.component.scss']
 })
-export class ContextpackCardComponent implements OnInit {
+export class ContextPackCardComponent implements OnInit {
 
   @Input() contextPack: ContextPack;
   @Input() simple?: boolean = false;

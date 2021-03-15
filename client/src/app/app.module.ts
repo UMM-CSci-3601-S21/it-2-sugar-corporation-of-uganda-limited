@@ -31,7 +31,7 @@ import { WordPackComponent } from './wordpack/wordpack.component';
 
 import { WordsComponent } from './words/words.component';
 
-import { ContextpackCardComponent } from './contextpack/contextpack-card.component';
+import { ContextPackCardComponent } from './contextpack/contextpack-card.component';
 import { ContextpackService } from './contextpack.service';
 import { ContextpackListComponent } from './contextpack/contextpack-list.component';
 
@@ -58,7 +58,7 @@ const MATERIAL_MODULES: any[] = [
 @NgModule({
   declarations: [
     AppComponent,
-    ContextpackCardComponent,
+    ContextPackCardComponent,
     WordPackComponent,
     WordsComponent,
     ContextpackListComponent,

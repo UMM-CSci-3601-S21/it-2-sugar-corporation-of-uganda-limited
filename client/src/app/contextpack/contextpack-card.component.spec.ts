@@ -1,20 +1,26 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
-import { ContextpackCardComponent } from './contextpack-card.component';
+import { ContextPackCardComponent } from './contextpack-card.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatCardModule } from '@angular/material/card';
 
 describe('ContextpackCardComponent', () => {
-  let component: ContextpackCardComponent;
-  let fixture: ComponentFixture<ContextpackCardComponent>;
+  let component: ContextPackCardComponent;
+  let fixture: ComponentFixture<ContextPackCardComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ ContextpackCardComponent ]
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      imports: [
+        BrowserAnimationsModule,
+        MatCardModule
+      ],
+      declarations: [ ContextPackCardComponent ]
     })
     .compileComponents();
-  });
+  }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ContextpackCardComponent);
+    fixture = TestBed.createComponent(ContextPackCardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
