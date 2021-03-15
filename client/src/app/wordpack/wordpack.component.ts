@@ -11,7 +11,7 @@ import { ContextPack } from '../contextpack/contextpack';
 })
 export class WordPackComponent implements OnInit, OnDestroy {
 
-  wordPack: ContextPack;
+  contextPack: ContextPack;
   id: string;
   getWordPackSub: Subscription;
 
@@ -19,11 +19,11 @@ export class WordPackComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((pmap) => {
-      this.id = pmap.get('id');
+      this.id = pmap.get('_id');
       if (this.getWordPackSub) {
         this.getWordPackSub.unsubscribe();
       }
-      this.getWordPackSub = this.contextPackService.getContextPackById(this.id).subscribe(wordPack => this.wordPack = wordPack);
+      this.getWordPackSub = this.contextPackService.getContextPackById(this.id).subscribe(contextPack => this.contextPack = contextPack);
     });
   }
 

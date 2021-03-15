@@ -65,7 +65,7 @@ describe('ContextpackService', () => {
         wordPacks: testWordPacks
       }
   ];
-  let service: ContextpackService;
+
   let contextpackService: ContextpackService;
   // These are used to mock the HTTP requests so that we (a) don't have to
   // have the server running and (b) we can check exactly which HTTP
@@ -85,7 +85,6 @@ describe('ContextpackService', () => {
     contextpackService = new ContextpackService(httpClient);
   });
 
-
   afterEach(() => {
     // After every test, assert that there are no more pending requests.
     httpTestingController.verify();
@@ -101,11 +100,11 @@ describe('ContextpackService', () => {
     contextpackService.getContextPacks().subscribe(
       contextpacks => expect(contextpacks).toBe(testContextPacks)
     );
-
     // Specify that (exactly) one request will be made to the specified URL.
     const req = httpTestingController.expectOne(contextpackService.contextPacksUrl);
     // Check that the request made to that URL was a GET request.
     expect(req.request.method).toEqual('GET');
+    expect(req.request.params.keys().length).toBe(0);
     // Specify the content of the response to that request. This
     // triggers the subscribe above, which leads to that check
     // actually being performed.
@@ -129,3 +128,4 @@ describe('ContextpackService', () => {
     });
   });
 });
+

@@ -48,7 +48,7 @@ describe('WordpackComponent', () => {
     activatedRoute.setParamMap({ id: expectedContextPack._id });
 
     expect(component.id).toEqual(expectedContextPack._id);
-    expect(component.wordPack).toEqual(expectedContextPack);
+    expect(component.contextPack).toEqual(expectedContextPack);
   });
 
   it('should navigate to correct context pack when the id parameter changes', () => {
@@ -73,7 +73,7 @@ describe('WordpackComponent', () => {
     // to return `null`, so we would expect the component's contextpack
     // to also be `null`.
     expect(component.id).toEqual('badID');
-    expect(component.wordPack).toBeNull();
+    expect(component.contextPack).toBeNull();
   });
 
 });
