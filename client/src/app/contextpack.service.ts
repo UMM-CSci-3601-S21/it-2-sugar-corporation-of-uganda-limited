@@ -3,6 +3,7 @@ import { ContextPack } from './contextpack/contextpack';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../environments/environment';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class ContextpackService {
@@ -27,5 +28,9 @@ export class ContextpackService {
   filterContextPacks(contextPacks: ContextPack[]): ContextPack[] {
     const filteredPacks = contextPacks;
     return filteredPacks;
+  }
+
+  addContextPack(newContextPack: ContextPack): Observable<string> {
+    return this.httpClient.post<{id: string }>(this.contextPacksUrl, newContextPack).pipe(map(res => res.id));
   }
 }
