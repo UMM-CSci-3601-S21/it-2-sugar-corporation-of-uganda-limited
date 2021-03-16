@@ -3,8 +3,7 @@ import { ContextPack } from './contextpack';
 import { ContextpackService } from '../contextpack.service';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { Input } from '@angular/core';
-import { WordPack } from '../wordpack/wordpack';
-import { ITS_JUST_ANGULAR } from '@angular/core/src/r3_symbols';
+import { WordPack } from './contextpack';
 
 @Component({
   selector: 'app-contextpack-list',
