@@ -4,7 +4,7 @@ import { ContextPack } from './contextpack';
 import { ContextpackService } from '../contextpack.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
+import { WordPack } from './contextpack';
 
 @Component({
   selector: 'app-add-contextpack',
@@ -14,17 +14,25 @@ import { connectableObservableDescriptor } from 'rxjs/internal/observable/Connec
 export class AddContextpackComponent implements OnInit {
 
   addContextPackForm: FormGroup;
-
+  shown = false;
+  wordPack: WordPack;
   contextpack: ContextPack;
 
+  formErrors = {
+    wordpacks: this.wordPacksErrors()
+  };
+
   addContextPackValidationMessages = {
-    name: [
-      { type: 'required', message: 'Name is required' },
-    ],
-    enabled: [
-      { type: 'required', message: 'Enabled is required' },
-      { type: 'pattern', message:'Must be enabled or disabled' }
-    ],
+    wordPacks: {
+      name: [
+        {type: 'required', message: 'Name is required'}
+      ],
+      enabled: {required: 'Must be true or false'},
+      nouns: { word: {}, forms: {}},
+      verbs: { word: {}, forms: {}},
+      adjectives: { word: {}, forms: {}},
+      misc: { word: {}, forms: {}}
+    }
   };
 
   constructor(private fb: FormBuilder, private contextPackService: ContextpackService,
@@ -42,13 +50,35 @@ export class AddContextpackComponent implements OnInit {
         enabled: new FormControl('', Validators.compose([
           Validators.required,
         ])),
+
+        wordPacks: new FormControl('', Validators.compose([
+          Validators.minLength(1)
+        ]))
       });
 
     }
 
-  ngOnInit() {
-    this.createForms();
+  ngOnInit(): void {
+    this.addContextPackForm
   }
+
+  wordPacksErrors() {
+    return [{
+      name: [' ', [Validators.required]],
+      enabled: [' ', [Validators.required]],
+      nouns: this.wordsErrors(),
+      verbs: this.wordsErrors(),
+      adjectives: this.wordsErrors(),
+      misc: this.wordsErrors()
+    }];
+  };
+
+  wordsErrors() {
+    return [{
+      word: [' ', [Validators.required]],
+      forms: this.fb.array([this.fb.control('')])
+    }];
+  };
 
   submitForm() {
     console.log(this.addContextPackForm.value);

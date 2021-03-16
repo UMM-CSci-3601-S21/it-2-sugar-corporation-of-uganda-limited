@@ -1,23 +1,23 @@
-import {User} from 'src/app/users/user';
+import {ContextPack} from 'src/app/contextpack/contextpack';
 
-export class AddUserPage {
+export class AddContextPackPage {
   navigateTo() {
-    return cy.visit('/users/new');
+    return cy.visit('/contextpacks/new');
   }
 
   getTitle() {
-    return cy.get('.add-user-title');
+    return cy.get('.add-contextpack-title');
   }
 
-  addUserButton() {
-    return cy.get('[data-test=confirmAddUserButton]');
+  addContextPackButton() {
+    return cy.get('[data-test=confirmAddContextPackButton]');
   }
 
   selectMatSelectValue(select: Cypress.Chainable, value: string) {
     // Find and click the drop down
-    return select.click()
+    return select.click({multiple: true, force: true})
       // Select and click the desired value from the resulting menu
-      .get(`mat-option[value="${value}"]`).click();
+      .get(`mat-option[value="${value}"]`).click({multiple: true, force: true});
   }
 
   getFormField(fieldName: string) {
