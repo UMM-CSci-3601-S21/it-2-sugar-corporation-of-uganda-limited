@@ -1,5 +1,3 @@
-import { Words } from '../words/words';
-
 export interface WordPack {
   name: string;
   enabled: boolean;
@@ -7,4 +5,9 @@ export interface WordPack {
   verbs?: Words[];
   adjectives?: Words[];
   misc?: Words[];
+}
+
+export interface Words {
+  word?: string;
+  forms?: string[];
 }

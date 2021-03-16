@@ -3,8 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { ContextpackService } from './contextpack.service';
 import { ContextPack } from './contextpack/contextpack';
-import { WordPack } from './wordpack/wordpack';
-import { Words } from './words/words';
+import { WordPack, Words } from './wordpack/wordpack';
 
 // Test Context Packs courtesy of the purple tigers @ https://github.com/UMM-CSci-3601-S21/it-1-purple-tigers
 describe('ContextpackService', () => {

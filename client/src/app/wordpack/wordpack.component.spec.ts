@@ -6,8 +6,7 @@ import { ActivatedRouteStub } from 'src/testing/activated-route-stub';
 import { MockContextPackService } from 'src/testing/contextpack.service.mock';
 import { ContextpackService } from '../contextpack.service';
 import { ContextPack } from '../contextpack/contextpack';
-import { ContextpackCardComponent } from '../contextpack/contextpack-card.component';
-
+import { ContextPackCardComponent } from '../contextpack/contextpack-card.component';
 import { WordPackComponent } from './wordpack.component';
 
 describe('WordpackComponent', () => {
@@ -21,7 +20,7 @@ describe('WordpackComponent', () => {
         RouterTestingModule,
         MatCardModule
       ],
-      declarations: [ WordPackComponent, ContextpackCardComponent],
+      declarations: [ WordPackComponent, ContextPackCardComponent],
       providers: [
         {provide: ContextpackService, useValue: new MockContextPackService() },
         {provide: ActivatedRoute, useValue: activatedRoute }
