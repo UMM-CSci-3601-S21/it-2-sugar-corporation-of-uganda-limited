@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ContextPack } from './contextpack';
 import { ContextpackService } from '../contextpack.service';
 import { Subscription } from 'rxjs/internal/Subscription';
+import { Input } from '@angular/core';
+import { WordPack } from '../wordpack/wordpack';
+import { ITS_JUST_ANGULAR } from '@angular/core/src/r3_symbols';
 
 @Component({
   selector: 'app-contextpack-list',
@@ -9,8 +12,13 @@ import { Subscription } from 'rxjs/internal/Subscription';
   styleUrls: ['./contextpack-list.component.scss']
 })
 export class ContextpackListComponent implements OnInit {
+
+  @Input() contextPack: ContextPack;
+  @Input() simple?: boolean = false;
+
   public serverFilteredContextPacks: ContextPack[];
   public filteredPacks: ContextPack[];
+  public wordPacks: WordPack[];
 
   public contextPackName: string;
   public viewType: 'card' | 'list' = 'list';
@@ -23,7 +31,7 @@ export class ContextpackListComponent implements OnInit {
     this.contextPackService.getContextPacks()
     .subscribe(returnedPacks => {
       this.serverFilteredContextPacks = returnedPacks;
-       this.updateFilter();
+      this.updateFilter();
     }, err => {
       console.log(err);
     });

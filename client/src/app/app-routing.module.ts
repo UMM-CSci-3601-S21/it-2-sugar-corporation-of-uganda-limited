@@ -6,7 +6,7 @@ import { WordPackComponent } from './wordpack/wordpack.component';
 const routes: Routes = [
   {path: '', component: ContextpackListComponent},
   {path: 'contextpacks', component: ContextpackListComponent},
-  {path: 'wordpacks', component: WordPackComponent },
+  {path: 'contextpacks/:id', component: WordPackComponent },
 ];
 
 @NgModule({

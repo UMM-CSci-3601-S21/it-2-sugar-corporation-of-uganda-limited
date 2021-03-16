@@ -3,7 +3,15 @@
 
     <mat-card class="search-card">
       <mat-card-title class="contextpack-list-title">Context Packs</mat-card-title>
-      <mat-card-content fxLayout="column" >
+      <mat-card-content fxLayout="column">
+        <br>
+        <div fxLayout="row wrap" fxLayoutGap="10px">
+          <label>View type: </label>
+          <mat-radio-group aria-label="View type" [(ngModel)]="viewType" data-test="viewTypeRadio">
+            <mat-radio-button value="card">Card</mat-radio-button>
+            <mat-radio-button value="list">List</mat-radio-button>
+          </mat-radio-group>
+        </div>
       </mat-card-content>
     </mat-card>
   </div>
@@ -25,8 +33,10 @@
           <mat-nav-list class="contextpack-nav-list">
             <a mat-list-item *ngFor="let contextpack of this.serverFilteredContextPacks" [routerLink]="['/contextpacks', contextpack._id]" class="contextpack-list-item">
               <h3 matLine class="contextpack-list-name"> {{this.contextpack.name}} </h3>
-              <p matLine class="contextpack-list-enabled"> {{this.contextpack.wordPacks[0].name}} </p>
             </a>
+            <mat-card-actions>
+              <button mat-button data-test="viewWordPackButton" *ngIf="this.simple" [routerLink]="['/contextpacks', contextPack._id]">View Context Pack</button>
+            </mat-card-actions>
           </mat-nav-list>
         </mat-card-content>
       </mat-card>
