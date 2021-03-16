@@ -29,7 +29,6 @@ import { LayoutModule } from '@angular/cdk/layout';
 
 import { WordPackComponent } from './wordpack/wordpack.component';
 
-import { WordsComponent } from './words/words.component';
 
 import { ContextPackCardComponent } from './contextpack/contextpack-card.component';
 import { ContextpackService } from './contextpack.service';
@@ -60,7 +59,6 @@ const MATERIAL_MODULES: any[] = [
     AppComponent,
     ContextPackCardComponent,
     WordPackComponent,
-    WordsComponent,
     ContextpackListComponent,
 
   ],

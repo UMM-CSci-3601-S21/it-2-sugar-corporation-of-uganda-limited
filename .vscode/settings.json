@@ -19,6 +19,8 @@
       "pmap",
       "servlet",
       "sidenav",
+      "sortby",
+      "sortorder",
       "todos",
       "unsub",
       "wordpack",
