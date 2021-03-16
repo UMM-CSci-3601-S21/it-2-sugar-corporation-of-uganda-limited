@@ -13,7 +13,6 @@ export class ContextpackListComponent implements OnInit {
   public filteredPacks: ContextPack[];
 
   public contextPackName: string;
-  public viewType: 'card' | 'list' = 'list';
   getContextPacksSub: Subscription;
 
   constructor(private contextPackService: ContextpackService) { }

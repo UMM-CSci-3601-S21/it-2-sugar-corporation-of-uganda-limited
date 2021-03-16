@@ -1,0 +1,15 @@
+<div fxLayout="row">
+  <div class="body" fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10">
+
+  <mat-card class="contextpack-card" *ngIf="this.contextPack">
+    <mat-card-title class="contextpack-card-name">{{ this.contextPack.name }}</mat-card-title>
+    <mat-card-content>
+      <div *ngFor="let wordPack in contextPack.wordPacks"></div>
+      {{ this.contextPack.wordPacks[0].name}}
+      {{ this.displayWordPacks(this.contextPack.wordPacks) }}
+    </mat-card-content>
+
+
+</mat-card>
+  </div>
+</div>

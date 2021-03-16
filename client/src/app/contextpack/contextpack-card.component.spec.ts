@@ -1,12 +1,12 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
-import { ContextPackCardComponent } from './contextpack-card.component';
+import { ContextpackCardComponent } from './contextpack-card.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule } from '@angular/material/card';
 
 describe('ContextpackCardComponent', () => {
-  let component: ContextPackCardComponent;
-  let fixture: ComponentFixture<ContextPackCardComponent>;
+  let component: ContextpackCardComponent;
+  let fixture: ComponentFixture<ContextpackCardComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -14,13 +14,13 @@ describe('ContextpackCardComponent', () => {
         BrowserAnimationsModule,
         MatCardModule
       ],
-      declarations: [ ContextPackCardComponent ]
+      declarations: [ ContextpackCardComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ContextPackCardComponent);
+    fixture = TestBed.createComponent(ContextpackCardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

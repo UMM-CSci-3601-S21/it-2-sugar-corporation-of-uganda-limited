@@ -27,10 +27,9 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { HttpClientModule } from '@angular/common/http';
 import { LayoutModule } from '@angular/cdk/layout';
 
-import { WordPackComponent } from './wordpack/wordpack.component';
+import { ContextpackContentComponent } from './contextpack/contextpack-content.component';
 
-
-import { ContextPackCardComponent } from './contextpack/contextpack-card.component';
+import { ContextpackCardComponent } from './contextpack/contextpack-card.component';
 import { ContextpackService } from './contextpack.service';
 import { ContextpackListComponent } from './contextpack/contextpack-list.component';
 
@@ -57,8 +56,8 @@ const MATERIAL_MODULES: any[] = [
 @NgModule({
   declarations: [
     AppComponent,
-    ContextPackCardComponent,
-    WordPackComponent,
+    ContextpackCardComponent,
+    ContextpackContentComponent,
     ContextpackListComponent,
 
   ],
