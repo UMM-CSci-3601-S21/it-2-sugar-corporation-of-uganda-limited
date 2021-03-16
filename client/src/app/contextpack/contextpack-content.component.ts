@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ContextpackService } from '../contextpack.service';
 import { WordPack } from '../wordpack/wordpack';
-import { Words } from '../words/words';
+import { Words } from '../wordpack/wordpack';
 import { ContextPack } from './contextpack';
 
 //Shows the wordPacks inside context pack
