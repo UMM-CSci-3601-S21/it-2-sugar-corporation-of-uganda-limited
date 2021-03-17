@@ -19,6 +19,8 @@ import { ContextpackService } from '../contextpack.service';
 
 import { MockContextPackService } from '../../testing/contextpack.service.mock';
 import { ContextpackListComponent } from './contextpack-list.component';
+import { ContextPack } from './contextpack';
+import { Observable } from 'rxjs';
 
 
 const COMMON_IMPORTS: any[] = [
@@ -63,5 +65,64 @@ describe('ContextpackListComponent', () => {
 
   it('should create', () => {
     expect(contextPackList).toBeTruthy();
+  });
+
+  it('contains all the ContextPacks', () => {
+    expect(contextPackList.serverFilteredContextPacks.length).toBe(3);
+  });
+
+  it('contains a ContextPack named \'fun\'', () => {
+    expect(contextPackList.serverFilteredContextPacks.some((contextPack: ContextPack) => contextPack.name === 'fun')).toBe(true);
+  });
+
+  it('contain a ContextPack named \'sun\'', () => {
+    expect(contextPackList.serverFilteredContextPacks.some((contextPack: ContextPack) => contextPack.name === 'sun')).toBe(true);
+  });
+
+  it('doesn\'t contain a ContextPack named \'Santa\'', () => {
+    expect(contextPackList.serverFilteredContextPacks.some((contextPack: ContextPack) => contextPack.name === 'Santa')).toBe(false);
+  });
+});
+
+describe('Misbehaving context pack list', () => {
+  let contextPackList: ContextpackListComponent;
+  let fixture: ComponentFixture<ContextpackListComponent>;
+
+  let contextPackServiceStub: {
+    getContextPacks: () => Observable<ContextPack[]>;
+    getContextPacksFiltered: () => Observable<ContextPack[]>;
+  };
+
+  beforeEach(() => {
+    // stub ContextPackService for test purposes
+    contextPackServiceStub = {
+      getContextPacks: () => new Observable(observer => {
+        observer.error('Error-prone observable');
+      }),
+      getContextPacksFiltered: () => new Observable(observer => {
+        observer.error('Error-prone observable');
+      })
+    };
+
+    TestBed.configureTestingModule({
+      imports: [COMMON_IMPORTS],
+      declarations: [ContextpackListComponent],
+      // providers:    [ ContextPackService ]  // NO! Don't provide the real service!
+      // Provide a test-double instead
+      providers: [{ provide: ContextpackService, useValue: contextPackServiceStub }]
+    });
+  });
+
+  beforeEach(waitForAsync(() => {
+    TestBed.compileComponents().then(() => {
+      fixture = TestBed.createComponent(ContextpackListComponent);
+      contextPackList = fixture.componentInstance;
+      fixture.detectChanges();
+    });
+  }));
+
+  it('generates an error if we don\'t set up a ContextPackListService', () => {
+    // Since the observer throws an error, we don't expect ContextPacks to be defined.
+    expect(contextPackList.serverFilteredContextPacks).toBeUndefined();
   });
 });
