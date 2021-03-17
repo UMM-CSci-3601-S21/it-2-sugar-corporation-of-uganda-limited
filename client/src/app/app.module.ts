@@ -35,6 +35,12 @@ import { ContextpackService } from './contextpack.service';
 import { ContextpackListComponent } from './contextpack/contextpack-list.component';
 import { AddContextpackComponent } from './contextpack/add-contextpack.component';
 
+import { UserCardComponent } from './users/user-card.component';
+import { UserProfileComponent } from './users/user-profile.component';
+import { AddUserComponent } from './users/add-user.component';
+import { UserService } from './users/user.service';
+import { UserListComponent } from './users/user-list.component';
+
 
 const MATERIAL_MODULES: any[] = [
   MatListModule,
@@ -62,6 +68,10 @@ const MATERIAL_MODULES: any[] = [
     WordPackComponent,
     ContextpackListComponent,
     AddContextpackComponent,
+    UserListComponent,
+    UserCardComponent,
+    UserProfileComponent,
+    AddUserComponent,
 
   ],
   imports: [

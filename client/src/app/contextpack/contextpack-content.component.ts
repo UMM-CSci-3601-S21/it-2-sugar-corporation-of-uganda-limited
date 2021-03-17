@@ -7,8 +7,8 @@ import { ContextPack, WordPack, Words } from './contextpack';
 //Shows the wordPacks inside context pack
 @Component({
   selector: 'app-contextpack-content',
-  templateUrl: './contextpack-content.component.html',
-  styleUrls: ['./contextpack-content.component.scss']
+  templateUrl: '../wordpack/wordpack.component.html',
+  styleUrls: ['../wordpack/wordpack.component.scss']
 })
 export class ContextpackContentComponent implements OnInit, OnDestroy {
 

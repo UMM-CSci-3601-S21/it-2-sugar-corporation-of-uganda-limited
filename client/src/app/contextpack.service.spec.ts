@@ -110,20 +110,30 @@ describe('ContextpackService', () => {
     req.flush(testContextPacks);
   });
 
-  describe('get context packs by id', () => {
-    it('gets a context pack given its id', () =>{
-      const targetPack: ContextPack = testContextPacks[1];
-      const targetId: string = targetPack._id;
-
-      contextpackService.getContextPackById(targetId).subscribe(
-        contextPack => expect(contextPack).toBe(targetPack)
+  it('gets a context pack given its id', () =>{
+    const targetPack: ContextPack = testContextPacks[1];
+    const targetId: string = targetPack._id;
+    contextpackService.getContextPackById(targetId).subscribe(
+      contextPack => expect(contextPack).toBe(targetPack)
       );
 
       const expectedUrl: string = contextpackService.contextPacksUrl + '/' + targetId;
       const req = httpTestingController.expectOne(expectedUrl);
       expect(req.request.method).toEqual('GET');
-
       req.flush(targetPack);
     });
-  });
+
+    it('addContextPack() posts to api/contextpacks', () => {
+
+      contextpackService.addContextPack(testContextPacks[1]).subscribe(
+        id => expect(id).toBe('testID')
+      );
+
+      const req = httpTestingController.expectOne(contextpackService.contextPacksUrl);
+
+      expect(req.request.method).toEqual('POST');
+      expect(req.request.body).toEqual(testContextPacks[1]);
+
+      req.flush({id: 'testID'});
+    });
 });
