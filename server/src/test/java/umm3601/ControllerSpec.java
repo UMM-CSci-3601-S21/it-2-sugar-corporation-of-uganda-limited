@@ -3,7 +3,6 @@ package umm3601;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static com.mongodb.client.model.Filters.eq;
 
@@ -12,11 +11,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.swing.SortOrder;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.google.common.collect.ImmutableMap;
 import com.mockrunner.mock.web.MockHttpServletRequest;
 import com.mockrunner.mock.web.MockHttpServletResponse;
 import com.mongodb.MongoClientSettings;
@@ -36,6 +34,7 @@ import org.junit.jupiter.api.Test;
 
 import io.javalin.http.BadRequestResponse;
 import io.javalin.http.Context;
+import io.javalin.http.NotFoundResponse;
 import io.javalin.http.util.ContextUtil;
 import io.javalin.plugin.json.JavalinJson;
 import umm3601.contextpack.ContextPack;
@@ -244,6 +243,42 @@ public class ControllerSpec {
   }
 
   @Test
+  public void GetPackWithExistentId() throws IOException {
+    String testID = testIDThree.toHexString();
+    Context ctx = ContextUtil.init(mockReq, mockRes, "api/contextpack/:id", ImmutableMap.of("id", testID));
+    packController.getContextPack(ctx);
+
+    assertEquals(200, mockRes.getStatus());
+
+    String result = ctx.resultString();
+    ContextPack resultPack = JavalinJson.fromJson(result, ContextPack.class);
+
+    assertEquals(resultPack._id, testIDThree.toHexString());
+    assertEquals(resultPack.name, "Example 3");
+  }
+
+  @Test
+  public void GetPackWithBadId() throws IOException {
+
+    Context ctx = ContextUtil.init(mockReq, mockRes, "api/contextpack/:id", ImmutableMap.of("id", "bad"));
+
+    assertThrows(BadRequestResponse.class, () -> {
+      packController.getContextPack(ctx);
+    });
+  }
+
+  @Test
+  public void GetPackWithNoId() throws IOException {
+
+    Context ctx = ContextUtil.init(mockReq, mockRes, "api/contextpack/:id", ImmutableMap.of("id", "58af3a600343927e48e87335"));
+
+    assertThrows(NotFoundResponse.class, () -> {
+      packController.getContextPack(ctx);
+    });
+  }
+
+
+  @Test
   public void shouldAddContextPack() throws IOException{
     String newContextPack = "{"
       + " \"name\": \"Test Pack\" ,"
@@ -400,7 +435,7 @@ public class ControllerSpec {
     String newContextPack = "{"
       + " \"name\": \"Test Pack\" ,"
       + " \"icon\": \"testIcon.png\" ,"
-      + " \"enabled\": \"notaboolean\" ,"
+      + " \"enabled\": \"not a boolean\" ,"
       + " \"wordPacks\": [{"
       + " \"name\": \"Test Word Pack\" ,"
       + " \"enabled\": false ,"
