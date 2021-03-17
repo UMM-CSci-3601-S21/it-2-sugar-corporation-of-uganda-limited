@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { WordPack, WordRole, Words } from '../wordpack/wordpack';
 import { ContextPack } from './contextpack';
 
 @Component({
@@ -16,4 +17,62 @@ export class ContextpackCardComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  displayWordPacks(contextpack: WordPack){
+    let  wordPacks: string;
+      wordPacks = '';
+        wordPacks += 'Word List ' + 'Name: ' + contextpack.name + '\n';
+        wordPacks += 'Enabled: ' + contextpack.enabled + '\n';
+        wordPacks += 'Nouns: \n' + this.displayWords(contextpack, 'nouns');
+        wordPacks += 'Verbs: \n' + this.displayWords(contextpack, 'verbs');
+        wordPacks += 'Adjectives: \n' + this.displayWords(contextpack, 'adjectives');
+        wordPacks += 'Misc: \n' + this.displayWords(contextpack, 'misc');
+    return wordPacks;
+  }
+
+  displayWords(wordPack: WordPack, pos: WordRole){
+    let words: string[];
+    let str: string;
+    if (wordPack[`${pos}`] === undefined){
+      words = null;
+      str = null;
+    }
+    else{
+      let i: number;
+      words = [];
+        for (i = 0; i < wordPack[`${pos}`].length; i++) {
+          words = words.concat(wordPack[`${pos}`][i].forms) ;
+        }
+        str = words.join(', ');
+        str += '\n';
+    }
+
+    return str;
+  }
+
+  displayAllWords(contextpack: ContextPack, pos: WordRole){
+      let words: WordPack[];
+      let m: number;
+      let str: string;
+      if(contextpack.wordPacks === undefined || contextpack.wordPacks[0][`${pos}`][0] === undefined){
+        words = null;
+        str = null;
+      }
+      else{
+        words = [];
+      for (m = 0; m < contextpack.wordPacks.length; m++){
+          words = words.concat(contextpack.wordPacks[m]);
+        }
+
+      let z: number;
+      str = '\n';
+      for (z = 0; z < words.length; z++){
+        str += this.displayWords(words[z], pos);
+        str = str.slice(0, -1);
+        if (z < words.length-1){
+          str += ', ';
+          }
+        }
+      }
+      return str;
+  }
 }

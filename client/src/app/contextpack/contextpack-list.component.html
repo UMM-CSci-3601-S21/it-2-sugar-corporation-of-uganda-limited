@@ -3,6 +3,20 @@
 
     <mat-card class="search-card">
       <mat-card-title color="primary" class="contextpack-list-title">Context Packs</mat-card-title>
+
+      <div fxLayout="row wrap" fxLayoutGap="10px">
+
+        <mat-form-field class="input-field">
+          <mat-label>Name:</mat-label>
+          <input
+            matInput
+            id="contextpack-name-input"
+            placeholder="Filter by context pack name"
+            [(ngModel)]="contextPackName"
+            (input)="getContextPacksFromServer()"
+          />
+        </mat-form-field>
+      </div>
       </mat-card>
 
 
@@ -21,7 +35,7 @@
   <ng-template #packsError>
     <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10" class="packs-error">
       <mat-error>
-        There was a problem loading the todos. Possibly the server is down or perhaps there are network
+        There was a problem loading the Context Packs. Possibly the server is down or perhaps there are network
         issues.
       </mat-error>
       <mat-error>

@@ -1,6 +1,6 @@
 export interface WordPack {
-  name: string;
-  enabled: boolean;
+  name?: string;
+  enabled?: boolean;
   nouns?: Words[];
   verbs?: Words[];
   adjectives?: Words[];
@@ -11,3 +11,5 @@ export interface Words {
   word?: string;
   forms?: string[];
 }
+
+export type WordRole = 'nouns' | 'verbs' | 'adjectives' | 'misc';

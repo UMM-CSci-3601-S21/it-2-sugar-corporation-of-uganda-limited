@@ -15,8 +15,8 @@ import { ContextPack } from './contextpack';
 export class ContextpackContentComponent implements OnInit, OnDestroy {
 
   contextPack: ContextPack;
-  wordPacks: WordPack[];
-  wordPack: WordPack;
+
+  index: number;
   id: string;
   getContextPackSub: Subscription;
 
@@ -29,7 +29,6 @@ export class ContextpackContentComponent implements OnInit, OnDestroy {
         this.getContextPackSub.unsubscribe();
       }
       this.getContextPackSub = this.contextPackService.getContextPackById(this.id).subscribe(contextPack => this.contextPack = contextPack);
-      this.wordPacks = this.contextPack.wordPacks;
     });
   }
 
@@ -39,32 +38,4 @@ export class ContextpackContentComponent implements OnInit, OnDestroy {
     }
   }
 
-  displayWordPacks(wordPacks: WordPack[]): string[] {
-    let wordPack = null;
-    const toString = [];
-
-    for(wordPack in wordPacks){
-      if(wordPack){
-      toString.push(this.displayWords(wordPack.nouns));
-      toString.push(this.displayWords(wordPack.verbs));
-      toString.push(this.displayWords(wordPack.adjectives));
-      toString.push(this.displayWords(wordPack.misc));
-    }}
-    return toString;
-  }
-
-  displayWords(words: Words[]): string[] {
-    let word = null;
-    let form = null;
-    const toString = [];
-
-    for(word in words){
-      if(word){
-        toString.push(word.word);
-        for(form in word.forms){
-          if(word){
-            toString.push(form);
-          }}}}
-    return toString;
-  }
 }

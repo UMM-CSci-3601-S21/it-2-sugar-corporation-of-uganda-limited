@@ -19,7 +19,9 @@ export class ContextpackListComponent implements OnInit {
 
   getContextPacksFromServer() {
     this.unsub();
-    this.contextPackService.getContextPacks()
+    this.contextPackService.getContextPacks({
+      name: this.contextPackName
+    })
     .subscribe(returnedPacks => {
       this.serverFilteredContextPacks = returnedPacks;
        this.updateFilter();

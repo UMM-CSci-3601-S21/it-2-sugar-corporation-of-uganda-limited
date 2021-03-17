@@ -12,9 +12,14 @@ export class ContextpackService {
 
   }
 
-  getContextPacks(): Observable<ContextPack[]> {
+  getContextPacks(filters?: {name?: string}): Observable<ContextPack[]> {
     //change this to 'let' instead of 'const' when implementing filtering
-    const httpParams: HttpParams = new HttpParams();
+    let httpParams: HttpParams = new HttpParams();
+    if(filters){
+      if(filters.name){
+        httpParams = httpParams.set('name', filters.name);
+      }
+    }
     return this.httpClient.get<ContextPack[]>(this.contextPacksUrl, {
       params: httpParams
     });
