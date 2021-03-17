@@ -11,8 +11,8 @@ import { AddUserComponent } from './users/add-user.component';
 const routes: Routes = [
   {path: '', component: ContextpackListComponent},
   {path: 'contextpacks', component: ContextpackListComponent},
-  {path: 'contextpacks/:id', component: WordPackComponent },
   {path: 'contextpacks/new', component: AddContextpackComponent },
+  {path: 'contextpacks/:id', component: WordPackComponent },
   {path: 'users', component: UserListComponent},
   {path: 'users/new', component: AddUserComponent},
   {path: 'users/:id', component: UserProfileComponent},

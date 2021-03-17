@@ -61,7 +61,6 @@ export class AddContextpackComponent implements OnInit {
 
   initWordPack() {
     return this.fb.group({
-      //  ---------------------forms fields on x level ------------------------
       name: new FormControl('', Validators.compose([
         Validators.required,
       ])),
@@ -69,7 +68,6 @@ export class AddContextpackComponent implements OnInit {
         Validators.required,
         Validators.pattern('^(true|false)$'),
       ])),
-      // ---------------------------------------------------------------------
       nouns: this.fb.array([]),
       adjectives: this.fb.array([]),
       verbs: this.fb.array([]),
@@ -80,9 +78,7 @@ export class AddContextpackComponent implements OnInit {
 
   initWords() {
     return this.fb.group({
-      //  ---------------------forms fields on y level ------------------------
       word: [''],
-      // ---------------------------------------------------------------------
       forms: this.fb.array([
          this.fb.control('')
       ])
@@ -122,8 +118,7 @@ export class AddContextpackComponent implements OnInit {
   }
 
   validateWordPacks() {
-    const wordPacks = this.addContextPackForm.controls.wordlists as FormArray;
-    // console.log(XsA.value);
+    const wordPacks = this.addContextPackForm.controls.wordPacks as FormArray;
     this.formErrors.wordpacks = [];
     for (let index = 1; index <= wordPacks.length; index++) {
       this.formErrors.wordpacks.push({
@@ -161,10 +156,8 @@ export class AddContextpackComponent implements OnInit {
       });
       this.router.navigate(['/contextpacks/', newID]);
     }, err => {
-      this.snackBar.open('Failed to add the pack', 'OK', {
-        duration: 5000,
+      console.log(err);
       });
-    });
+    };
   }
 
-}
