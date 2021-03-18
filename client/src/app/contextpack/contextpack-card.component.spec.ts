@@ -33,6 +33,7 @@ describe('ContextpackCardComponent', () => {
     .compileComponents();
   }));
 
+  //PurpleTigers Tests
   beforeEach(() => {
     fixture = TestBed.createComponent(ContextpackCardComponent);
     fixture2 = TestBed.createComponent(ContextpackCardComponent);

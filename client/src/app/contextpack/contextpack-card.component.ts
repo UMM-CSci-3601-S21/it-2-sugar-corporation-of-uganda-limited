@@ -16,6 +16,7 @@ export class ContextpackCardComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  //All functions below from the minds of Team-PurpleTigers
   displayWordPacks(contextpack: WordPack){
     let  wordPacks: string;
       wordPacks = '';
