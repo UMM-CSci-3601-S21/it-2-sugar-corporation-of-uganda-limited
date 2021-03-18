@@ -5,5 +5,5 @@ export class AppPage {
 
   getAppTitle() {
     return cy.get('.app-title');
-  }
+  };
 }

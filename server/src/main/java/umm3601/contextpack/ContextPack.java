@@ -13,6 +13,6 @@ public class ContextPack {
   public String name;
   public String icon;
   public boolean enabled;
-  public ArrayList<WordPack> wordpacks;
+  public ArrayList<WordPack> wordPacks;
 
 }

@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { WordPack, WordRole, Words } from '../wordpack/wordpack';
-import { ContextPack } from './contextpack';
+import { ContextPack, WordPack, WordRole, Words } from './contextpack';
 
 @Component({
   selector: 'app-contextpack-card',

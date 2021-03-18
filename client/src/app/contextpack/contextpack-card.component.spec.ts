@@ -7,8 +7,7 @@ import { ContextpackService } from '../contextpack.service';
 import { ActivatedRoute } from '@angular/router';
 import { MockContextPackService } from 'src/testing/contextpack.service.mock';
 import { ActivatedRouteStub } from 'src/testing/activated-route-stub';
-import { ContextPack } from './contextpack';
-import { WordPack, Words } from '../wordpack/wordpack';
+import { ContextPack, WordPack, Words } from './contextpack';
 
 describe('ContextpackCardComponent', () => {
   let component: ContextpackCardComponent;
@@ -108,7 +107,7 @@ describe('ContextpackCardComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should list the nouns, verbs, adjectives and misc words when displayWordlist() is called', () => {
+  it('should list the nouns, verbs, adjectives and misc words when displayWordPacks() is called', () => {
     expect(component.displayWordPacks(component.contextPack.wordPacks[0])).toContain('you, yoyo, yos, yoted');
     expect(component.displayWordPacks(component.contextPack.wordPacks[0])).toContain('green, greener');
     expect(component.displayWordPacks(component.contextPack.wordPacks[0])).toContain('ran, running');

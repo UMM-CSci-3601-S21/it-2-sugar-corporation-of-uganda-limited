@@ -28,10 +28,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { LayoutModule } from '@angular/cdk/layout';
 
 import { ContextpackContentComponent } from './contextpack/contextpack-content.component';
-
 import { ContextpackCardComponent } from './contextpack/contextpack-card.component';
 import { ContextpackService } from './contextpack.service';
 import { ContextpackListComponent } from './contextpack/contextpack-list.component';
+import { AddContextpackComponent } from './contextpack/add-contextpack.component';
+
 
 
 const MATERIAL_MODULES: any[] = [
@@ -59,6 +60,7 @@ const MATERIAL_MODULES: any[] = [
     ContextpackCardComponent,
     ContextpackContentComponent,
     ContextpackListComponent,
+    AddContextpackComponent,
 
   ],
   imports: [

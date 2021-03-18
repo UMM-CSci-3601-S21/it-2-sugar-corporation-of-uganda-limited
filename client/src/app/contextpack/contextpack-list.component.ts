@@ -19,7 +19,7 @@ export class ContextpackListComponent implements OnInit {
 
   getContextPacksFromServer() {
     this.unsub();
-    this.contextPackService.getContextPacks({
+    this.getContextPacksSub = this.contextPackService.getContextPacks({
       name: this.contextPackName
     })
     .subscribe(returnedPacks => {

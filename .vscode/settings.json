@@ -13,7 +13,9 @@
       "Javalin",
       "contextpack",
       "contextpacks",
+      "langerhan",
       "mc",
+      "mcphee",
       "observables",
       "phee",
       "pmap",
@@ -26,7 +28,9 @@
       "wordpack",
       "wordpacks",
       "workpacks",
-      "xdescribe"
+      "xdescribe",
+      "yoted",
+      "yoyo"
     ],
     "angular.enable-experimental-ivy-prompt": false,
 }

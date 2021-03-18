@@ -2,8 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { ContextpackService } from './contextpack.service';
-import { ContextPack } from './contextpack/contextpack';
-import { WordPack, Words } from './wordpack/wordpack';
+import { ContextPack, WordPack, Words } from './contextpack/contextpack';
 
 // Test Context Packs courtesy of the purple tigers @ https://github.com/UMM-CSci-3601-S21/it-1-purple-tigers
 describe('ContextpackService', () => {
@@ -64,7 +63,7 @@ describe('ContextpackService', () => {
         wordPacks: testWordPacks
       }
   ];
-
+  let service: ContextpackService;
   let contextpackService: ContextpackService;
   // These are used to mock the HTTP requests so that we (a) don't have to
   // have the server running and (b) we can check exactly which HTTP
@@ -84,6 +83,7 @@ describe('ContextpackService', () => {
     contextpackService = new ContextpackService(httpClient);
   });
 
+
   afterEach(() => {
     // After every test, assert that there are no more pending requests.
     httpTestingController.verify();
@@ -99,32 +99,41 @@ describe('ContextpackService', () => {
     contextpackService.getContextPacks().subscribe(
       contextpacks => expect(contextpacks).toBe(testContextPacks)
     );
+
     // Specify that (exactly) one request will be made to the specified URL.
     const req = httpTestingController.expectOne(contextpackService.contextPacksUrl);
     // Check that the request made to that URL was a GET request.
     expect(req.request.method).toEqual('GET');
-    expect(req.request.params.keys().length).toBe(0);
     // Specify the content of the response to that request. This
     // triggers the subscribe above, which leads to that check
     // actually being performed.
     req.flush(testContextPacks);
   });
 
-  describe('get context packs by id', () => {
-    it('gets a context pack given its id', () =>{
-      const targetPack: ContextPack = testContextPacks[1];
-      const targetId: string = targetPack._id;
-
-      contextpackService.getContextPackById(targetId).subscribe(
-        contextPack => expect(contextPack).toBe(targetPack)
+  it('gets a context pack given its id', () =>{
+    const targetPack: ContextPack = testContextPacks[1];
+    const targetId: string = targetPack._id;
+    contextpackService.getContextPackById(targetId).subscribe(
+      contextPack => expect(contextPack).toBe(targetPack)
       );
 
       const expectedUrl: string = contextpackService.contextPacksUrl + '/' + targetId;
       const req = httpTestingController.expectOne(expectedUrl);
       expect(req.request.method).toEqual('GET');
-
       req.flush(targetPack);
     });
-  });
-});
 
+    it('addContextPack() posts to api/contextpacks', () => {
+
+      contextpackService.addContextPack(testContextPacks[1]).subscribe(
+        id => expect(id).toBe('testID')
+      );
+
+      const req = httpTestingController.expectOne(contextpackService.contextPacksUrl);
+
+      expect(req.request.method).toEqual('POST');
+      expect(req.request.body).toEqual(testContextPacks[1]);
+
+      req.flush({id: 'testID'});
+    });
+});

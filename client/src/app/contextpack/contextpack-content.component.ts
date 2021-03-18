@@ -2,9 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ContextpackService } from '../contextpack.service';
-import { WordPack } from '../wordpack/wordpack';
-import { Words } from '../wordpack/wordpack';
-import { ContextPack } from './contextpack';
+import { ContextPack, WordPack, Words } from './contextpack';
 
 //Shows the wordPacks inside context pack
 @Component({

@@ -1,6 +1,5 @@
 package umm3601.contextpack;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -47,11 +46,11 @@ public ContextPackController(MongoDatabase database) {
     List<Bson> filters = new ArrayList<>(); // start with a blank document
 
     if (ctx.queryParamMap().containsKey(NAME_KEY)) {
-       filters.add(regex(NAME_KEY, Pattern.quote(ctx.queryParam(NAME_KEY)), "i"));
-     }
+      filters.add(regex(NAME_KEY, Pattern.quote(ctx.queryParam(NAME_KEY)), "i"));
+    }
 
-     String sortBy = ctx.queryParam("sortby", "name"); //Sort by sort query param, default is name
-      String sortOrder = ctx.queryParam("sortorder", "asc");
+    String sortBy = ctx.queryParam("sortby", "name"); //Sort by sort query param, default is name
+    String sortOrder = ctx.queryParam("sortorder", "asc");
 
     ctx.json(contextPackCollection.find(filters.isEmpty() ? new Document() : and(filters))
       .sort(sortOrder.equals("desc") ?  Sorts.descending(sortBy) : Sorts.ascending(sortBy))
@@ -85,7 +84,7 @@ public void addNewContextPack(Context ctx) {
     .check(cp -> cp.name != null && cp.name.length() > 0) //Verify that the context Pack has a name that is not blank
     .check(cp -> cp.icon != null && cp.icon.contains("png") && cp.icon.length() > 0) //Verify that the context Pack has a icon that is not blank
     .check(cp -> cp.enabled == true || cp.enabled == false)//Verify that the enabled is true or false
-    .check(cp -> cp.wordpacks != null)//Verify that the array is not empty
+    .check(cp -> cp.wordPacks != null)//Verify that the array is not empty
     .get();
 
   contextPackCollection.insertOne(newContextPack);
