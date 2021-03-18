@@ -136,4 +136,10 @@ describe('ContextpackService', () => {
 
       req.flush({id: 'testID'});
     });
+
+    it('filterContextPack() filters by name', () => {
+      expect(testContextPacks.length).toBe(3);
+      const userName = 'u';
+      expect(contextpackService.filterContextPacks(testContextPacks, { name: userName }).length).toBe(2);
+    });
 });

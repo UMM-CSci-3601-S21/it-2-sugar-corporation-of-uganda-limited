@@ -32,7 +32,7 @@ export class ContextpackListComponent implements OnInit {
 
   public updateFilter(): void {
     this.filteredPacks = this.contextPackService.filterContextPacks(
-      this.serverFilteredContextPacks
+      this.serverFilteredContextPacks, {name: this.contextPackName}
     );
   }
 

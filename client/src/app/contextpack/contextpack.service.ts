@@ -15,12 +15,7 @@ export class ContextpackService {
 
   getContextPacks(filters?: {name?: string}): Observable<ContextPack[]> {
     //change this to 'let' instead of 'const' when implementing filtering
-    let httpParams: HttpParams = new HttpParams();
-    if(filters){
-      if(filters.name){
-        httpParams = httpParams.set('name', filters.name);
-      }
-    }
+    const httpParams: HttpParams = new HttpParams();
     return this.httpClient.get<ContextPack[]>(this.contextPacksUrl, {
       params: httpParams
     });
@@ -30,8 +25,15 @@ export class ContextpackService {
     return this.httpClient.get<ContextPack>(this.contextPacksUrl + '/' + id);
   }
 
-  filterContextPacks(contextPacks: ContextPack[]): ContextPack[] {
-    const filteredPacks = contextPacks;
+  filterContextPacks(contextPacks: ContextPack[], filter: { name?: string }): ContextPack[] {
+    let filteredPacks = contextPacks;
+
+    // Filter by name
+    if (filter.name) {
+      filter.name = filter.name.toLowerCase();
+
+      filteredPacks = filteredPacks.filter(contextPack => contextPack.name.toLowerCase().indexOf(filter.name) !== -1);
+    }
     return filteredPacks;
   }
 
