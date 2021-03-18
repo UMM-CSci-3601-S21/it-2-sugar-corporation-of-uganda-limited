@@ -12,7 +12,7 @@ import { AddContextpackComponent } from './add-contextpack.component';
 import { ContextpackService } from '../contextpack.service';
 import { componentFactoryName } from '@angular/compiler';
 
-xdescribe('AddContextpackComponent', () => {
+describe('AddContextpackComponent', () => {
   let addContextpackComponent: AddContextpackComponent;
   let addContextPackForm: FormGroup;
   let fixture: ComponentFixture<AddContextpackComponent>;
@@ -27,7 +27,8 @@ xdescribe('AddContextpackComponent', () => {
         MatFormFieldModule,
         MatSelectModule,
         MatInputModule,
-        RouterTestingModule
+        RouterTestingModule,
+        BrowserAnimationsModule
       ],
       declarations: [ AddContextpackComponent ],
       providers: [{ provide: ContextpackService, useValue: new MockContextPackService() }]
@@ -75,18 +76,6 @@ xdescribe('AddContextpackComponent', () => {
     it('should allow digits in the name', () => {
       nameControl.setValue('Bad2Th3B0ne');
       expect(nameControl.valid).toBeTruthy();
-    });
-
-    it('should fail if we provide an "existing" name', () => {
-      // We're assuming that "abc123" and "123abc" already
-      // exist so we disallow them.
-      nameControl.setValue('abc123');
-      expect(nameControl.valid).toBeFalsy();
-      expect(nameControl.hasError('existingName')).toBeTruthy();
-
-      nameControl.setValue('123abc');
-      expect(nameControl.valid).toBeFalsy();
-      expect(nameControl.hasError('existingName')).toBeTruthy();
     });
   });
 
