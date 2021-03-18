@@ -7,16 +7,11 @@
     </button>
   </mat-card-actions>
 
-  <div *ngIf="!this.simple">
-    <div>
+  <mat-card-content *ngIf="!this.simple">
+  <div class="contextpack-content">
       <div *ngFor="let wordpacks of contextPack.wordPacks; let index = index">
         <span class="contextpack-card-wordlists"><div style="width: 90%;white-space: pre-line">{{displayWordPacks(this.contextPack.wordPacks[index])}}</div></span>
       </div>
-      <span class="contextpack-card-nouns">Nouns:<div style="white-space: pre-line">{{displayAllWords(this.contextPack, 'nouns')}}</div></span>
-      <span class="contextpack-card-verbs">Verbs:<div style="white-space: pre-line">{{displayAllWords(this.contextPack, 'verbs')}}</div></span>
-      <span class="contextpack-card-adjectives">Adjectives:<div style="white-space: pre-line">{{displayAllWords(this.contextPack, 'adjectives')}}</div></span>
-      <span class="contextpack-card-misc">Misc:<div style="white-space: pre-line">{{displayAllWords(this.contextPack, 'misc')}}</div></span>
-    </div>
   </div>
-
+</mat-card-content>
 </mat-card>
