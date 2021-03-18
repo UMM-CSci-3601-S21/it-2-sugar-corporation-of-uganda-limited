@@ -1,18 +1,12 @@
-<mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #drawer class="sidenav" fixedInViewport [autoFocus]="false">
-    <mat-toolbar>Client</mat-toolbar>
-    <mat-nav-list class="sidenav-list" role="navigation">
+<body>
+  <mat-toolbar color="primary">
+  <h1 class="app-title">
+      <img src="/assets/WordRiverLogo.jpg" width="15%">
+  </h1>
+</mat-toolbar>
+  <div class="main-content mat-typography">
 
+    <router-outlet></router-outlet>
 
-    </mat-nav-list>
-  </mat-sidenav>
-
-  <mat-sidenav-content>
-    <mat-toolbar color="primary">
-      <img src="/assets/WordRiverLogo.jpg" width="10%">
-    </mat-toolbar>
-    <div class="main-content mat-typography">
-      <router-outlet></router-outlet>
-    </div>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+  </div>
+ </body>

@@ -8,5 +8,4 @@ describe('App', () => {
   it('Should have the correct title', () => {
     page.getAppTitle().should('exist');
   });
-
 });

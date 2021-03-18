@@ -27,19 +27,12 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { HttpClientModule } from '@angular/common/http';
 import { LayoutModule } from '@angular/cdk/layout';
 
-import { WordPackComponent } from './wordpack/wordpack.component';
-
-
-import { ContextPackCardComponent } from './contextpack/contextpack-card.component';
-import { ContextpackService } from './contextpack.service';
+import { ContextpackContentComponent } from './contextpack/contextpack-content.component';
+import { ContextpackCardComponent } from './contextpack/contextpack-card.component';
+import { ContextpackService } from './contextpack/contextpack.service';
 import { ContextpackListComponent } from './contextpack/contextpack-list.component';
 import { AddContextpackComponent } from './contextpack/add-contextpack.component';
 
-import { UserCardComponent } from './users/user-card.component';
-import { UserProfileComponent } from './users/user-profile.component';
-import { AddUserComponent } from './users/add-user.component';
-import { UserService } from './users/user.service';
-import { UserListComponent } from './users/user-list.component';
 
 
 const MATERIAL_MODULES: any[] = [
@@ -64,14 +57,10 @@ const MATERIAL_MODULES: any[] = [
 @NgModule({
   declarations: [
     AppComponent,
-    ContextPackCardComponent,
-    WordPackComponent,
+    ContextpackCardComponent,
+    ContextpackContentComponent,
     ContextpackListComponent,
     AddContextpackComponent,
-    UserListComponent,
-    UserCardComponent,
-    UserProfileComponent,
-    AddUserComponent,
 
   ],
   imports: [

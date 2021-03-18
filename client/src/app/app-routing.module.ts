@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ContextpackListComponent } from './contextpack/contextpack-list.component';
-import { WordPackComponent } from './wordpack/wordpack.component';
+import { ContextpackContentComponent} from './contextpack/contextpack-content.component';
 import { AddContextpackComponent } from './contextpack/add-contextpack.component';
 
 import { UserListComponent } from './users/user-list.component';
@@ -12,10 +12,7 @@ const routes: Routes = [
   {path: '', component: ContextpackListComponent},
   {path: 'contextpacks', component: ContextpackListComponent},
   {path: 'contextpacks/new', component: AddContextpackComponent },
-  {path: 'contextpacks/:id', component: WordPackComponent },
-  {path: 'users', component: UserListComponent},
-  {path: 'users/new', component: AddUserComponent},
-  {path: 'users/:id', component: UserProfileComponent},
+  {path: 'contextpacks/:id', component: ContextpackContentComponent},
 ];
 
 @NgModule({

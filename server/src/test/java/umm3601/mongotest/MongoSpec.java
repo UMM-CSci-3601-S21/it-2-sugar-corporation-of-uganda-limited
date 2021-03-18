@@ -3,7 +3,6 @@ package umm3601.mongotest;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.ServerAddress;
 import com.mongodb.client.*;
-
 import com.mongodb.client.model.Sorts;
 import org.bson.Document;
 

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ContextPack } from './contextpack';
-import { ContextpackService } from '../contextpack.service';
+import { ContextpackService } from './contextpack.service';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { Input } from '@angular/core';
 import { WordPack } from './contextpack';
@@ -20,15 +20,15 @@ export class ContextpackListComponent implements OnInit {
   public wordPacks: WordPack[];
 
   public contextPackName: string;
-  public viewType: 'card' | 'list' = 'list';
   getContextPacksSub: Subscription;
 
   constructor(private contextPackService: ContextpackService) { }
 
   getContextPacksFromServer() {
     this.unsub();
-    // this.contextPackService.getContextPacks()
-    this.getContextPacksSub =this.contextPackService.getContextPacks()
+    this.getContextPacksSub = this.contextPackService.getContextPacks({
+      name: this.contextPackName
+    })
     .subscribe(returnedPacks => {
       this.serverFilteredContextPacks = returnedPacks;
       this.updateFilter();
@@ -39,7 +39,7 @@ export class ContextpackListComponent implements OnInit {
 
   public updateFilter(): void {
     this.filteredPacks = this.contextPackService.filterContextPacks(
-      this.serverFilteredContextPacks
+      this.serverFilteredContextPacks, {name: this.contextPackName}
     );
   }
 

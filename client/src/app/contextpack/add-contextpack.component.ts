@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ContextPack } from './contextpack';
-import { ContextpackService } from '../contextpack.service';
+
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { WordPack } from './contextpack';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ContextpackListComponent } from './contextpack-list.component';
+import { ContextpackService } from './contextpack.service';
 // import { AddContextPackPage } from '../../../cypress/support/add-contextpack.po';
 
 @Component({
@@ -18,6 +17,7 @@ export class AddContextpackComponent implements OnInit {
 
   // Most of this is from the Purple Tigers https://github.com/UMM-CSci-3601-S21/it-1-purple-tigers
   addContextPackForm: FormGroup;
+  shown = false;
   wordPack: WordPack;
   contextpack: ContextPack;
 
@@ -44,7 +44,7 @@ export class AddContextpackComponent implements OnInit {
     createForms() {
       this.addContextPackForm = this.fb.group({
         name: new FormControl('', Validators.compose([
-          Validators.required,
+          Validators.required
         ])),
         enabled: new FormControl('true', Validators.compose([
           Validators.required,
@@ -164,4 +164,3 @@ export class AddContextpackComponent implements OnInit {
     });
   }
 }
-
