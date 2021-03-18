@@ -24,7 +24,7 @@ describe('Context pack list', () => {
   //   page.getContextpackCards().each(e => {
   //     cy.wrap(e).find('.contextpack-card-name').should('contain', 'Mayotte');
   //   });
-  });
+  // });
 
   // it('Should click add todo and go to the right URL', () => {
   //   // Click on the button for adding a new user
