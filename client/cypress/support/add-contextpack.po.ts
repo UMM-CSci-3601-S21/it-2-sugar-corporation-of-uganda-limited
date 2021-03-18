@@ -1,55 +1,37 @@
-// import {ContextPack} from 'src/app/contextpack/contextpack';
-// From Purple Tigers https://github.com/UMM-CSci-3601-S21/it-1-purple-tigers
-// export class AddContextPackPage {
-//   navigateTo() {
-//     return cy.visit('/contextpacks/new');
-//   }
+import { ContextPack } from '../../src/app/contextpack/contextpack';
 
-//   getTitle() {
-//     return cy.get('.add-contextpack-title');
-//   }
+export class AddContextpackPage {
+  navigateTo() {
+    return cy.visit('/contextpack/new');
+  }
 
-//   addContextPackButton() {
-//     return cy.get('[data-test=confirmAddContextPackButton]');
-//   }
+  getTitle() {
+    return cy.get('.add-contextpack-title');
+  }
 
-//   selectMatSelectValue(select: Cypress.Chainable, value: string) {
-//     // Find and click the drop down
-//     return select.click({multiple: true, force: true})
-//       // Select and click the desired value from the resulting menu
-//       .get(`mat-option[value="${value}"]`).click({multiple: true, force: true});
-//   }
+  addContextPackButton() {
+    return cy.get('[data-test=confirmAddContextPackButton]');
+  }
 
-//   getFormField(fieldName: string) {
-//     return cy.get(`mat-form-field [formcontrolname=${fieldName}]`);
-//   }
+  selectMatSelectValue(select: Cypress.Chainable, value: boolean) {
+    // Find and click the drop down
+    return select.click()
+      // Select and click the desired value from the resulting menu
+      .get(`mat-option[value="${value}"]`).click();
+  }
 
-//   addWordPack() {
-//     return cy.get('mat-form-field [fomcontrolname=${fieldName}]');
-//   }
+  getFormField(fieldName: string) {
+    return cy.get(`mat-form-field [formcontrolname=${fieldName}]`);
+  }
 
-//   addPosArray(pos: string){
-//     return cy.get('.add-${pos}-button').click({force: true});
-//   }
-
-//   contextPackForm(){
-//     return cy.get('.form-value');
-//   }
-
-//   addPack(newPack: ContextPack) {
-//     this.getFormField('name').type(newPack.name);
-//     this.getFormField('enabled').click({force: true});
-//     this.addWordPack();
-//     this.addPosArray('noun');
-//     this.addPosArray('verb');
-//     this.addPosArray('adjective');
-//     this.addPosArray('misc');
-//     if(newPack.wordPacks) {
-//       this.getFormField('name').then(els => {
-//         [...els].forEach(el => cy.wrap(el).type('fun', {force: true}));
-//       });
-//     }
-//     this.selectMatSelectValue(this.getFormField('enabled'), newPack.enabled.toString());
-//     return this.addContextPackButton().click({multiple: true, force: true });
-//   }
-// }
+  addContextPack(newContextPack: ContextPack) {
+    this.getFormField('name').type(newContextPack.name);
+    this.getFormField('icon').type(newContextPack.icon);
+    if (newContextPack.wordPacks[0]) {
+      this.getFormField('name').type(newContextPack.wordPacks[0].name);
+      //more fields here
+    }
+    this.selectMatSelectValue(this.getFormField('enabled'), newContextPack.enabled);
+    return this.addContextPackButton().click();
+  }
+}
