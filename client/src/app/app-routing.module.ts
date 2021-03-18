@@ -4,10 +4,6 @@ import { ContextpackListComponent } from './contextpack/contextpack-list.compone
 import { ContextpackContentComponent} from './contextpack/contextpack-content.component';
 import { AddContextpackComponent } from './contextpack/add-contextpack.component';
 
-import { UserListComponent } from './users/user-list.component';
-import { UserProfileComponent } from './users/user-profile.component';
-import { AddUserComponent } from './users/add-user.component';
-
 const routes: Routes = [
   {path: '', component: ContextpackListComponent},
   {path: 'contextpacks', component: ContextpackListComponent},
