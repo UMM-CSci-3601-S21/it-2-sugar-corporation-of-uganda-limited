@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule, FormGroup, AbstractControl } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, FormGroup, AbstractControl, FormArray } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -139,6 +139,18 @@ describe('AddContextpackComponent', () => {
       addContextpackComponent.addForms(0, 0, 'verbs');
       const control = ((addContextpackComponent.addContextPackForm.value.wordPacks as Array<any>)[0]);
       expect(control.verbs[0].forms.length).toEqual(2);
+    });
+  });
+
+  describe('Test form submission', () =>{
+    it('form should validate', () =>{
+      addContextpackComponent.addWordPack();
+      expect(addContextpackComponent.addContextPackForm.valid).toBeFalsy();
+      ((addContextpackComponent.addContextPackForm).get('name').setValue('no'));
+      ((addContextpackComponent.addContextPackForm).get('enabled').setValue('true'));
+      ((addContextpackComponent.addContextPackForm.controls.wordPacks as FormArray).at(0).get('name').setValue('yes'));
+      ((addContextpackComponent.addContextPackForm.controls.wordPacks as FormArray).at(0).get('enabled').setValue('true'));
+      expect(addContextpackComponent.addContextPackForm.valid).toBeTruthy();
     });
   });
 });
