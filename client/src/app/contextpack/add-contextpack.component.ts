@@ -20,6 +20,7 @@ export class AddContextpackComponent implements OnInit {
   shown = false;
   wordPack: WordPack;
   contextpack: ContextPack;
+  enabled = true;
 
   formErrors = {
     wordpacks: this.wordPacksErrors()

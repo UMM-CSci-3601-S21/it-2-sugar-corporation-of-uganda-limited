@@ -4,12 +4,12 @@
 <form [formGroup]="addContextPackForm" (ngSubmit)="submitForm()" class="form">
   <mat-card class="add-contextpack-card">
     <mat-card-header>
-      <mat-card-title class="add-pack-title">Create A New Context Pack</mat-card-title>
+      <mat-card-title class="add-pack-title"><h1>Create A New Context Pack</h1></mat-card-title>
     </mat-card-header>
     <mat-card-content fxLayout="column">
 
     <mat-form-field>
-      <mat-label>Pack Name</mat-label>
+      <mat-label>ContextPack Name</mat-label>
       <input matInput placeholder="Name" formControlName="name"
             required>
       <mat-error *ngFor="let validation of addContextPackValidationMessages.wordPacks.name">
@@ -20,20 +20,13 @@
       </mat-error>
     </mat-form-field>
 
-  <mat-form-field>
-    <mat-label>Enabled</mat-label>
-    <mat-select required formControlName="enabled">
-      <mat-option value="true">True</mat-option>
-      <mat-option value="false">False</mat-option>
-    </mat-select>
-    <mat-error *ngIf="addContextPackForm.get('enabled').hasError('required')">You must make a selection</mat-error>
-    <mat-error *ngIf="addContextPackForm.get('enabled').hasError('pattern') && !addContextPackForm.get('enabled').hasError('required')">
-      Your selection is invalid
-    </mat-error>
-  </mat-form-field>
+    <section>
+    <mat-radio-button class="enabled-box-true" value="true">Enabled</mat-radio-button>
+    <mat-radio-button class="enabled-box-false" value="false">Disabled</mat-radio-button>
+    </section>
 
   <mat-form-field>
-    <mat-label>Icon (optional)</mat-label>
+    <mat-label>Icon</mat-label>
     <input matInput placeholder="Icon" formControlName="icon">
   </mat-form-field>
 
@@ -42,9 +35,8 @@
 	<div formArrayName="wordPacks">
 		<div *ngFor="let wordPacks of addContextPackForm['controls'].wordPacks['controls']; let ix=index">
 			<div formGroupName="{{ix}}" class="wordPacks">
-        <h1>Word Pack {{ix+1}}:</h1>
         <label>
-          Word Pack Name:
+          Name:
           <mat-form-field>
             <mat-label>Word Pack Name</mat-label>
             <input matInput placeholder="Name" formControlName="name"
@@ -57,22 +49,10 @@
             </mat-error>
           </mat-form-field>
         </label>
-        <label>
-          Enabled:
-          <mat-form-field>
-            <mat-label>Enabled</mat-label>
-            <mat-select required formControlName="enabled">
-              <mat-option value="true">True</mat-option>
-              <mat-option value="false">False</mat-option>
-            </mat-select>
-            <mat-error *ngIf="addContextPackForm.get('enabled').hasError('required')">You must make a selection</mat-error>
-            <mat-error *ngIf="addContextPackForm.get('enabled').hasError('pattern') && !addContextPackForm.get('enabled').hasError('required')">
-              Your selection is invalid
-            </mat-error>
-          </mat-form-field>
-
-        </label>
-
+        <section>
+          <mat-radio-button class="enabled-box-true" value="true">Enabled</mat-radio-button>
+          <mat-radio-button class="enabled-box-false" value="false">Disabled</mat-radio-button>
+          </section>
 
 				<!-- Nouns -->
 
@@ -83,13 +63,13 @@
                 <div>
                 </div>
                 <mat-form-field>
-                  <mat-label>Word (optional)</mat-label>
+                  <mat-label>Word</mat-label>
                   <input autocomplete="off" matInput placeholder="Word" formControlName="word" >
                 </mat-form-field>
 
                 <div *ngFor="let forms of nouns['controls'].forms['controls']; let iz=index">
                   <mat-form-field formArrayName="forms">
-                    <mat-label>Forms:(optional) </mat-label>
+                    <mat-label>Forms:</mat-label>
                     <input autocomplete="off" matInput placeholder="form" [formControlName]="iz" class="formInput" (click)="setWord(ix, iy,  'nouns')">
                     </mat-form-field>
 
@@ -119,13 +99,13 @@
 
 
                 <mat-form-field>
-                  <mat-label>Word (optional)</mat-label>
+                  <mat-label>Word</mat-label>
                   <input autocomplete="off" matInput placeholder="Word" formControlName="word" >
                 </mat-form-field>
                 <!---Forms -->
                 <div *ngFor="let forms of adj['controls'].forms['controls']; let iz=index">
                   <mat-form-field formArrayName="forms">
-                    <mat-label>Forms:(optional) </mat-label>
+                    <mat-label>Forms:</mat-label>
                     <input autocomplete="off" matInput placeholder="form" [formControlName]="iz" class="formInput" (click)="setWord(ix, iy,  'adjectives')">
                   </mat-form-field>
 
@@ -154,13 +134,13 @@
 
 
                 <mat-form-field>
-                  <mat-label>Word (optional)</mat-label>
+                  <mat-label>Word</mat-label>
                   <input autocomplete="off" matInput placeholder="Word" formControlName="word" >
                 </mat-form-field>
                 <!---Forms -->
                 <div *ngFor="let forms of verbs['controls'].forms['controls']; let iz=index">
                   <mat-form-field formArrayName="forms">
-                    <mat-label>Forms:(optional) </mat-label>
+                    <mat-label>Forms:</mat-label>
                     <input autocomplete="off" matInput placeholder="form" [formControlName]="iz" class="formInput" (click)="setWord(ix, iy,  'verbs')">
 
                     </mat-form-field>
@@ -191,13 +171,13 @@
 
 
                 <mat-form-field>
-                  <mat-label>Word (optional)</mat-label>
+                  <mat-label>Word</mat-label>
                   <input autocomplete="off" matInput placeholder="Word" formControlName="word" >
                 </mat-form-field>
                <!---Forms -->
                <div *ngFor="let forms of misc['controls'].forms['controls']; let iz=index">
                 <mat-form-field formArrayName="forms">
-                  <mat-label>Forms:(optional) </mat-label>
+                  <mat-label>Forms:</mat-label>
                   <input autocomplete="off" matInput placeholder="form" [formControlName]="iz" class="formInput" (click)="setWord(ix, iy,  'misc')">
 
                   </mat-form-field>
@@ -221,8 +201,10 @@
 
 			</div>
 		</div>
+    <div>
 		<button class="add-wordPack-button" type="button" (click)="addWordPack()" value="Add wordPack">Add wordPack</button>
-	</div>
+    </div>
+  </div>
 
 </mat-card-content>
 </mat-card>
