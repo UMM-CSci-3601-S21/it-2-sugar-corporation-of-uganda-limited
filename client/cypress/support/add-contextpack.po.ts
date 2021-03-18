@@ -2,7 +2,7 @@ import { ContextPack } from '../../src/app/contextpack/contextpack';
 
 export class AddWordPackPage {
   navigateTo() {
-    return cy.visit('contextpack/new');
+    return cy.visit('/contextpacks/new');
   }
 
   getTitle() {
@@ -17,7 +17,7 @@ export class AddWordPackPage {
     // Find and click the drop down
     return select.click({ multiple: true, force:true })
       // Select and click the desired value from the resulting menu
-      .get(`mat-option[value="${value}"]`).click({ multiple: true, force:true });
+      .get(`value="enabled"`).click({ multiple: true, force:true });
   }
 
   getFormField(fieldName: string) {
@@ -37,12 +37,14 @@ export class AddWordPackPage {
     return cy.get('.form-value');
   }
 
-
+  getEnabledBox(){
+    return cy.get('.enabled-box-true');
+  }
 
 
   addPack(newPack: ContextPack) {
     this.getFormField('name').type(newPack.name);
-    this.getFormField('enabled').click({force: true});
+    this.getEnabledBox().click({force: true});
     this.addWordPack();
     this.addPosArray('noun');
     this.addPosArray('verb');
@@ -53,7 +55,7 @@ export class AddWordPackPage {
         [...els].forEach(el => cy.wrap(el).type('horsies', {force:true}));
       });
     }
-    this.selectMatSelectValue(this.getFormField('enabled'), newPack.enabled.toString());
+    this.selectMatSelectValue(this.getEnabledBox(), newPack.enabled.toString());
     return this.addPackButton().click({ multiple: true, force:true });
   }
 }
