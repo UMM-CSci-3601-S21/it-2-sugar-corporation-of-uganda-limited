@@ -20,7 +20,6 @@ export class ContextpackCardComponent implements OnInit {
   displayWordPacks(contextpack: WordPack){
     let  wordPacks: string;
       wordPacks = '';
-        wordPacks += 'Word Packs: \n' + '\n';
         wordPacks += 'Name: ' + contextpack.name + '\n';
         wordPacks += 'Enabled: ' + contextpack.enabled + '\n';
         wordPacks += 'Nouns: \n' + this.displayWords(contextpack, 'nouns');

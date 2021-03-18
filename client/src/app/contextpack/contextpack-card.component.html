@@ -8,9 +8,10 @@
   </mat-card-actions>
 
   <mat-card-content *ngIf="!this.simple">
-  <div class="contextpack-content">
+  <div>
+    <span><h1>WordPacks:</h1></span>
       <div *ngFor="let wordpacks of contextPack.wordPacks; let index = index">
-        <span class="contextpack-card-wordlists"><div style="width: 90%;white-space: pre-line">{{displayWordPacks(this.contextPack.wordPacks[index])}}</div></span>
+       <mat-card class="contextpack-content"><span class="contextpack-card-wordlists"><div style="width: 90%;white-space: pre-line">{{displayWordPacks(this.contextPack.wordPacks[index])}}</div></span></mat-card>
       </div>
   </div>
 </mat-card-content>
