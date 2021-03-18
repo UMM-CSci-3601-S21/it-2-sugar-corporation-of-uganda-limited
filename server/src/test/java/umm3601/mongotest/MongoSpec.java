@@ -3,8 +3,6 @@ package umm3601.mongotest;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.ServerAddress;
 import com.mongodb.client.*;
-import com.mongodb.client.model.Accumulators;
-import com.mongodb.client.model.Aggregates;
 import com.mongodb.client.model.Sorts;
 import org.bson.Document;
 
@@ -24,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Some simple "tests" that demonstrate our ability to
  * connect to a Mongo database and run some basic queries
  * against it.
- * Created by mcphee on 20/2/17.
+ * Created by McPhee on 20/2/17.
  *
  * Configured for Team AT by Team AT on 10/3/21
  */

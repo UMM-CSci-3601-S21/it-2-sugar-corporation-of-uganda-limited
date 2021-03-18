@@ -10,6 +10,7 @@ import com.mongodb.client.MongoDatabase;
 
 import io.javalin.Javalin;
 import io.javalin.core.util.RouteOverviewPlugin;
+
 import umm3601.contextpack.ContextPackController;
 
 public class Server {
@@ -40,8 +41,11 @@ public class Server {
       config.registerPlugin(new RouteOverviewPlugin("/api"));
     });
     /*
-     * Shuts down 'mongoClient' if server fails to start
-     * or stops unexpectedly.
+     * We want to shut the `mongoClient` down if the server either
+     * fails to start, or when it's shutting down for whatever reason.
+     * Since the mongClient needs to be available throughout the
+     * life of the server, the only way to do this is to wait for
+     * these events and close it then.
      */
     server.events(event -> {
       event.serverStartFailed(mongoClient::close);
@@ -53,16 +57,20 @@ public class Server {
 
     server.start(4567);
 
+
     // List context packs, filtered using query parameters
-    server.get("/api/packs", contextPackController::getContextPacks);
+    server.get("/api/contextpacks", contextPackController::getContextPacks);
 
+    // Get the specified context pack
+    server.get("/api/contextpacks/:id", contextPackController::getContextPack);
 
-    // Add new context pack with the info being in the JSON body
+    // Add new context pack with the context pack info being in the JSON body
     // of the HTTP request
-    server.post("/api/packs", contextPackController::addNewContextPack);
+    server.post("/api/contextpacks", contextPackController::addNewContextPack);
 
     server.exception(Exception.class, (e, ctx) -> {
       ctx.status(500);
+      ctx.json(e); // you probably want to remove this in production
     });
   }
 }
