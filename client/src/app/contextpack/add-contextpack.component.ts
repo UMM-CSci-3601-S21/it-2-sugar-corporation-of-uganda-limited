@@ -156,8 +156,11 @@ export class AddContextpackComponent implements OnInit {
       });
       this.router.navigate(['/contextpacks/', newID]);
     }, err => {
-      console.log(err);
+      this.snackBar.open(
+        'Failed to add the context pack (check that all fields are filled in and the icon filename ends with .png)', 'OK', {
+        duration: 5000,
       });
-    };
+    });
   }
+}
 

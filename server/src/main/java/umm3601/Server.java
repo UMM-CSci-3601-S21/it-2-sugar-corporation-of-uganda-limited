@@ -60,7 +60,7 @@ public class Server {
 
     // Add new context pack with the info being in the JSON body
     // of the HTTP request
-    server.post("/api/contextpacks/new", contextPackController::addNewContextPack);
+    server.post("/api/contextpacks", contextPackController::addNewContextPack);
 
     server.exception(Exception.class, (e, ctx) -> {
       ctx.json(e.getStackTrace());
