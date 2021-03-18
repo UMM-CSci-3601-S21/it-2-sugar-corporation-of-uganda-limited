@@ -15,7 +15,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ContextpackService } from '../contextpack.service';
+import { ContextpackService } from './contextpack.service';
 
 import { MockContextPackService } from '../../testing/contextpack.service.mock';
 import { ContextpackListComponent } from './contextpack-list.component';

@@ -9,7 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MockContextPackService } from 'src/testing/contextpack.service.mock';
 import { AddContextpackComponent } from './add-contextpack.component';
-import { ContextpackService } from '../contextpack.service';
+import { ContextpackService } from './contextpack.service';
 import { componentFactoryName } from '@angular/compiler';
 
 describe('AddContextpackComponent', () => {

@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ContextpackCardComponent } from './contextpack-card.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule } from '@angular/material/card';
-import { ContextpackService } from '../contextpack.service';
+import { ContextpackService } from './contextpack.service';
 import { ActivatedRoute } from '@angular/router';
 import { MockContextPackService } from 'src/testing/contextpack.service.mock';
 import { ActivatedRouteStub } from 'src/testing/activated-route-stub';

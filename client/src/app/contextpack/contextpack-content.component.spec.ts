@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRouteStub } from 'src/testing/activated-route-stub';
 import { MockContextPackService } from 'src/testing/contextpack.service.mock';
-import { ContextpackService } from '../contextpack.service';
+import { ContextpackService } from './contextpack.service';
 import { ContextPack } from './contextpack';
 import { ContextpackCardComponent} from './contextpack-card.component';
 import { ContextpackContentComponent } from './contextpack-content.component';

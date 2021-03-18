@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ContextPack } from './contextpack';
-import { ContextpackService } from '../contextpack.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
+import { ContextPack } from './contextpack';
+import { ContextpackService } from './contextpack.service';
 
 @Component({
   selector: 'app-add-contextpack',
@@ -20,6 +19,7 @@ export class AddContextpackComponent implements OnInit {
   addContextPackValidationMessages = {
     name: [
       { type: 'required', message: 'Name is required' },
+      {type: 'existingName', message: 'Name has already been taken'}
     ],
     enabled: [
       { type: 'required', message: 'Enabled is required' },
@@ -37,10 +37,18 @@ export class AddContextpackComponent implements OnInit {
 
         name: new FormControl('', Validators.compose([
           Validators.required,
+          (fc) => {
+            if (fc.value.toLowerCase() === 'abc123' || fc.value.toLowerCase() === '123abc') {
+              return ({existingName: true});
+            } else {
+              return null;
+            }
+          },
         ])),
 
-        enabled: new FormControl('', Validators.compose([
+        enabled: new FormControl('disabled', Validators.compose([
           Validators.required,
+          Validators.pattern('^(true|false)$'),
         ])),
       });
 

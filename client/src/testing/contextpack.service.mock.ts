@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { ContextpackService } from '../app/contextpack.service';
+import { ContextpackService } from '../app/contextpack/contextpack.service';
 import { ContextPack, WordPack, Words } from '../app/contextpack/contextpack';
 /**
  * A "mock" version of the `ContextpackService` that can be used to test components

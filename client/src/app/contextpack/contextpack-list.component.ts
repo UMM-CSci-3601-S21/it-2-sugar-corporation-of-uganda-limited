@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ContextPack } from './contextpack';
-import { ContextpackService } from '../contextpack.service';
+import { ContextpackService } from './contextpack.service';
 import { Subscription } from 'rxjs/internal/Subscription';
 
 @Component({
