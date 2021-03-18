@@ -14,7 +14,7 @@
             required>
       <mat-error *ngFor="let validation of addContextPackValidationMessages.wordPacks.name">
         <mat-error class="error-message" data-test="nameError"
-                  *ngIf="addContextPackForm.get('name').hasError(validation.type) && (addContextPackForm.get('name').dirty || addContextPackForm.get('name').touched)">
+                   *ngIf="addContextPackForm.get('name').hasError(validation.type) && (addContextPackForm.get('name').dirty || addContextPackForm.get('name').touched)">
           {{validation.message}}
         </mat-error>
       </mat-error>
