@@ -32,8 +32,6 @@ export class ContextpackContentComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if(this.getContextPackSub) {
-      this.getContextPackSub.unsubscribe();
-    }
+    this.getContextPackSub.unsubscribe();
   }
 }

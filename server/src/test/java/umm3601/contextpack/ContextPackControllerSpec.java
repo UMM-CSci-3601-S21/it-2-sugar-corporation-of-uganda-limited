@@ -342,63 +342,6 @@ public class ContextPackControllerSpec {
   }
 
   @Test
-  public void shouldThrowBadRequestNoIcon() throws IOException{
-    String newContextPack = "{"
-      + " \"name\": \"Test Pack\" ,"
-      + " \"enabled\": false ,"
-      + " \"wordPacks\": [{"
-      + " \"name\": \"Test Word Pack\" ,"
-      + " \"enabled\": false ,"
-      + " \"nouns\":"
-      + "[{\"word\": \"Practice\", \"forms\": [ \"Practices\", \"Practice\" ] }],"
-      + " \"verbs\":"
-      + "[{\"word\": \"Makes\", \"forms\": [ \"Makes\", \"Make\" ] }],"
-      + " \"adjectives\":"
-      + "[{\"word\": \"Perfect\", \"forms\": [ \"Perfect\" ] }],"
-      + " \"misc\":"
-      + "[{\"word\": \"Yay\", \"forms\": [ \"Yay\"] }]"
-      + "}]}";
-
-    mockReq.setBodyContent(newContextPack);
-    mockReq.setMethod("POST");
-    Context ctx = ContextUtil.init(mockReq, mockRes, "api/contextPacks");
-
-    assertThrows(BadRequestResponse.class, () -> {
-      packController.addNewContextPack(ctx);
-    });
-
-  }
-
-  @Test
-  public void shouldThrowBadRequestNullIcon() throws IOException{
-    String newContextPack = "{"
-      + " \"name\": \"Test Pack\" ,"
-      + " \"icon\": \"\","
-      + " \"enabled\": false ,"
-      + " \"wordPacks\": [{"
-      + " \"name\": \"Test Word Pack\" ,"
-      + " \"enabled\": false ,"
-      + " \"nouns\":"
-      + "[{\"word\": \"Practice\", \"forms\": [ \"Practices\", \"Practice\" ] }],"
-      + " \"verbs\":"
-      + "[{\"word\": \"Makes\", \"forms\": [ \"Makes\", \"Make\" ] }],"
-      + " \"adjectives\":"
-      + "[{\"word\": \"Perfect\", \"forms\": [ \"Perfect\" ] }],"
-      + " \"misc\":"
-      + "[{\"word\": \"Yay\", \"forms\": [ \"Yay\"] }]"
-      + "}]}";
-
-    mockReq.setBodyContent(newContextPack);
-    mockReq.setMethod("POST");
-    Context ctx = ContextUtil.init(mockReq, mockRes, "api/contextPacks");
-
-    assertThrows(BadRequestResponse.class, () -> {
-      packController.addNewContextPack(ctx);
-    });
-
-  }
-
-  @Test
   public void shouldThrowBadRequestNoName() throws IOException{
     String newContextPack = "{"
       + " \"icon\": \"testIcon.png\","
@@ -469,31 +412,4 @@ public class ContextPackControllerSpec {
     });
   }
 
-  @Test
-  public void shouldThrowBadRequestNoPNG() throws IOException{
-    String newContextPack = "{"
-      + " \"name\": \"Test Pack\" ,"
-      + " \"icon\": \"testIcon\" ,"
-      + " \"enabled\": false ,"
-      + " \"wordPacks\": [{"
-      + " \"name\": \"Test Word Pack\" ,"
-      + " \"enabled\": false ,"
-      + " \"nouns\":"
-      + "[{\"word\": \"Practice\", \"forms\": [ \"Practices\", \"Practice\" ] }],"
-      + " \"verbs\":"
-      + "[{\"word\": \"Makes\", \"forms\": [ \"Makes\", \"Make\" ] }],"
-      + " \"adjectives\":"
-      + "[{\"word\": \"Perfect\", \"forms\": [ \"Perfect\" ] }],"
-      + " \"misc\":"
-      + "[{\"word\": \"Yay\", \"forms\": [ \"Yay\"] }]"
-      + "}]}";
-
-    mockReq.setBodyContent(newContextPack);
-    mockReq.setMethod("POST");
-    Context ctx = ContextUtil.init(mockReq, mockRes, "api/contextPacks");
-
-    assertThrows(BadRequestResponse.class, () -> {
-      packController.addNewContextPack(ctx);
-    });
-  }
 }

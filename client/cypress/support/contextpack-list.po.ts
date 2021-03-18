@@ -18,4 +18,8 @@ export class ContextpackListPage {
   addContextpackButton() {
     return cy.get('[data-test=addContextpackButton]');
   }
+
+  clickViewProfile(card: Cypress.Chainable<JQuery<HTMLElement>>) {
+    return card.find<HTMLButtonElement>('[data-test=viewWordPacksButton]').click();
+  }
 }

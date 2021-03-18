@@ -14,14 +14,14 @@ describe('Context pack list', () => {
 
   it('Should type something in the name filter and check that it returned correct elements', () => {
     // Filter for context pack 'Congo'
-    cy.get('#contextpack-name-input').type('Congo');
+    cy.get('#contextpack-name-input').type('Mayotte');
 
     // Some of the context packs should be listed
     page.getContextpackCards().should('exist');
 
     // All of the context pack card items should have the name we are looking for
     page.getContextpackCards().each(e => {
-      cy.wrap(e).find('.contextpack-card-name').should('contain', 'Congo');
+      cy.wrap(e).find('.contextpack-card-name').should('contain', 'Mayotte');
     });
   });
 
