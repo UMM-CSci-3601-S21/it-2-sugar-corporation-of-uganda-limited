@@ -7,7 +7,7 @@
 .packs-card{
   width: 100%;
   margin: 10px;
-  box-shadow: 10px 5px 5px lightgray;
+  box-shadow: 10px 5px 5px #64ceff;
 }
 
 mat-card-title{
@@ -18,14 +18,14 @@ mat-card-title{
 
 mat-card{
   margin:20px;
-  background-color: lightgrey;
+  background-color: #64ceff;
 }
 
 button{
-  position:fixed;
+  position: fixed;
   bottom: 15px;
   right: 30px;
-
+  background-color:#64ceff;
 }
 
 .add-contextPacks-fab {
