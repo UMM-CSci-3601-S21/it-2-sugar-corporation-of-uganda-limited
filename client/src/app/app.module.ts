@@ -32,6 +32,7 @@ import { ContextpackCardComponent } from './contextpack/contextpack-card.compone
 import { ContextpackService } from './contextpack/contextpack.service';
 import { ContextpackListComponent } from './contextpack/contextpack-list.component';
 import { AddContextpackComponent } from './contextpack/add-contextpack.component';
+import { EditWordpacksComponent } from './edit-wordpacks/edit-wordpacks.component';
 
 
 
@@ -61,6 +62,7 @@ const MATERIAL_MODULES: any[] = [
     ContextpackContentComponent,
     ContextpackListComponent,
     AddContextpackComponent,
+    EditWordpacksComponent,
 
   ],
   imports: [
