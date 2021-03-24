@@ -21,11 +21,15 @@ mat-card{
   background-color: #64ceff;
 }
 
+.mat-fab.mat-accent{
+  background-color:#64ceff
+}
+
 button{
   position: fixed;
   bottom: 15px;
   right: 30px;
-  background-color:#64ceff;
+  color:#64ceff;
 }
 
 .add-contextPacks-fab {
