@@ -2,7 +2,7 @@ package umm3601.contextpack;
 
 import java.util.ArrayList;
 
-public class WordPack {
+public class WordList {
 
   public String name;
   public boolean enabled;

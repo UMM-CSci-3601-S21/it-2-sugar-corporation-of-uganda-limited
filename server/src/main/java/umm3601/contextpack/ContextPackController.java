@@ -83,7 +83,7 @@ public void addNewContextPack(Context ctx) {
   ContextPack newContextPack = ctx.bodyValidator(ContextPack.class)
     .check(cp -> cp.name != null && cp.name.length() > 0) //Verify that the context Pack has a name that is not blank
     .check(cp -> cp.enabled == true || cp.enabled == false)//Verify that the enabled is true or false
-    .check(cp -> cp.wordPacks != null)//Verify that the array is not empty
+    .check(cp -> cp.wordLists != null)//Verify that the array is not empty
     .get();
 
   contextPackCollection.insertOne(newContextPack);
