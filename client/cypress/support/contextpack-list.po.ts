@@ -20,6 +20,6 @@ export class ContextpackListPage {
   }
 
   clickViewProfile(card: Cypress.Chainable<JQuery<HTMLElement>>) {
-    return card.find<HTMLButtonElement>('[data-test=viewWordPacksButton]').click();
+    return card.find<HTMLButtonElement>('[data-test=viewWordListsButton]').click();
   }
 }

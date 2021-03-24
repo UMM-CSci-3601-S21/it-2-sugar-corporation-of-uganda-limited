@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ContextPack, WordPack, WordRole, Words } from './contextpack';
+import { ContextPack, WordList, WordRole, Words } from './contextpack';
 
 @Component({
   selector: 'app-contextpack-card',
@@ -17,30 +17,30 @@ export class ContextpackCardComponent implements OnInit {
   }
 
   //All functions below from the minds of Team-PurpleTigers
-  displayWordPacks(contextpack: WordPack){
-    let  wordPacks: string;
-      wordPacks = '';
-        wordPacks += 'Name: ' + contextpack.name + '\n';
-        wordPacks += 'Enabled: ' + contextpack.enabled + '\n';
-        wordPacks += 'Nouns: \n' + this.displayWords(contextpack, 'nouns');
-        wordPacks += 'Verbs: \n' + this.displayWords(contextpack, 'verbs');
-        wordPacks += 'Adjectives: \n' + this.displayWords(contextpack, 'adjectives');
-        wordPacks += 'Misc: \n' + this.displayWords(contextpack, 'misc');
-    return wordPacks;
+  displayWordLists(contextpack: WordList){
+    let  wordLists: string;
+      wordLists = '';
+        wordLists += 'Name: ' + contextpack.name + '\n';
+        wordLists += 'Enabled: ' + contextpack.enabled + '\n';
+        wordLists += 'Nouns: \n' + this.displayWords(contextpack, 'nouns');
+        wordLists += 'Verbs: \n' + this.displayWords(contextpack, 'verbs');
+        wordLists += 'Adjectives: \n' + this.displayWords(contextpack, 'adjectives');
+        wordLists += 'Misc: \n' + this.displayWords(contextpack, 'misc');
+    return wordLists;
   }
 
-  displayWords(wordPack: WordPack, pos: WordRole){
+  displayWords(wordList: WordList, pos: WordRole){
     let words: string[];
     let str: string;
-    if (wordPack[`${pos}`] === undefined){
+    if (wordList[`${pos}`] === undefined){
       words = null;
       str = null;
     }
     else{
       let i: number;
       words = [];
-        for (i = 0; i < wordPack[`${pos}`].length; i++) {
-          words = words.concat(wordPack[`${pos}`][i].forms) ;
+        for (i = 0; i < wordList[`${pos}`].length; i++) {
+          words = words.concat(wordList[`${pos}`][i].forms) ;
         }
         str = words.join(', ');
         str += '\n';
@@ -50,17 +50,17 @@ export class ContextpackCardComponent implements OnInit {
   }
 
   displayAllWords(contextpack: ContextPack, pos: WordRole){
-      let words: WordPack[];
+      let words: WordList[];
       let m: number;
       let str: string;
-      if(contextpack.wordPacks === undefined || contextpack.wordPacks[0][`${pos}`][0] === undefined){
+      if(contextpack.wordLists === undefined || contextpack.wordLists[0][`${pos}`][0] === undefined){
         words = null;
         str = null;
       }
       else{
         words = [];
-      for (m = 0; m < contextpack.wordPacks.length; m++){
-          words = words.concat(contextpack.wordPacks[m]);
+      for (m = 0; m < contextpack.wordLists.length; m++){
+          words = words.concat(contextpack.wordLists[m]);
         }
 
       let z: number;

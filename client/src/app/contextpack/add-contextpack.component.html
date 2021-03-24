@@ -12,7 +12,7 @@
       <mat-label>ContextPack Name</mat-label>
       <input matInput placeholder="Name" formControlName="name"
             required>
-      <mat-error *ngFor="let validation of addContextPackValidationMessages.wordPacks.name">
+      <mat-error *ngFor="let validation of addContextPackValidationMessages.wordLists.name">
         <mat-error class="error-message" data-test="nameError"
                    *ngIf="addContextPackForm.get('name').hasError(validation.type) && (addContextPackForm.get('name').dirty || addContextPackForm.get('name').touched)">
           {{validation.message}}
@@ -30,18 +30,18 @@
     <input matInput placeholder="Icon" formControlName="icon">
   </mat-form-field>
 
-	<!-- wordPacks -->
+	<!-- wordLists -->
 
-	<div formArrayName="wordPacks">
-		<div *ngFor="let wordPacks of addContextPackForm['controls'].wordPacks['controls']; let ix=index">
-			<div formGroupName="{{ix}}" class="wordPacks">
+	<div formArrayName="wordLists">
+		<div *ngFor="let wordLists of addContextPackForm['controls'].wordLists['controls']; let ix=index">
+			<mat-card formGroupName="{{ix}}" class="wordLists">
         <label>
           Name:
           <mat-form-field>
-            <mat-label>Word Pack Name</mat-label>
+            <mat-label>Word List Name</mat-label>
             <input matInput placeholder="Name" formControlName="name"
                   required>
-            <mat-error *ngFor="let validation of addContextPackValidationMessages.wordPacks.name">
+            <mat-error *ngFor="let validation of addContextPackValidationMessages.wordLists.name">
               <mat-error class="error-message" data-test="nameError"
                         *ngIf="addContextPackForm.get('name').hasError(validation.type) && (addContextPackForm.get('name').dirty || addContextPackForm.get('name').touched)">
                 {{validation.message}}
@@ -50,15 +50,15 @@
           </mat-form-field>
         </label>
         <mat-radio-group>
-          <mat-radio-button class="wordpack-enabled-box-true" value="true">Enabled</mat-radio-button>
-          <mat-radio-button class="wordpack-enabled-box-false" value="false">Disabled</mat-radio-button>
+          <mat-radio-button class="wordlist-enabled-box-true" value="true">Enabled</mat-radio-button>
+          <mat-radio-button class="wordlist-enabled-box-false" value="false">Disabled</mat-radio-button>
         </mat-radio-group>
 
 				<!-- Nouns -->
 
           <div formArrayName="nouns" >
            <h3>Nouns:</h3>
-            <div *ngFor="let nouns of wordPacks['controls'].nouns['controls']; let iy=index">
+            <div *ngFor="let nouns of wordLists['controls'].nouns['controls']; let iy=index">
               <div formGroupName="{{iy}}" class="nouns">
                 <div>
                 </div>
@@ -94,7 +94,7 @@
 
           <div formArrayName="adjectives" >
            <h3>Adjectives:</h3>
-            <div *ngFor="let adj of wordPacks['controls'].adjectives['controls']; let iy=index">
+            <div *ngFor="let adj of wordLists['controls'].adjectives['controls']; let iy=index">
               <div formGroupName="{{iy}}" class="adjectives" >
 
 
@@ -128,7 +128,7 @@
 
           <div formArrayName="verbs">
            <h3>Verbs:</h3>
-            <div *ngFor="let verbs of wordPacks['controls'].verbs['controls']; let iy=index">
+            <div *ngFor="let verbs of wordLists['controls'].verbs['controls']; let iy=index">
               <div formGroupName="{{iy}}" class="verbs" >
 
 
@@ -165,7 +165,7 @@
         <!-- Misc -->
           <div formArrayName="misc">
            <h3>Misc:</h3>
-            <div *ngFor="let misc of wordPacks['controls'].misc['controls']; let iy=index">
+            <div *ngFor="let misc of wordLists['controls'].misc['controls']; let iy=index">
               <div formGroupName="{{iy}}" class="misc" >
 
 
@@ -199,10 +199,10 @@
 
 				<!-- Misc End -->
 
-			</div>
+        </mat-card>
 		</div>
     <div>
-		<button class="add-wordPack-button" type="button" (click)="addWordPack()" value="Add wordPack">Add wordPack</button>
+		<button class="add-wordList-button" type="button" (click)="addWordList()" value="Add word list">Add word list</button>
     </div>
   </div>
 

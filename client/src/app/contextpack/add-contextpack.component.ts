@@ -4,7 +4,7 @@ import { ContextPack } from './contextpack';
 
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { WordPack } from './contextpack';
+import { WordList } from './contextpack';
 import { ContextpackService } from './contextpack.service';
 // import { AddContextPackPage } from '../../../cypress/support/add-contextpack.po';
 
@@ -18,16 +18,16 @@ export class AddContextpackComponent implements OnInit {
   // Most of this is from the Purple Tigers https://github.com/UMM-CSci-3601-S21/it-1-purple-tigers
   addContextPackForm: FormGroup;
   shown = false;
-  wordPack: WordPack;
+  wordList: WordList;
   contextpack: ContextPack;
   enabled = true;
 
   formErrors = {
-    wordpacks: this.wordPacksErrors()
+    wordlists: this.wordListsErrors()
   };
 
   addContextPackValidationMessages = {
-    wordPacks: {
+    wordLists: {
       name: [
         {type: 'required', message: 'Name is required'}
       ],
@@ -52,7 +52,7 @@ export class AddContextpackComponent implements OnInit {
           Validators.pattern('^(true|false)'),
         ])),
         icon: '',
-        wordPacks: this.fb.array([])
+        wordLists: this.fb.array([])
       });
       this.addContextPackForm.valueChanges.subscribe(data => this.validateForm());
     }
@@ -61,7 +61,7 @@ export class AddContextpackComponent implements OnInit {
     this.createForms();
   }
 
-  initWordPack() {
+  initWordList() {
     return this.fb.group({
       name: new FormControl('', Validators.compose([
         Validators.required,
@@ -87,27 +87,27 @@ export class AddContextpackComponent implements OnInit {
     });
   }
 
-  addWordPack() {
-    const control = this.addContextPackForm.controls.wordPacks as FormArray;
-    control.push(this.initWordPack());
+  addWordList() {
+    const control = this.addContextPackForm.controls.wordLists as FormArray;
+    control.push(this.initWordList());
   }
 
   addPosArray(ix: number, pos: string){
-    const control = (this.addContextPackForm.controls.wordPacks as FormArray).at(ix).get(`${pos}`) as FormArray;
+    const control = (this.addContextPackForm.controls.wordLists as FormArray).at(ix).get(`${pos}`) as FormArray;
     control.push(this.initWords());
   }
 
   addForms(ix: number, iy: number, pos: string) {
-    const control = ((this.addContextPackForm.controls.wordPacks as FormArray).at(ix).get(`${pos}`) as FormArray)
+    const control = ((this.addContextPackForm.controls.wordLists as FormArray).at(ix).get(`${pos}`) as FormArray)
     .at(iy).get('forms') as FormArray;
     control.push(this.fb.control(''));
   }
 
   setWord(ix: number, iy: number, pos: string){
-    const control = ((this.addContextPackForm.controls.wordPacks as FormArray).at(ix).get(`${pos}`) as FormArray)
+    const control = ((this.addContextPackForm.controls.wordLists as FormArray).at(ix).get(`${pos}`) as FormArray)
     .at(iy).get('forms') as FormArray;
 
-    const formAdd = ((this.addContextPackForm.controls.wordPacks as FormArray).at(ix).get(`${pos}`) as FormArray).at(iy).get('word');
+    const formAdd = ((this.addContextPackForm.controls.wordLists as FormArray).at(ix).get(`${pos}`) as FormArray).at(iy).get('word');
     console.log('didn\'t go through');
     if(control.getRawValue()[0] !== formAdd.value  ){
       control.insert(0,formAdd);
@@ -116,14 +116,14 @@ export class AddContextpackComponent implements OnInit {
   }
 
   validateForm(){
-    this.validateWordPacks();
+    this.validateWordLists();
   }
 
-  validateWordPacks() {
-    const wordPacks = this.addContextPackForm.controls.wordPacks as FormArray;
-    this.formErrors.wordpacks = [];
-    for (let index = 1; index <= wordPacks.length; index++) {
-      this.formErrors.wordpacks.push({
+  validateWordLists() {
+    const wordLists = this.addContextPackForm.controls.wordLists as FormArray;
+    this.formErrors.wordlists = [];
+    for (let index = 1; index <= wordLists.length; index++) {
+      this.formErrors.wordlists.push({
         name: [' ', [Validators.required]],
         enabled: [' ', [Validators.required]],
         nouns: [{
@@ -136,7 +136,7 @@ export class AddContextpackComponent implements OnInit {
     }
   }
 
-  wordPacksErrors() {
+  wordListsErrors() {
     return [{
       name: [' ', [Validators.required]],
       enabled: [' ', [Validators.required]],

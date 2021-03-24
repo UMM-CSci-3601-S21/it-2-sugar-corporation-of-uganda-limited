@@ -7,7 +7,7 @@ import { ContextpackService } from './contextpack.service';
 import { ActivatedRoute } from '@angular/router';
 import { MockContextPackService } from 'src/testing/contextpack.service.mock';
 import { ActivatedRouteStub } from 'src/testing/activated-route-stub';
-import { ContextPack, WordPack, Words } from './contextpack';
+import { ContextPack, WordList, Words } from './contextpack';
 
 describe('ContextpackCardComponent', () => {
   let component: ContextpackCardComponent;
@@ -16,7 +16,7 @@ describe('ContextpackCardComponent', () => {
 
   let component2: ContextpackCardComponent;
   let fixture2: ComponentFixture<ContextpackCardComponent>;
-  let wordPack: WordPack;
+  let wordList: WordList;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -62,7 +62,7 @@ describe('ContextpackCardComponent', () => {
     const testVerbs: Words[] = [verb,verb];
     const testAdjectives: Words[] = [adjective,adjective];
     const testMisc: Words[] = [misc,misc];
-    const testWordPack: WordPack[] = [{
+    const testWordList: WordList[] = [{
       name: 'howdy',
       enabled: true,
       nouns: testNouns,
@@ -70,7 +70,7 @@ describe('ContextpackCardComponent', () => {
       adjectives: testAdjectives,
       misc: testMisc
     }];
-    const testWordPackBig: WordPack[] = [{
+    const testWordListBig: WordList[] = [{
       name: 'howdy',
       enabled: true,
       nouns: testNouns,
@@ -87,7 +87,7 @@ describe('ContextpackCardComponent', () => {
       misc: testMisc
   }];
 
-  wordPack = {
+  wordList = {
 
   };
 
@@ -95,7 +95,7 @@ describe('ContextpackCardComponent', () => {
       _id: 'pat_id',
       enabled: true,
       name: 'happy',
-      wordPacks: testWordPack
+      wordLists: testWordList
     };
     component2.contextPack = {
       _id: 'mat_id',
@@ -108,12 +108,12 @@ describe('ContextpackCardComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should list the nouns, verbs, adjectives and misc words when displayWordPacks() is called', () => {
-    expect(component.displayWordPacks(component.contextPack.wordPacks[0])).toContain('you, yoyo, yos, yoted');
-    expect(component.displayWordPacks(component.contextPack.wordPacks[0])).toContain('green, greener');
-    expect(component.displayWordPacks(component.contextPack.wordPacks[0])).toContain('ran, running');
-    expect(component.displayWordPacks(component.contextPack.wordPacks[0])).toContain('langerhans, langerhan');
-    expect(component.displayWordPacks(component.contextPack.wordPacks[0])).not.toContain('barbie');
+  it('should list the nouns, verbs, adjectives and misc words when displayWordLists() is called', () => {
+    expect(component.displayWordLists(component.contextPack.wordLists[0])).toContain('you, yoyo, yos, yoted');
+    expect(component.displayWordLists(component.contextPack.wordLists[0])).toContain('green, greener');
+    expect(component.displayWordLists(component.contextPack.wordLists[0])).toContain('ran, running');
+    expect(component.displayWordLists(component.contextPack.wordLists[0])).toContain('langerhans, langerhan');
+    expect(component.displayWordLists(component.contextPack.wordLists[0])).not.toContain('barbie');
   });
 
   it('should return the nouns displayAllNouns() is called', () => {
@@ -131,10 +131,10 @@ describe('ContextpackCardComponent', () => {
 
 
   it('should have displayNouns,ver,adjective,misc return null if undefined', () => {
-    expect(component.displayWords(wordPack, 'nouns')).toBeNull();
-    expect(component.displayWords(wordPack, 'verbs')).toBeNull();
-    expect(component.displayWords(wordPack, 'adjectives')).toBeNull();
-    expect(component.displayWords(wordPack, 'misc')).toBeNull();
+    expect(component.displayWords(wordList, 'nouns')).toBeNull();
+    expect(component.displayWords(wordList, 'verbs')).toBeNull();
+    expect(component.displayWords(wordList, 'adjectives')).toBeNull();
+    expect(component.displayWords(wordList, 'misc')).toBeNull();
   });
 
   it('should have displayNouns,ver,adjective,misc return null if undefined', () => {

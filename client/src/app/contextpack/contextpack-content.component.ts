@@ -2,9 +2,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ContextpackService } from './contextpack.service';
-import { ContextPack, WordPack, Words } from './contextpack';
+import { ContextPack, WordList, Words } from './contextpack';
 
-//Shows the wordPacks inside context pack
+//Shows the wordLists inside context pack
 @Component({
   selector: 'app-contextpack-content',
   templateUrl: './contextpack-content.component.html',
@@ -13,8 +13,8 @@ import { ContextPack, WordPack, Words } from './contextpack';
 export class ContextpackContentComponent implements OnInit, OnDestroy {
 
   contextPack: ContextPack;
-  wordPacks: WordPack[];
-  wordPack: WordPack;
+  wordLists: WordList[];
+  wordList: WordList;
   index: number;
   id: string;
   getContextPackSub: Subscription;
