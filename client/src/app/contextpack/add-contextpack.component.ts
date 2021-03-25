@@ -1,5 +1,5 @@
 import { Component, ModuleWithComponentFactories, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormArrayName, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ContextPack } from './contextpack';
 
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -21,6 +21,7 @@ export class AddContextpackComponent implements OnInit {
   wordList: WordList;
   contextpack: ContextPack;
   enabled = true;
+  chosenMod = '';
 
   formErrors = {
     wordlists: this.wordListsErrors()
@@ -40,9 +41,7 @@ export class AddContextpackComponent implements OnInit {
   };
 
   constructor(private fb: FormBuilder, private contextPackService: ContextpackService,
-    private snackBar: MatSnackBar, private router: Router) {
-      chosenMod: string = '';
-    }
+    private snackBar: MatSnackBar, private router: Router) {}
 
     createForms() {
       this.addContextPackForm = this.fb.group({
@@ -169,19 +168,19 @@ export class AddContextpackComponent implements OnInit {
 
   modo(){
     switch(this.chosenMod) {
-      case "nouns": {
+      case 'nouns': {
 
         break;
       }
-      case "adjectives": {
+      case 'adjectives': {
 
         break;
       }
-      case "verbs": {
+      case 'verbs': {
 
         break;
       }
-      case "misc": {
+      case 'misc': {
 
         break;
       }
