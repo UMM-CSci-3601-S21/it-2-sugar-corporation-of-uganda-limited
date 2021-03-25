@@ -34,7 +34,7 @@
 
 	<div formArrayName="wordLists">
 		<div *ngFor="let wordLists of addContextPackForm['controls'].wordLists['controls']; let ix=index">
-			<mat-card formGroupName="{{ix}}" class="wordLists">
+			<div formGroupName="{{ix}}" class="word-lists">
         <label>
           Name:
           <mat-form-field>
@@ -53,6 +53,25 @@
           <mat-radio-button class="wordlist-enabled-box-true" value="true">Enabled</mat-radio-button>
           <mat-radio-button class="wordlist-enabled-box-false" value="false">Disabled</mat-radio-button>
         </mat-radio-group>
+
+        <!-- Words -->
+          <div formArrayName="words">
+            <mat-form-field>
+              <mat-label>Word</mat-label>
+              <input autocomplete="off" matInput placeholder="Word" formControlName="word" >
+            </mat-form-field>
+            <!-- Drop down button -->
+            <div>
+              <select [(ngModel)]="chosenMod" (ngModelChange="modo()" id="selectid" class="drop-down-button" name="word-type">
+                <option value="nouns">Noun</option>
+                <option value="adjectives">Adjective</option>
+                <option value="verbs">Verb</option>
+                <option value="misc">Misc.</option>
+              </select>
+            </div>
+             <!-- Drop down button -->
+
+          </div>
 
 				<!-- Nouns -->
 
@@ -199,7 +218,7 @@
 
 				<!-- Misc End -->
 
-        </mat-card>
+        </div>
 		</div>
     <div>
 		<button class="add-wordList-button" type="button" (click)="addWordList()" value="Add word list">Add word list</button>

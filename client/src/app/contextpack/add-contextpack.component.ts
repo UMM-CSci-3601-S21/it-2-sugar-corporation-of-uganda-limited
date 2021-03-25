@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ModuleWithComponentFactories, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ContextPack } from './contextpack';
 
@@ -40,7 +40,9 @@ export class AddContextpackComponent implements OnInit {
   };
 
   constructor(private fb: FormBuilder, private contextPackService: ContextpackService,
-    private snackBar: MatSnackBar, private router: Router) { }
+    private snackBar: MatSnackBar, private router: Router) {
+      chosenMod: string = '';
+    }
 
     createForms() {
       this.addContextPackForm = this.fb.group({
@@ -163,5 +165,26 @@ export class AddContextpackComponent implements OnInit {
         duration: 5000,
       });
     });
+  }
+
+  modo(){
+    switch(this.chosenMod) {
+      case "nouns": {
+
+        break;
+      }
+      case "adjectives": {
+
+        break;
+      }
+      case "verbs": {
+
+        break;
+      }
+      case "misc": {
+
+        break;
+      }
+    }
   }
 }
