@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EditWordpacksComponent } from './edit-wordpacks.component';
+import { AddWordlistsComponent } from './add-wordlists.component';
 
 describe('EditWordpacksComponent', () => {
-  let component: EditWordpacksComponent;
-  let fixture: ComponentFixture<EditWordpacksComponent>;
+  let component: AddWordlistsComponent;
+  let fixture: ComponentFixture<AddWordlistsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ EditWordpacksComponent ]
+      declarations: [ AddWordlistsComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EditWordpacksComponent);
+    fixture = TestBed.createComponent(AddWordlistsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
