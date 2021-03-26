@@ -91,4 +91,19 @@ public void addNewContextPack(Context ctx) {
   ctx.json(ImmutableMap.of("_id", newContextPack._id));
 }
 
+// public void addNewWordPack(Context ctx) {
+//   String cpId = ctx._cpId;
+//   WordPack newWordPack = ctx.bodyValidator(WordPack.class)
+//     .check(cp -> cp.name != null && cp.name.length() > 0) //Verify that the context Pack has a name that is not blank
+//     .check(cp -> cp.enabled == true || cp.enabled == false)//Verify that the enabled is true or false
+//     .check(cp -> cp.nouns != null)//Verify that the array is not empty
+//     .check(cp -> cp.verbs != null)
+//     .check(cp -> cp.adjectives != null)
+//     .check(cp -> cp.misc != null)
+//     .get();
+
+//   contextPackCollection
+//   ctx.status(201);
+//   ctx.json(ImmutableMap.of("_id", newContextPack._id));
+//   }
 }

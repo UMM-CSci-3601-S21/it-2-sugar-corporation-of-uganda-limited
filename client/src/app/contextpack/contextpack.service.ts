@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ContextPack } from './contextpack';
+import { ContextPack, WordPack } from './contextpack';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
@@ -40,4 +40,8 @@ export class ContextpackService {
   addContextPack(newContextPack: ContextPack): Observable<string> {
     return this.httpClient.post<{id: string }>(this.contextPacksUrl, newContextPack).pipe(map(res => res.id));
   }
+
+  // addWordPack(newWordPack: WordPack, _cpId: string): Observable<string> {
+  //   return this.httpClient.post<{id: string }>(this.contextPacksUrl, newWordPack, _cpId).pipe(map(res => res.id));
+  // }
 }

@@ -13,7 +13,7 @@
       <div *ngFor="let wordpacks of contextPack.wordPacks; let index = index">
        <mat-card class="contextpack-content"><span class="contextpack-card-wordlists"><div style="width: 90%;white-space: pre-line">{{displayWordPacks(this.contextPack.wordPacks[index])}}</div></span></mat-card>
       </div>
-      <button mat-raised-button class="add-wordpack-raised" matTooltip="Add Word List" align="left" matTooltipPosition="bottom" routerLink="/wordpacks/new" data-test="addWordPackButton">
+      <button mat-raised-button class="add-wordpack-raised" matTooltip="Add Word List" align="left" matTooltipPosition="bottom" [routerLink]="['/contextpacks', this.contextPack._id, 'wordpacks', 'new']" data-test="addWordPackButton">
         <mat-icon class="md-24" aria-label="Add Word List">add</mat-icon>
       </button>
   </div>

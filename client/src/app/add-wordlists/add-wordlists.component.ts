@@ -18,6 +18,7 @@ export class AddWordlistsComponent implements OnInit {
   wordPack: WordPack;
   contextpack: ContextPack;
   enabled = true;
+  cpId: string;
 
   formErrors = {
     wordpacks: this.wordPacksErrors()
@@ -109,7 +110,7 @@ export class AddWordlistsComponent implements OnInit {
   }
 
   validateWordPacks() {
-    const wordPacks = this.addContextPackForm.controls.wordPacks as FormArray;
+    const wordPacks = this.addWordPackForm.controls.wordPacks as FormArray;
     this.formErrors.wordpacks = [];
     for (let index = 1; index <= wordPacks.length; index++) {
       this.formErrors.wordpacks.push({
@@ -141,14 +142,14 @@ export class AddWordlistsComponent implements OnInit {
   };
 
   submitForm() {
-    this.contextPackService.addContextPack(this.addContextPackForm.value).subscribe(newID => {
-      this.snackBar.open('Added Pack ' + this.addContextPackForm.value.name, null, {
+    this.contextPackService.addWordPack(this.addWordPackForm.value, this.router.url.search).subscribe(newID => {
+      this.snackBar.open('Added Pack ' + this.addWordPackForm.value.name, null, {
         duration: 2000,
       });
       this.router.navigate(['/contextpacks/', newID]);
     }, err => {
       this.snackBar.open(
-        'Failed to add the context pack (check that all fields are filled in and the icon filename ends with .png)', 'OK', {
+        'Failed to add the word pack (check that all required fields are filled in)', 'OK', {
         duration: 5000,
       });
     });
