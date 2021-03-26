@@ -22,6 +22,8 @@ export class AddContextpackComponent implements OnInit {
   contextpack: ContextPack;
   enabled = true;
   chosenMod = '';
+  dropDown = '';
+  public elseBlock: any;
 
   formErrors = {
     wordlists: this.wordListsErrors()
@@ -57,6 +59,7 @@ export class AddContextpackComponent implements OnInit {
       });
       this.addContextPackForm.valueChanges.subscribe(data => this.validateForm());
     }
+
 
   ngOnInit(): void {
     this.createForms();
@@ -169,19 +172,19 @@ export class AddContextpackComponent implements OnInit {
   modo(){
     switch(this.chosenMod) {
       case 'nouns': {
-
+        this.dropDown = 'nouns';
         break;
       }
       case 'adjectives': {
-
+        this.dropDown = 'adjectives';
         break;
       }
       case 'verbs': {
-
+        this.dropDown = 'verbs';
         break;
       }
       case 'misc': {
-
+        this.dropDown = 'misc';
         break;
       }
     }

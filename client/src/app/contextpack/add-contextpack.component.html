@@ -62,19 +62,17 @@
             </mat-form-field>
             <!-- Drop down button -->
             <div>
-              <select [(ngModel)]="chosenMod" (ngModelChange="modo()" id="selectid" class="drop-down-button" name="word-type">
-                <option value="nouns">Noun</option>
-                <option value="adjectives">Adjective</option>
-                <option value="verbs">Verb</option>
-                <option value="misc">Misc.</option>
+              <select [formGroup]="chosenMod" (ngModelChange)="modo()" id="selectid" class="drop-down-button" name="word-type">
+                <option formControlName="nouns">Noun</option>
+                <option formControlName="adjectives">Adjective</option>
+                <option formControlName="verbs">Verb</option>
+                <option formControlName="misc">Misc.</option>
               </select>
             </div>
-             <!-- Drop down button -->
-
           </div>
 
 				<!-- Nouns -->
-
+        <div *ngIf="this.dropDown=='nouns'; else elseBlock">
           <div formArrayName="nouns" >
            <h3>Nouns:</h3>
             <div *ngFor="let nouns of wordLists['controls'].nouns['controls']; let iy=index">
@@ -106,11 +104,12 @@
             </div>
             <button class="add-noun-button" type="button" (click)="addPosArray(ix,'nouns')" value="Add Noun">Add Noun</button>
           </div>
+        </div>
 
 
 				<!-- Nouns End -->
         <!-- Adjectives -->
-
+        <ng-template #elseBlock *ngIf="this.dropDown=='adjectives'; else elseBlock">
           <div formArrayName="adjectives" >
            <h3>Adjectives:</h3>
             <div *ngFor="let adj of wordLists['controls'].adjectives['controls']; let iy=index">
@@ -140,11 +139,11 @@
             </div>
             <button class="add-adj-button" type="button" (click)="addPosArray(ix,'adjectives')" value="Add Adjective">Add Adjective</button>
           </div>
-
+          </ng-template>
 
 				<!-- Adjectives End -->
         <!-- Verbs -->
-
+        <ng-template #elseBlock *ngIf="this.dropDown=='verbs'; else elseBlock">
           <div formArrayName="verbs">
            <h3>Verbs:</h3>
             <div *ngFor="let verbs of wordLists['controls'].verbs['controls']; let iy=index">
@@ -178,10 +177,12 @@
             </div>
             <button class="add-verb-button" type="button" (click)="addPosArray(ix,'verbs')" value="Add Verb">Add Verb</button>
           </div>
+        </ng-template>
 
 
 				<!-- Verbs End -->
         <!-- Misc -->
+        <ng-template #elseBlock *ngIf="this.dropDown=='misc'">
           <div formArrayName="misc">
            <h3>Misc:</h3>
             <div *ngFor="let misc of wordLists['controls'].misc['controls']; let iy=index">
@@ -200,8 +201,7 @@
                   <input autocomplete="off" matInput placeholder="form" [formControlName]="iz" class="formInput" (click)="setWord(ix, iy,  'misc')">
 
                   </mat-form-field>
-
-              </div>
+                </div>
               <!--add button-->
               <div class="add-button">
                 <button class="add-button" type="button" (click)="addForms(ix, iy, 'misc')">
@@ -211,14 +211,15 @@
                <!--end add button-->
 
 
-              </div>
+
+            </div>
             </div>
             <button class="add-misc-button" type="button" (click)="addPosArray(ix,'misc')" value="Add Misc"> Add Misc</button>
           </div>
+        </ng-template>
 
 				<!-- Misc End -->
-
-        </div>
+      </div>
 		</div>
     <div>
 		<button class="add-wordList-button" type="button" (click)="addWordList()" value="Add word list">Add word list</button>
