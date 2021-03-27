@@ -91,6 +91,15 @@ public void addNewContextPack(Context ctx) {
   ctx.json(ImmutableMap.of("_id", newContextPack._id));
 }
 
+/**
+ *  Delete a context pack from the database
+ *
+ *  @param ctx a Javalin HTTP context
+ */
+public void deleteContextPack(Context ctx) {
+  String id = ctx.pathParam("id");
+  contextPackCollection.deleteOne(eq("_id", new ObjectId(id)));
+  
 // public void addNewWordPack(Context ctx) {
 //   String cpId = ctx._cpId;
 //   WordPack newWordPack = ctx.bodyValidator(WordPack.class)
@@ -106,4 +115,6 @@ public void addNewContextPack(Context ctx) {
 //   ctx.status(201);
 //   ctx.json(ImmutableMap.of("_id", newContextPack._id));
 //   }
+}
+
 }

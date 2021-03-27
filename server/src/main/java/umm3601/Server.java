@@ -68,6 +68,9 @@ public class Server {
     // of the HTTP request
     server.post("/api/contextpacks", contextPackController::addNewContextPack);
 
+    // Delete a context pack
+    server.delete("/api/contextpack/:id", contextPackController::deleteContextPack);
+
     server.exception(Exception.class, (e, ctx) -> {
       ctx.status(500);
       ctx.json(e); // you probably want to remove this in production
