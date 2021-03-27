@@ -21,9 +21,7 @@ export class AddContextpackComponent implements OnInit {
   wordList: WordList;
   contextpack: ContextPack;
   enabled = true;
-  chosenMod = '';
-  dropDown = '';
-  public elseBlock: any;
+  optionValue ;
 
   formErrors = {
     wordlists: this.wordListsErrors()
@@ -167,26 +165,5 @@ export class AddContextpackComponent implements OnInit {
         duration: 5000,
       });
     });
-  }
-
-  modo(){
-    switch(this.chosenMod) {
-      case 'nouns': {
-        this.dropDown = 'nouns';
-        break;
-      }
-      case 'adjectives': {
-        this.dropDown = 'adjectives';
-        break;
-      }
-      case 'verbs': {
-        this.dropDown = 'verbs';
-        break;
-      }
-      case 'misc': {
-        this.dropDown = 'misc';
-        break;
-      }
-    }
   }
 }
