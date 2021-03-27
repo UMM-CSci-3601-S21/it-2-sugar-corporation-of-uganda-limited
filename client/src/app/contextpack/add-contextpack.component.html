@@ -55,11 +55,6 @@
         </mat-radio-group>
 
         <!-- Words -->
-          <div formArrayName="words">
-            <mat-form-field>
-              <mat-label>Word</mat-label>
-              <input autocomplete="off" matInput placeholder="Word" formControlName="word" >
-            </mat-form-field>
             <!-- Drop down button -->
             <div>
               <select [(ngModel)]="optionValue" [ngModelOptions]="{standalone: true}">
@@ -69,7 +64,6 @@
                 <option value="misc">Misc.</option>
               </select>
             </div>
-          </div>
 
 				<!-- Nouns -->
         <ng-container *ngIf="optionValue == 'nouns'">
