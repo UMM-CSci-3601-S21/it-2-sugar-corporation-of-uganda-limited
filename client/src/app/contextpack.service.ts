@@ -33,8 +33,4 @@ export class ContextpackService {
   addContextPack(newContextPack: ContextPack): Observable<string> {
     return this.httpClient.post<{id: string}>(this.contextPacksUrl, newContextPack).pipe(map(res => res.id));
   }
-
-  downloadContextPack(id: string): Observable<JSON> {
-    return this.httpClient.get<JSON>(this.contextPacksUrl + '/' + id);
-  }
 }
