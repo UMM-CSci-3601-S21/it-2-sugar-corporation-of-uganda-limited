@@ -68,11 +68,10 @@
 				<!-- Nouns -->
         <ng-container *ngIf="optionValue == 'nouns'">
           <div formArrayName="nouns" >
-           <h3>Nouns:</h3>
             <div *ngFor="let nouns of wordLists['controls'].nouns['controls']; let iy=index">
               <div formGroupName="{{iy}}" class="nouns">
                 <mat-form-field>
-                  <mat-label>Word</mat-label>
+                  <mat-label>Word:</mat-label>
                   <input autocomplete="off" matInput placeholder="Word" formControlName="word" >
                 </mat-form-field>
 
@@ -87,7 +86,7 @@
                 <!--add button-->
                 <div class="add-button">
                   <button class="add-button" type="button" (click)="addForms(ix, iy, 'nouns')">
-                    <mat-icon>add</mat-icon>
+                    Add word form
                   </button>
                 </div>
                  <!--end add button-->
@@ -103,13 +102,12 @@
         <!-- Adjectives -->
         <ng-container *ngIf="optionValue == 'adjectives'">
           <div formArrayName="adjectives" >
-           <h3>Adjectives:</h3>
             <div *ngFor="let adj of wordLists['controls'].adjectives['controls']; let iy=index">
               <div formGroupName="{{iy}}" class="adjectives" >
 
 
                 <mat-form-field>
-                  <mat-label>Word</mat-label>
+                  <mat-label>Word:</mat-label>
                   <input autocomplete="off" matInput placeholder="Word" formControlName="word" >
                 </mat-form-field>
                 <!---Forms -->
@@ -123,7 +121,7 @@
 
                 <div class="add-button">
                   <button class="add-button" type="button" (click)="addForms(ix, iy, 'adjectives')">
-                    <mat-icon>add</mat-icon>
+                    Add word form
                   </button>
                 </div>
 
@@ -137,14 +135,13 @@
         <!-- Verbs -->
         <ng-container *ngIf="optionValue == 'verbs'">
           <div formArrayName="verbs">
-           <h3>Verbs:</h3>
             <div *ngFor="let verbs of wordLists['controls'].verbs['controls']; let iy=index">
               <div formGroupName="{{iy}}" class="verbs" >
 
 
 
                 <mat-form-field>
-                  <mat-label>Word</mat-label>
+                  <mat-label>Word:</mat-label>
                   <input autocomplete="off" matInput placeholder="Word" formControlName="word" >
                 </mat-form-field>
                 <!---Forms -->
@@ -159,7 +156,7 @@
                 <!--add button-->
                 <div class="add-button">
                   <button class="add-button" type="button" (click)="addForms(ix, iy, 'verbs')">
-                    <mat-icon>add</mat-icon>
+                    Add word form
                   </button>
                 </div>
                  <!--end add button-->
@@ -176,14 +173,13 @@
         <!-- Misc -->
         <ng-container *ngIf="optionValue == 'misc'">
           <div formArrayName="misc">
-           <h3>Misc:</h3>
             <div *ngFor="let misc of wordLists['controls'].misc['controls']; let iy=index">
               <div formGroupName="{{iy}}" class="misc" >
 
 
 
                 <mat-form-field>
-                  <mat-label>Word</mat-label>
+                  <mat-label>Word:</mat-label>
                   <input autocomplete="off" matInput placeholder="Word" formControlName="word" >
                 </mat-form-field>
                <!---Forms -->
@@ -197,7 +193,7 @@
               <!--add button-->
               <div class="add-button">
                 <button class="add-button" type="button" (click)="addForms(ix, iy, 'misc')">
-                  <mat-icon>add</mat-icon>
+                  Add word form
                 </button>
               </div>
                <!--end add button-->
@@ -222,14 +218,18 @@
 </mat-card>
 	<!-- X End -->
 </form>
-<div class="buttons-div">
-  <button type="submit" (click)="submitForm()"
+<!-- This does not work with current base code, will come back if time
     mat-button
     type="button"
     color="primary"
     [disabled]="!addContextPackForm.valid"
     type="submit"
-    data-test="confirmAddPackButton"
+    data-test="confirmAddPackButton" -->
+<div class="buttons-div">
+  <button type="submit" (click)="submitForm()"
+  mat-button
+    type="button"
+    type="submit"
   >
     ADD CONTEXT PACK
   </button>
