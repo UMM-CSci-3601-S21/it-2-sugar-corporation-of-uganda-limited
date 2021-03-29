@@ -1,8 +1,8 @@
 import { ContextPack } from 'src/app/contextpack/contextpack';
-import { AddWordPackPage } from '../support/add-contextpack.po';
+import { AddWordListPage } from '../support/add-contextpack.po';
 
 describe('Add a Context pack', () => {
-  const page = new AddWordPackPage();
+  const page = new AddWordListPage();
 
   beforeEach(() => {
     page.navigateTo();
@@ -23,7 +23,7 @@ describe('Add a Context pack', () => {
     cy.get('[data-test=nameError]').should('not.exist');
 
 
-    page.addWordPack();
+    page.addWordList();
     page.addPosArray('noun');
     cy.get('[data-test=nameError]').should('not.exist');
     page.getFormField('name').then(els => {
