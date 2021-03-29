@@ -1,5 +1,5 @@
 import { Component, ModuleWithComponentFactories, OnInit } from '@angular/core';
-import { FormArray, FormArrayName, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormArrayName, FormBuilder, FormControl, FormGroup, NgControlStatus, Validators } from '@angular/forms';
 import { ContextPack } from './contextpack';
 
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -97,6 +97,11 @@ export class AddContextpackComponent implements OnInit {
   addPosArray(ix: number, pos: string){
     const control = (this.addContextPackForm.controls.wordLists as FormArray).at(ix).get(`${pos}`) as FormArray;
     control.push(this.initWords());
+    //if(this.addContextPackForm.controls.word != null){
+      //this.addContextPackForm.controls.word.reset();
+      //this.addContextPackForm.controls.wordLists.value.wor
+      //this.addContextPackForm.controls.forms.reset();
+    //}
   }
 
   addForms(ix: number, iy: number, pos: string) {
