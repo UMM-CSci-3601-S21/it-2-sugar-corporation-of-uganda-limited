@@ -28,7 +28,9 @@ export class ContextpackContentComponent implements OnInit, OnDestroy {
         this.getContextPackSub.unsubscribe();
       }
       this.getContextPackSub = this.contextPackService.getContextPackById(this.id).subscribe(contextPack => this.contextPack = contextPack);
-      this.createDownloadLink();
+      if (this.contextPack) {
+        this.createDownloadLink();
+      }
     });
   }
 
@@ -40,7 +42,7 @@ export class ContextpackContentComponent implements OnInit, OnDestroy {
     const obj: any =
       {
       _id: {oid: jsonBetter._id},
-      $schema: '../schema/pack.schema.json',
+      schema: '../schema/pack.schema.json',
       name: jsonBetter.name,
       icon: jsonBetter.icon,
       enabled: jsonBetter.enabled,
