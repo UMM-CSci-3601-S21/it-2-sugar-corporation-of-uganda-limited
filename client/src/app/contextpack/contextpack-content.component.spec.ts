@@ -81,7 +81,6 @@ describe('ContextpackContentComponent', () => {
 
     //Schema on client side don't work
     const recreatedContextPack: ContextPack = JSON.parse(component.convertToJson(component.contextPack));
-    expect(recreatedContextPack._id).toEqual(expectedContextPack._id);
     expect(recreatedContextPack.enabled).toEqual(expectedContextPack.enabled);
     expect(recreatedContextPack.icon).toEqual(expectedContextPack.icon);
     expect(recreatedContextPack.name).toEqual(expectedContextPack.name);
