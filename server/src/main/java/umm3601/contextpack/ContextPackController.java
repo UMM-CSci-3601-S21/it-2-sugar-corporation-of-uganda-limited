@@ -16,6 +16,7 @@ import org.mongojack.JacksonMongoCollection;
 import io.javalin.http.BadRequestResponse;
 import io.javalin.http.Context;
 import io.javalin.http.NotFoundResponse;
+import java.util.regex.Matcher;
 
 import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Filters.and;
@@ -99,22 +100,25 @@ public void addNewContextPack(Context ctx) {
 public void deleteContextPack(Context ctx) {
   String id = ctx.pathParam("id");
   contextPackCollection.deleteOne(eq("_id", new ObjectId(id)));
-  
-// public void addNewWordPack(Context ctx) {
-//   String cpId = ctx._cpId;
-//   WordPack newWordPack = ctx.bodyValidator(WordPack.class)
-//     .check(cp -> cp.name != null && cp.name.length() > 0) //Verify that the context Pack has a name that is not blank
-//     .check(cp -> cp.enabled == true || cp.enabled == false)//Verify that the enabled is true or false
-//     .check(cp -> cp.nouns != null)//Verify that the array is not empty
-//     .check(cp -> cp.verbs != null)
-//     .check(cp -> cp.adjectives != null)
-//     .check(cp -> cp.misc != null)
-//     .get();
-
-//   contextPackCollection
-//   ctx.status(201);
-//   ctx.json(ImmutableMap.of("_id", newContextPack._id));
-//   }
 }
 
+public void addNewWordPack(Context ctx) {
+  String cpId = ctx.url();
+  Pattern pattern = Pattern.compile("/contextpacks/(\\w*)/");
+  Matcher matcher = pattern.matcher(cpId);
+  cpId = matcher.group(1);
+  WordPack newWordPack = ctx.bodyValidator(WordPack.class)
+    .check(cp -> cp.name != null && cp.name.length() > 0) //Verify that the context Pack has a name that is not blank
+    .check(cp -> cp.enabled == true || cp.enabled == false)//Verify that the enabled is true or false
+    .check(cp -> cp.nouns != null)//Verify that the array is not empty
+    .check(cp -> cp.verbs != null)
+    .check(cp -> cp.adjectives != null)
+    .check(cp -> cp.misc != null)
+    .get();
+
+  ContextPack cp = contextPackCollection.findOneById(cpId);
+  cp.wordPacks.add(newWordPack);
+  ctx.status(201);
+  ctx.json(ImmutableMap.of("_id", cp._id));
+  }
 }

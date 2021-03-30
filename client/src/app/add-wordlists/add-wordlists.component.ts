@@ -142,7 +142,7 @@ export class AddWordlistsComponent implements OnInit {
   };
 
   submitForm() {
-    this.contextPackService.addWordPack(this.addWordPackForm.value, this.router.url.search).subscribe(newID => {
+    this.contextPackService.addWordPack(this.addWordPackForm.value).subscribe(newID => {
       this.snackBar.open('Added Pack ' + this.addWordPackForm.value.name, null, {
         duration: 2000,
       });

@@ -41,7 +41,7 @@ export class ContextpackService {
     return this.httpClient.post<{id: string }>(this.contextPacksUrl, newContextPack).pipe(map(res => res.id));
   }
 
-  // addWordPack(newWordPack: WordPack, _cpId: string): Observable<string> {
-  //   return this.httpClient.post<{id: string }>(this.contextPacksUrl, newWordPack, _cpId).pipe(map(res => res.id));
-  // }
+  addWordPack(newWordPack: WordPack): Observable<string> {
+    return this.httpClient.post<{id: string }>(this.contextPacksUrl, newWordPack).pipe(map(res => res.id));
+  }
 }
