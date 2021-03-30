@@ -75,4 +75,17 @@ describe('ContextpackContentComponent', () => {
     expect(component.contextPack).toBeNull();
   });
 
+  it('should create an accurate json from the context pack', () => {
+    const expectedContextPack: ContextPack = MockContextPackService.testContextPacks[0];
+    activatedRoute.setParamMap({ id: expectedContextPack._id });
+
+    expect(JSON.parse(component.convertToJson(component.contextPack))).toEqual(expectedContextPack);
+  });
+
+  it('should create a download link and button', () => {
+    const expectedContextPack: ContextPack = MockContextPackService.testContextPacks[0];
+    activatedRoute.setParamMap({ id: expectedContextPack._id });
+
+    expect(component.createDownloadLink().download).toEqual(expectedContextPack.name + '.json');
+  });
 });
