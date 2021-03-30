@@ -36,16 +36,24 @@ export class ContextpackContentComponent implements OnInit, OnDestroy {
     this.getContextPackSub.unsubscribe();
   }
 
-  convertToBetterJson(jsonBetter: ContextPack){
+  convertToJson(jsonBetter: ContextPack){
     const obj: any =
       {
-      $schema: 'https://raw.githubusercontent.com/kidstech/story-builder/master/Assets/packs/schema/pack.schema.json',
+      _id: {oid: jsonBetter._id},
+      $schema: '../schema/pack.schema.json',
       name: jsonBetter.name,
       icon: jsonBetter.icon,
       enabled: jsonBetter.enabled,
-      wordlists: jsonBetter.wordlists
+      wordPacks: jsonBetter.wordPacks
       };
-      return obj;
+      return JSON.stringify(obj, null, 2);
+  }
+
+  createDownloadLink() {
+    const element = document.createElement('a');
+    element.setAttribute('href', 'data:text/json;charset=UTF-8,' + encodeURIComponent(this.convertToJson(this.contextPack)));
+    element.setAttribute('download', this.contextPack.name + '.json');
+    return element;
   }
 
 }
