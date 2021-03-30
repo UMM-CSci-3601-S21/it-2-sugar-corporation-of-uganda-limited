@@ -28,10 +28,24 @@ export class ContextpackContentComponent implements OnInit, OnDestroy {
         this.getContextPackSub.unsubscribe();
       }
       this.getContextPackSub = this.contextPackService.getContextPackById(this.id).subscribe(contextPack => this.contextPack = contextPack);
+      this.createDownloadLink();
     });
   }
 
   ngOnDestroy(): void {
     this.getContextPackSub.unsubscribe();
   }
+
+  convertToBetterJson(jsonBetter: ContextPack){
+    const obj: any =
+      {
+      $schema: 'https://raw.githubusercontent.com/kidstech/story-builder/master/Assets/packs/schema/pack.schema.json',
+      name: jsonBetter.name,
+      icon: jsonBetter.icon,
+      enabled: jsonBetter.enabled,
+      wordlists: jsonBetter.wordlists
+      };
+      return obj;
+  }
+
 }
