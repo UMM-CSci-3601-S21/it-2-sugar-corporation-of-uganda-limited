@@ -412,4 +412,20 @@ public class ContextPackControllerSpec {
     });
   }
 
+  @Test
+  public void shouldDeleteContextPack() throws IOException{
+    String testID = testIDOne.toHexString();
+
+    // User exists before deletion
+    assertEquals(1, db.getCollection("contextPacks").countDocuments(eq("_id", new ObjectId(testID))));
+
+    Context ctx = ContextUtil.init(mockReq, mockRes, "api/contextPacks/:id", ImmutableMap.of("id", testID));
+    packController.deleteContextPack(ctx);
+
+    assertEquals(200, mockRes.getStatus());
+
+    // User is no longer in the database
+    assertEquals(0, db.getCollection("contextPacks").countDocuments(eq("_id", new ObjectId(testID))));
+  }
+
 }
