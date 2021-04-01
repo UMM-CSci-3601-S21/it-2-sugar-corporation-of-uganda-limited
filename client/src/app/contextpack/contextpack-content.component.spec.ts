@@ -75,4 +75,22 @@ describe('ContextpackContentComponent', () => {
     expect(component.contextPack).toBeNull();
   });
 
+  it('should create an accurate json from the context pack', () => {
+    const expectedContextPack: ContextPack = MockContextPackService.testContextPacks[0];
+    activatedRoute.setParamMap({ id: expectedContextPack._id });
+
+    //Schema on client side don't work
+    const recreatedContextPack: ContextPack = JSON.parse(component.convertToJson(component.contextPack));
+    expect(recreatedContextPack.enabled).toEqual(expectedContextPack.enabled);
+    expect(recreatedContextPack.icon).toEqual(expectedContextPack.icon);
+    expect(recreatedContextPack.name).toEqual(expectedContextPack.name);
+    expect(recreatedContextPack.wordPacks).toEqual(expectedContextPack.wordPacks);
+  });
+
+  it('should create a download link and button', () => {
+    const expectedContextPack: ContextPack = MockContextPackService.testContextPacks[0];
+    activatedRoute.setParamMap({ id: expectedContextPack._id });
+
+    expect(component.createDownloadLink().download).toEqual(expectedContextPack.name + '.json');
+  });
 });

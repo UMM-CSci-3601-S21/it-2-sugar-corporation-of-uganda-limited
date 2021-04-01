@@ -1,7 +1,7 @@
 
 export interface ContextPack {
   _id: string;
-  scheme?: string;
+  schema?: string;
   name: string;
   enabled: boolean;
   icon?: string;
