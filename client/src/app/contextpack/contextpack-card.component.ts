@@ -45,6 +45,21 @@ export class ContextpackCardComponent implements OnInit {
     return str;
   }
 
+  displayWord(wordList: WordList, pos: WordRole, n: number) {
+    let str: string;
+    let word: string;
+    if (wordList[`${pos}`] === undefined){
+      word = null;
+      str = null;
+    }
+    else{
+          word = wordList[`${pos}`][n].forms;
+          str = word;
+    }
+
+    return str;
+  }
+
   displayNouns(wordList: WordList) {
     let noun: string;
       noun = '';

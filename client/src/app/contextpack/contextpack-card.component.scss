@@ -4,7 +4,6 @@ mat-card-actions{
 
 button{
   font-family: 'Verdana';
-  width: 100%;
   font-size: 15px;
 }
 
@@ -39,10 +38,11 @@ h1{
 }
 
 .bubble{
-  padding: 5px 10px 5px 10px;
+  padding: 4px 4px 4px 6px;
   background-color: #2196f3;
   color: white;
   border-radius: 10px;
   // box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-  margin: 10px;
+  display: inline;
+  margin: 2px;
 }

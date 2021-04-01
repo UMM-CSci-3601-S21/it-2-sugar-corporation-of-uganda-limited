@@ -15,17 +15,29 @@
             <span class="contextpack-card-wordlists">
               <div>
                 {{displayWordLists(this.contextPack.wordLists[index])}}
-                <div class="bubble">
-                  {{displayNouns(this.contextPack.wordLists[index])}}
+                <div>
+                  Nouns:
+                  <div *ngFor="let words of this.contextPack.wordLists[index]['nouns']; let index2 = index" class="bubble">
+                    {{displayWord(this.contextPack.wordLists[index], 'nouns', index2)}}
+                  </div>
                 </div>
-                <div class="bubble">
-                  {{displayAdjectives(this.contextPack.wordLists[index])}}
+                <div>
+                  Adjectives:
+                  <div *ngFor="let words of this.contextPack.wordLists[index]['adjectives']; let index2 = index" class="bubble">
+                    {{displayWord(this.contextPack.wordLists[index], 'adjectives', index2)}}
+                  </div>
                 </div>
-                <div class="bubble">
-                  {{displayVerbs(this.contextPack.wordLists[index])}}
+                <div>
+                  Verbs:
+                  <div *ngFor="let words of this.contextPack.wordLists[index]['verbs']; let index2 = index" class="bubble">
+                    {{displayWord(this.contextPack.wordLists[index], 'verbs', index2)}}
+                  </div>
                 </div>
-                <div class="bubble">
-                  {{displayMisc(this.contextPack.wordLists[index])}}
+                <div>
+                  Misc:
+                  <div *ngFor="let words of this.contextPack.wordLists[index]['misc']; let index2 = index" class="bubble">
+                    {{displayWord(this.contextPack.wordLists[index], 'misc', index2)}}
+                  </div>
                 </div>
               </div>
             </span>
