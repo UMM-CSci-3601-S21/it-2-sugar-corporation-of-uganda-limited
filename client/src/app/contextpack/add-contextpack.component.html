@@ -72,16 +72,14 @@
               <div formGroupName="{{iy}}" class="nouns">
                 <mat-form-field>
                   <mat-label>Word:</mat-label>
-                  <input autocomplete="off" matInput placeholder="Word" formControlName="word" >
+                  <input autocomplete="off" matInput placeholder="Word" formControlName="word">
                 </mat-form-field>
 
                 <div *ngFor="let forms of nouns['controls'].forms['controls']; let iz=index">
                   <mat-form-field formArrayName="forms">
                     <mat-label>Forms:</mat-label>
                     <input autocomplete="off" matInput placeholder="form" [formControlName]="iz" class="formInput" (click)="setWord(ix, iy,  'nouns')">
-                    </mat-form-field>
-
-
+                  </mat-form-field>
                 </div>
                 <!--add button-->
                 <div class="add-button">
@@ -108,7 +106,7 @@
 
                 <mat-form-field>
                   <mat-label>Word:</mat-label>
-                  <input autocomplete="off" matInput placeholder="Word" formControlName="word" >
+                  <input autocomplete="off" matInput placeholder="Word" formControlName="word">
                 </mat-form-field>
                 <!---Forms -->
                 <div *ngFor="let forms of adj['controls'].forms['controls']; let iz=index">
@@ -142,7 +140,7 @@
 
                 <mat-form-field>
                   <mat-label>Word:</mat-label>
-                  <input autocomplete="off" matInput placeholder="Word" formControlName="word" >
+                  <input autocomplete="off" matInput placeholder="Word" formControlName="word">
                 </mat-form-field>
                 <!---Forms -->
                 <div *ngFor="let forms of verbs['controls'].forms['controls']; let iz=index">
@@ -180,7 +178,7 @@
 
                 <mat-form-field>
                   <mat-label>Word:</mat-label>
-                  <input autocomplete="off" matInput placeholder="Word" formControlName="word" >
+                  <input autocomplete="off" matInput placeholder="Word" formControlName="word">
                 </mat-form-field>
                <!---Forms -->
                <div *ngFor="let forms of misc['controls'].forms['controls']; let iz=index">

@@ -22,10 +22,6 @@ export class ContextpackCardComponent implements OnInit {
       wordLists = '';
         wordLists += 'Name: ' + contextpack.name + '\n';
         wordLists += 'Enabled: ' + contextpack.enabled + '\n';
-        wordLists += 'Nouns: \n' + this.displayWords(contextpack, 'nouns');
-        wordLists += 'Verbs: \n' + this.displayWords(contextpack, 'verbs');
-        wordLists += 'Adjectives: \n' + this.displayWords(contextpack, 'adjectives');
-        wordLists += 'Misc: \n' + this.displayWords(contextpack, 'misc');
     return wordLists;
   }
 
@@ -47,6 +43,34 @@ export class ContextpackCardComponent implements OnInit {
     }
 
     return str;
+  }
+
+  displayNouns(wordList: WordList) {
+    let noun: string;
+      noun = '';
+        noun += 'Nouns: \n' + this.displayWords(wordList, 'nouns');
+    return noun;
+  }
+
+  displayAdjectives(wordList: WordList) {
+    let adj: string;
+      adj = '';
+        adj += 'Adjectives: \n' + this.displayWords(wordList, 'adjectives');
+    return adj;
+  }
+
+  displayVerbs(wordList: WordList) {
+    let verb: string;
+      verb = '';
+        verb += 'Verbs: \n' + this.displayWords(wordList, 'verbs');
+    return verb;
+  }
+
+  displayMisc(wordList: WordList) {
+    let misc: string;
+      misc = '';
+        misc += 'Misc: \n' + this.displayWords(wordList, 'misc');
+    return misc;
   }
 
   displayAllWords(contextpack: ContextPack, pos: WordRole){

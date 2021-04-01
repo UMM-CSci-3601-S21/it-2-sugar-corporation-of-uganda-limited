@@ -8,12 +8,30 @@
   </mat-card-actions>
 
   <mat-card-content *ngIf="!this.simple">
-  <div>
-    <span><h1>WordLists:</h1></span>
-      <div *ngFor="let wordlists of contextPack.wordLists; let index = index">
-       <mat-card class="contextpack-content"><span class="contextpack-card-wordlists"><div style="width: 90%;white-space: pre-line">{{displayWordLists(this.contextPack.wordLists[index])}}</div></span></mat-card>
-      </div>
-  </div>
-</mat-card-content>
-</mat-card>
+    <div>
+      <span><h1>WordLists:</h1></span>
+        <div *ngFor="let wordlists of contextPack.wordLists; let index = index">
+          <mat-card class="contextpack-content">
+            <span class="contextpack-card-wordlists">
+              <div>
+                {{displayWordLists(this.contextPack.wordLists[index])}}
+                <div class="bubble">
+                  {{displayNouns(this.contextPack.wordLists[index])}}
+                </div>
+                <div class="bubble">
+                  {{displayAdjectives(this.contextPack.wordLists[index])}}
+                </div>
+                <div class="bubble">
+                  {{displayVerbs(this.contextPack.wordLists[index])}}
+                </div>
+                <div class="bubble">
+                  {{displayMisc(this.contextPack.wordLists[index])}}
+                </div>
+              </div>
+            </span>
+          </mat-card>
+        </div>
+    </div>
+  </mat-card-content>
+
 

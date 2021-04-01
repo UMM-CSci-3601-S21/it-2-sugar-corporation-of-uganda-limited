@@ -6,7 +6,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { WordList } from './contextpack';
 import { ContextpackService } from './contextpack.service';
-// import { AddContextPackPage } from '../../../cypress/support/add-contextpack.po';
 
 @Component({
   selector: 'app-add-contextpack',
@@ -97,11 +96,6 @@ export class AddContextpackComponent implements OnInit {
   addPosArray(ix: number, pos: string){
     const control = (this.addContextPackForm.controls.wordLists as FormArray).at(ix).get(`${pos}`) as FormArray;
     control.push(this.initWords());
-    //if(this.addContextPackForm.controls.word != null){
-      //this.addContextPackForm.controls.word.reset();
-      //this.addContextPackForm.controls.wordLists.value.wor
-      //this.addContextPackForm.controls.forms.reset();
-    //}
   }
 
   addForms(ix: number, iy: number, pos: string) {
