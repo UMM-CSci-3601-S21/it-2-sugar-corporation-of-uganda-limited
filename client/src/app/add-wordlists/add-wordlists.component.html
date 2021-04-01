@@ -1,6 +1,6 @@
 <div fxLayout="row">
   <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10">
-<form [formGroup]="addWordPackForm" (ngSubmit)="submitForm()" class="form">
+  <form [formGroup]="addWordListForm" (ngSubmit)="submitForm()" class="form">
   <mat-card class="add-wordpack-card">
     <mat-card-header>
       <mat-card-title class="add-pack-title"><h1>Create A New Word List</h1></mat-card-title>
@@ -10,17 +10,17 @@
 	<!-- wordPacks -->
 
 	<div formArrayName="wordPacks">
-		<div *ngFor="let wordPacks of addWordPackForm['controls'].wordPacks['controls']; let ix=index">
-			<div formGroupName="{{ix}}" class="wordPacks">
+
+
         <label>
           Name:
           <mat-form-field>
             <mat-label>Word Pack Name</mat-label>
             <input matInput placeholder="Name" formControlName="name"
                   required>
-            <mat-error *ngFor="let validation of addContextPackValidationMessages.wordPacks.name">
+            <mat-error *ngFor="let validation of addWLValidation.name">
               <mat-error class="error-message" data-test="nameError"
-                *ngIf="addWordPackForm.get('name').hasError(validation.type) && (addWordPackForm.get('name').dirty || addWordPackForm.get('name').touched)">
+                *ngIf="addWordListForm.get('name').hasError(validation.type) && (addWordListForm.get('name').dirty || addWordListForm.get('name').touched)">
               {{validation.message}}
               </mat-error>
             </mat-error>
@@ -35,7 +35,7 @@
 
           <div formArrayName="nouns" >
            <h3>Nouns:</h3>
-            <div *ngFor="let nouns of wordPacks['controls'].nouns['controls']; let iy=index">
+            <div *ngFor="let nouns of addWordListForm['controls'].nouns['controls']; let iy=index">
               <div formGroupName="{{iy}}" class="nouns">
                 <div>
                 </div>
@@ -47,14 +47,14 @@
                 <div *ngFor="let forms of nouns['controls'].forms['controls']; let iz=index">
                   <mat-form-field formArrayName="forms">
                     <mat-label>Forms:</mat-label>
-                    <input autocomplete="off" matInput placeholder="form" [formControlName]="iz" class="formInput" (click)="setWord(ix, iy,  'nouns')">
+                    <input autocomplete="off" matInput placeholder="form" [formControlName]="iz" class="formInput" (click)="setWord(iy,  'nouns')">
                     </mat-form-field>
 
 
                 </div>
                 <!--add button-->
                 <div class="add-button">
-                  <button class="add-button" type="button" (click)="addForms(ix, iy, 'nouns')">
+                  <button class="add-button" type="button" (click)="addForms(iy, 'nouns')">
                     <mat-icon>add</mat-icon>
                   </button>
                 </div>
@@ -62,7 +62,7 @@
 
               </div>
             </div>
-            <button class="add-noun-button" type="button" (click)="addPosArray(ix,'nouns')" value="Add Noun">Add Noun</button>
+            <button class="add-noun-button" type="button" (click)="addPosArray('nouns')" value="Add Noun">Add Noun</button>
           </div>
 
 
@@ -71,7 +71,7 @@
 
           <div formArrayName="adjectives" >
            <h3>Adjectives:</h3>
-            <div *ngFor="let adj of wordPacks['controls'].adjectives['controls']; let iy=index">
+            <div *ngFor="let adj of addWordListForm['controls'].adjectives['controls']; let iy=index">
               <div formGroupName="{{iy}}" class="adjectives" >
 
 
@@ -83,20 +83,20 @@
                 <div *ngFor="let forms of adj['controls'].forms['controls']; let iz=index">
                   <mat-form-field formArrayName="forms">
                     <mat-label>Forms:</mat-label>
-                    <input autocomplete="off" matInput placeholder="form" [formControlName]="iz" class="formInput" (click)="setWord(ix, iy,  'adjectives')">
+                    <input autocomplete="off" matInput placeholder="form" [formControlName]="iz" class="formInput" (click)="setWord( iy,  'adjectives')">
                   </mat-form-field>
 
                 </div>
 
                 <div class="add-button">
-                  <button class="add-button" type="button" (click)="addForms(ix, iy, 'adjectives')">
+                  <button class="add-button" type="button" (click)="addForms(iy, 'adjectives')">
                     <mat-icon>add</mat-icon>
                   </button>
                 </div>
 
               </div>
             </div>
-            <button class="add-adj-button" type="button" (click)="addPosArray(ix,'adjectives')" value="Add Adjective">Add Adjective</button>
+            <button class="add-adj-button" type="button" (click)="addPosArray('adjectives')" value="Add Adjective">Add Adjective</button>
           </div>
 
 
@@ -105,7 +105,7 @@
 
           <div formArrayName="verbs">
            <h3>Verbs:</h3>
-            <div *ngFor="let verbs of wordPacks['controls'].verbs['controls']; let iy=index">
+            <div *ngFor="let verbs of addWordListForm['controls'].verbs['controls']; let iy=index">
               <div formGroupName="{{iy}}" class="verbs" >
 
 
@@ -118,14 +118,14 @@
                 <div *ngFor="let forms of verbs['controls'].forms['controls']; let iz=index">
                   <mat-form-field formArrayName="forms">
                     <mat-label>Forms:</mat-label>
-                    <input autocomplete="off" matInput placeholder="form" [formControlName]="iz" class="formInput" (click)="setWord(ix, iy,  'verbs')">
+                    <input autocomplete="off" matInput placeholder="form" [formControlName]="iz" class="formInput" (click)="setWord(iy,  'verbs')">
 
                     </mat-form-field>
 
                 </div>
                 <!--add button-->
                 <div class="add-button">
-                  <button class="add-button" type="button" (click)="addForms(ix, iy, 'verbs')">
+                  <button class="add-button" type="button" (click)="addForms(iy, 'verbs')">
                     <mat-icon>add</mat-icon>
                   </button>
                 </div>
@@ -133,8 +133,8 @@
 
 
               </div>
-            </div>
-            <button class="add-verb-button" type="button" (click)="addPosArray(ix,'verbs')" value="Add Verb">Add Verb</button>
+            <!-- </div> -->
+            <button class="add-verb-button" type="button" (click)="addPosArray('verbs')" value="Add Verb">Add Verb</button>
           </div>
 
 
@@ -142,7 +142,7 @@
         <!-- Misc -->
           <div formArrayName="misc">
            <h3>Misc:</h3>
-            <div *ngFor="let misc of wordPacks['controls'].misc['controls']; let iy=index">
+            <div *ngFor="let misc of addWordListForm['controls'].misc['controls']; let iy=index">
               <div formGroupName="{{iy}}" class="misc" >
 
 
@@ -155,14 +155,14 @@
                <div *ngFor="let forms of misc['controls'].forms['controls']; let iz=index">
                 <mat-form-field formArrayName="forms">
                   <mat-label>Forms:</mat-label>
-                  <input autocomplete="off" matInput placeholder="form" [formControlName]="iz" class="formInput" (click)="setWord(ix, iy,  'misc')">
+                  <input autocomplete="off" matInput placeholder="form" [formControlName]="iz" class="formInput" (click)="setWord(iy,  'misc')">
 
                   </mat-form-field>
 
               </div>
               <!--add button-->
               <div class="add-button">
-                <button class="add-button" type="button" (click)="addForms(ix, iy, 'misc')">
+                <button class="add-button" type="button" (click)="addForms(iy, 'misc')">
                   <mat-icon>add</mat-icon>
                 </button>
               </div>
@@ -171,17 +171,16 @@
 
               </div>
             </div>
-            <button class="add-misc-button" type="button" (click)="addPosArray(ix,'misc')" value="Add Misc"> Add Misc</button>
+            <button class="add-misc-button" type="button" (click)="addPosArray('misc')" value="Add Misc"> Add Misc</button>
           </div>
 
 				<!-- Misc End -->
 
-			</div>
-		</div>
-    <div>
-		<button class="add-wordPack-button" type="button" (click)="addWordPack()" value="Add wordPack">Add wordPack</button>
-    </div>
+
+
+
   </div>
+</div>
 
 </mat-card-content>
 </mat-card>
@@ -192,7 +191,7 @@
     mat-button
     type="button"
     color="primary"
-    [disabled]="!addWordPackForm.valid"
+    [disabled]="!addWordListForm.valid"
     type="submit"
     data-test="confirmAddPackButton"
   >
