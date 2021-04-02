@@ -21,7 +21,7 @@ export class ContextpackCardComponent implements OnInit {
     let  wordLists: string;
       wordLists = '';
         wordLists += 'Name: ' + contextpack.name + '\n';
-        wordLists += 'Enabled: ' + contextpack.enabled + '\n';
+        wordLists += ' Enabled: ' + contextpack.enabled + '\n';
     return wordLists;
   }
 
@@ -53,8 +53,9 @@ export class ContextpackCardComponent implements OnInit {
       str = null;
     }
     else{
+      const comma = /,/g;
           word = wordList[`${pos}`][n].forms;
-          str = word;
+          str = word.toString().replace(comma, ', ');
     }
 
     return str;

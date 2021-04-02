@@ -1,5 +1,5 @@
 mat-card-actions{
-  width:inherit;
+   width:inherit;
 }
 
 button{
@@ -35,6 +35,23 @@ mat-card-footer{
 h1{
   font-family: 'Verdana';
   font-size: 40px;
+}
+
+h2{
+ font-size: 24px;
+ font-weight: bold;
+}
+
+h3{
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.display-word{
+  white-space: pre;
+}
+.mat-card {
+  border-radius: 30px;
 }
 
 .bubble{
