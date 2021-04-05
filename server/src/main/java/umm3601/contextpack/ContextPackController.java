@@ -1,11 +1,13 @@
 package umm3601.contextpack;
 
+import java.io.Console;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
 import com.google.common.collect.ImmutableMap;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Sorts;
 
 import org.bson.Document;
@@ -103,22 +105,19 @@ public void deleteContextPack(Context ctx) {
 }
 
 public void addNewWordPack(Context ctx) {
-  String cpId = ctx.url();
-  Pattern pattern = Pattern.compile("/contextpacks/(\\w*)/");
-  Matcher matcher = pattern.matcher(cpId);
-  cpId = matcher.group(1);
-  WordPack newWordPack = ctx.bodyValidator(WordPack.class)
-    .check(cp -> cp.name != null && cp.name.length() > 0) //Verify that the context Pack has a name that is not blank
-    .check(cp -> cp.enabled == true || cp.enabled == false)//Verify that the enabled is true or false
-    .check(cp -> cp.nouns != null)//Verify that the array is not empty
-    .check(cp -> cp.verbs != null)
-    .check(cp -> cp.adjectives != null)
-    .check(cp -> cp.misc != null)
+  String cpId = ctx.pathParam("id");
+  System.out.println(cpId);
+  ContextPack oldContextPack = contextPackCollection.findOneById(cpId);
+
+  //A contextpack that contains the new word packs
+  ContextPack tempContextPack = ctx.bodyValidator(ContextPack.class)
+    .check(cp -> cp.wordPacks != null)//Verify that the array is not empty
     .get();
 
-  ContextPack cp = contextPackCollection.findOneById(cpId);
-  cp.wordPacks.add(newWordPack);
+  oldContextPack.wordPacks.addAll(tempContextPack.wordPacks);
+
+  contextPackCollection.findOneAndReplace(Filters.eq(cpId), oldContextPack);
   ctx.status(201);
-  ctx.json(ImmutableMap.of("_id", cp._id));
+  ctx.json(ImmutableMap.of("_id", oldContextPack._id));
   }
 }
