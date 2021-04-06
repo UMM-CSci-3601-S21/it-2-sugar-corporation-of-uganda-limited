@@ -10,6 +10,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { MockContextPackService } from 'src/testing/contextpack.service.mock';
 import { AddWordlistsComponent } from './add-wordlists.component';
 import { ContextpackService } from '../contextpack/contextpack.service';
+import { ValidationService } from '../contextpack/validation.service';
 
 describe('AddWordListComponent', () => {
   let addWordListComponent: AddWordlistsComponent;
@@ -30,7 +31,7 @@ describe('AddWordListComponent', () => {
         BrowserAnimationsModule
       ],
       declarations: [ AddWordlistsComponent ],
-      providers: [{ provide: ContextpackService, useValue: new MockContextPackService() }]
+      providers: [ValidationService, { provide: ContextpackService, useValue: new MockContextPackService() }]
     }).compileComponents().catch(error => {
       expect(error).toBeNull();
     });
