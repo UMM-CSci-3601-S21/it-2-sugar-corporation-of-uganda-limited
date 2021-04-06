@@ -5,10 +5,10 @@ export interface ContextPack {
   name: string;
   enabled: boolean;
   icon?: string;
-  wordPacks?: WordPack[];
+  wordLists?: WordList[];
 }
 
-export interface WordPack {
+export interface WordList {
   name?: string;
   enabled?: boolean;
   nouns?: Words[];

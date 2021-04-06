@@ -98,58 +98,58 @@ describe('AddContextpackComponent', () => {
 
   describe('Add word pack', () => {
     it('should add a word pack', () => {
-      addContextpackComponent.addWordPack();
+      addContextpackComponent.addWordList();
       let formValue = addContextpackComponent.addContextPackForm.value;
-      expect(formValue.wordPacks.length).toEqual(1);
-      addContextpackComponent.addWordPack();
+      expect(formValue.wordLists.length).toEqual(1);
+      addContextpackComponent.addWordList();
       formValue = addContextpackComponent.addContextPackForm.value;
-      expect(formValue.wordPacks.length).toEqual(2);
+      expect(formValue.wordLists.length).toEqual(2);
     });
   });
 
   describe('Add nouns', () => {
     it('should add an array of nouns', () =>{
-      addContextpackComponent.addWordPack();
+      addContextpackComponent.addWordList();
       addContextpackComponent.addPosArray(0, 'nouns');
-      let control = ((addContextpackComponent.addContextPackForm.value.wordPacks as Array<any>)[0]);
+      let control = ((addContextpackComponent.addContextPackForm.value.wordLists as Array<any>)[0]);
       console.log(control.nouns);
       expect(control.nouns.length).toEqual(1);
       addContextpackComponent.addPosArray(0, 'nouns');
-      control = ((addContextpackComponent.addContextPackForm.value.wordPacks as Array<any>)[0]);
+      control = ((addContextpackComponent.addContextPackForm.value.wordLists as Array<any>)[0]);
       expect(control.nouns.length).toEqual(2);
     });
   });
 
   describe('Add verbs', () =>{
     it('should add an array of verbs', () =>{
-      addContextpackComponent.addWordPack();
+      addContextpackComponent.addWordList();
       addContextpackComponent.addPosArray(0, 'verbs');
-      let control = ((addContextpackComponent.addContextPackForm.value.wordPacks as Array<any>)[0]);
+      let control = ((addContextpackComponent.addContextPackForm.value.wordLists as Array<any>)[0]);
       expect(control.verbs.length).toEqual(1);
       addContextpackComponent.addPosArray(0, 'verbs');
-      control = ((addContextpackComponent.addContextPackForm.value.wordPacks as Array<any>)[0]);
+      control = ((addContextpackComponent.addContextPackForm.value.wordLists as Array<any>)[0]);
       expect(control.verbs.length).toEqual(2);
     });
   });
 
   describe('Add forms', () =>{
     it('should add a form to the forms array', () =>{
-      addContextpackComponent.addWordPack();
+      addContextpackComponent.addWordList();
       addContextpackComponent.addPosArray(0, 'verbs');
       addContextpackComponent.addForms(0, 0, 'verbs');
-      const control = ((addContextpackComponent.addContextPackForm.value.wordPacks as Array<any>)[0]);
+      const control = ((addContextpackComponent.addContextPackForm.value.wordLists as Array<any>)[0]);
       expect(control.verbs[0].forms.length).toEqual(2);
     });
   });
 
   describe('Test form submission', () =>{
     it('form should validate', () =>{
-      addContextpackComponent.addWordPack();
+      addContextpackComponent.addWordList();
       expect(addContextpackComponent.addContextPackForm.valid).toBeFalsy();
       ((addContextpackComponent.addContextPackForm).get('name').setValue('no'));
       ((addContextpackComponent.addContextPackForm).get('enabled').setValue('true'));
-      ((addContextpackComponent.addContextPackForm.controls.wordPacks as FormArray).at(0).get('name').setValue('yes'));
-      ((addContextpackComponent.addContextPackForm.controls.wordPacks as FormArray).at(0).get('enabled').setValue('true'));
+      ((addContextpackComponent.addContextPackForm.controls.wordLists as FormArray).at(0).get('name').setValue('yes'));
+      ((addContextpackComponent.addContextPackForm.controls.wordLists as FormArray).at(0).get('enabled').setValue('true'));
       expect(addContextpackComponent.addContextPackForm.valid).toBeTruthy();
     });
   });

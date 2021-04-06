@@ -4,11 +4,11 @@ export class ValidationService {
 
   constructor() {}
 
-  validateWordPacks(addForm: FormGroup, fb: FormBuilder) {
-    const wordPacks = addForm.controls.wordPacks as FormArray;
-    this.getFormErrors(fb).wordPacks = [];
-    for (let index = 1; index <= wordPacks.length; index++) {
-      this.getFormErrors(fb).wordPacks.push({
+  validateWordLists(addForm: FormGroup, fb: FormBuilder) {
+    const wordLists = addForm.controls.wordLists as FormArray;
+    this.getFormErrors(fb).wordLists = [];
+    for (let index = 1; index <= wordLists.length; index++) {
+      this.getFormErrors(fb).wordLists.push({
         name: [' ', [Validators.required]],
         enabled: [' ', [Validators.required]],
         nouns: [{
@@ -22,10 +22,10 @@ export class ValidationService {
   }
 
   getFormErrors(fb: FormBuilder){
-    return { wordPacks: this.wordPacksErrors(fb) };
+    return { wordLists: this.wordListsErrors(fb) };
   }
 
-  wordPacksErrors(fb: FormBuilder) {
+  wordListsErrors(fb: FormBuilder) {
     return [{
       name: [' ', [Validators.required]],
       enabled: [' ', [Validators.required]],

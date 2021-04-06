@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { ContextpackService } from './contextpack.service';
-import { ContextPack, WordPack, Words } from './contextpack';
+import { ContextPack, WordList, Words } from './contextpack';
 
 // Test Context Packs courtesy of the purple tigers @ https://github.com/UMM-CSci-3601-S21/it-1-purple-tigers
 describe('ContextpackService', () => {
@@ -28,7 +28,7 @@ describe('ContextpackService', () => {
   const testVerbs: Words[] = [verb];
   const testAdjectives: Words[] = [adjective];
   const testMisc: Words[] = [misc];
-  const testWordPacks: WordPack[] =[
+  const testWordLists: WordList[] =[
     {
       name: 'happy',
       enabled: false,
@@ -46,21 +46,21 @@ describe('ContextpackService', () => {
         name: 'fun',
         icon: 'http://placehold.it/32x32',
         enabled: true,
-        wordPacks: testWordPacks
+        wordLists: testWordLists
       },
       {
         _id: 'pat_id',
         name: 'sun',
         icon: 'http://placehold.it/32x32',
         enabled: true,
-        wordPacks: testWordPacks
+        wordLists: testWordLists
       },
       {
         _id: 'jamie_id',
         name: 'happy',
         icon: 'http://placehold.it/32x32',
         enabled: true,
-        wordPacks: testWordPacks
+        wordLists: testWordLists
       }
   ];
   let service: ContextpackService;

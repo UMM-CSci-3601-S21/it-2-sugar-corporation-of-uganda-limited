@@ -92,44 +92,44 @@ describe('AddWordListComponent', () => {
   describe('Add word pack', () => {
     it('should add a word pack', () => {
       let formValue = addWordListComponent.addWordListForm.value;
-      expect(formValue.wordPacks.length).toEqual(1);
-      addWordListComponent.addWordPack();
+      expect(formValue.wordLists.length).toEqual(1);
+      addWordListComponent.addWordList();
       formValue = addWordListComponent.addWordListForm.value;
-      expect(formValue.wordPacks.length).toEqual(2);
+      expect(formValue.wordLists.length).toEqual(2);
     });
   });
 
   describe('Add nouns', () => {
     it('should add an array of nouns', () =>{
-      addWordListComponent.addWordPack();
+      addWordListComponent.addWordList();
       addWordListComponent.addPosArray(0, 'nouns');
-      let control = ((addWordListComponent.addWordListForm.value.wordPacks as Array<any>)[0]);
+      let control = ((addWordListComponent.addWordListForm.value.wordLists as Array<any>)[0]);
       console.log(control.nouns);
       expect(control.nouns.length).toEqual(1);
       addWordListComponent.addPosArray(0, 'nouns');
-      control = ((addWordListComponent.addWordListForm.value.wordPacks as Array<any>)[0]);
+      control = ((addWordListComponent.addWordListForm.value.wordLists as Array<any>)[0]);
       expect(control.nouns.length).toEqual(2);
     });
   });
 
   describe('Add verbs', () =>{
     it('should add an array of verbs', () =>{
-      addWordListComponent.addWordPack();
+      addWordListComponent.addWordList();
       addWordListComponent.addPosArray(0, 'verbs');
-      let control = ((addWordListComponent.addWordListForm.value.wordPacks as Array<any>)[0]);
+      let control = ((addWordListComponent.addWordListForm.value.wordLists as Array<any>)[0]);
       expect(control.verbs.length).toEqual(1);
       addWordListComponent.addPosArray(0, 'verbs');
-      control = ((addWordListComponent.addWordListForm.value.wordPacks as Array<any>)[0]);
+      control = ((addWordListComponent.addWordListForm.value.wordLists as Array<any>)[0]);
       expect(control.verbs.length).toEqual(2);
     });
   });
 
   describe('Add forms', () =>{
     it('should add a form to the forms array', () =>{
-      addWordListComponent.addWordPack();
+      addWordListComponent.addWordList();
       addWordListComponent.addPosArray(0, 'verbs');
       addWordListComponent.addForms(0, 0, 'verbs');
-      const control = ((addWordListComponent.addWordListForm.value.wordPacks as Array<any>)[0]);
+      const control = ((addWordListComponent.addWordListForm.value.wordLists as Array<any>)[0]);
       expect(control.verbs[0].forms.length).toEqual(2);
     });
   });
@@ -139,8 +139,8 @@ describe('AddWordListComponent', () => {
       expect(addWordListComponent.addWordListForm.valid).toBeFalsy();
       ((addWordListComponent.addWordListForm).get('name').setValue('no'));
       ((addWordListComponent.addWordListForm).get('enabled').setValue('true'));
-      ((addWordListComponent.addWordListForm.controls.wordPacks as FormArray).at(0).get('name').setValue('yes'));
-      ((addWordListComponent.addWordListForm.controls.wordPacks as FormArray).at(0).get('enabled').setValue('True'));
+      ((addWordListComponent.addWordListForm.controls.wordLists as FormArray).at(0).get('name').setValue('yes'));
+      ((addWordListComponent.addWordListForm.controls.wordLists as FormArray).at(0).get('enabled').setValue('True'));
       expect(addWordListComponent.addWordListForm.valid).toBeTruthy();
     });
   });

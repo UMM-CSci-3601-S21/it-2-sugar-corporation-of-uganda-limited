@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, ModuleWithComponentFactories, OnInit } from '@angular/core';
+import { FormArray, FormArrayName, FormBuilder, FormControl, FormGroup, NgControlStatus, Validators } from '@angular/forms';
 import { ContextPack } from './contextpack';
 
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { WordPack } from './contextpack';
+import { WordList } from './contextpack';
 import { ContextpackService } from './contextpack.service';
 import { ValidationService } from './validation.service';
 
@@ -18,12 +18,13 @@ export class AddContextpackComponent implements OnInit {
   // Most of this is from the Purple Tigers https://github.com/UMM-CSci-3601-S21/it-1-purple-tigers
   addContextPackForm: FormGroup;
   shown = false;
-  wordPack: WordPack;
+  wordList: WordList;
   contextpack: ContextPack;
   enabled = true;
+  optionValue ;
 
   addContextPackValidationMessages = {
-    wordPacks: {
+    wordLists: {
       name: [
         {type: 'required', message: 'Name is required'}
       ],
@@ -48,16 +49,17 @@ export class AddContextpackComponent implements OnInit {
           Validators.pattern('^(true|false)'),
         ])),
         icon: '',
-        wordPacks: this.fb.array([])
+        wordLists: this.fb.array([])
       });
       this.addContextPackForm.valueChanges.subscribe(data => this.validateForm());
     }
+
 
   ngOnInit(): void {
     this.createForms();
   }
 
-  initWordPack() {
+  initWordList() {
     return this.fb.group({
       name: new FormControl('', Validators.compose([
         Validators.required,
@@ -83,36 +85,29 @@ export class AddContextpackComponent implements OnInit {
     });
   }
 
-  addWordPack() {
-    const control = this.addContextPackForm.controls.wordPacks as FormArray;
-    control.push(this.initWordPack());
+  addWordList() {
+    const control = this.addContextPackForm.controls.wordLists as FormArray;
+    control.push(this.initWordList());
   }
 
   addPosArray(ix: number, pos: string){
-    const control = (this.addContextPackForm.controls.wordPacks as FormArray).at(ix).get(`${pos}`) as FormArray;
+    const control = (this.addContextPackForm.controls.wordLists as FormArray).at(ix).get(`${pos}`) as FormArray;
     control.push(this.initWords());
   }
 
   addForms(ix: number, iy: number, pos: string) {
-    const control = ((this.addContextPackForm.controls.wordPacks as FormArray).at(ix).get(`${pos}`) as FormArray)
+    const control = ((this.addContextPackForm.controls.wordLists as FormArray).at(ix).get(`${pos}`) as FormArray)
     .at(iy).get('forms') as FormArray;
     control.push(this.fb.control(''));
   }
 
   setWord(ix: number, iy: number, pos: string){
-    const control = ((this.addContextPackForm.controls.wordPacks as FormArray).at(ix).get(`${pos}`) as FormArray)
+    const control = ((this.addContextPackForm.controls.wordLists as FormArray).at(ix).get(`${pos}`) as FormArray)
     .at(iy).get('forms') as FormArray;
-
-    const formAdd = ((this.addContextPackForm.controls.wordPacks as FormArray).at(ix).get(`${pos}`) as FormArray).at(iy).get('word');
-    console.log('didn\'t go through');
-    if(control.getRawValue()[0] !== formAdd.value  ){
-      control.insert(0,formAdd);
-      console.log(ix,iy);
-    }
   }
 
   validateForm(){
-    this.validationService.validateWordPacks(this.addContextPackForm, this.fb);
+    this.validationService.validateWordLists(this.addContextPackForm, this.fb);
   }
 
   submitForm() {

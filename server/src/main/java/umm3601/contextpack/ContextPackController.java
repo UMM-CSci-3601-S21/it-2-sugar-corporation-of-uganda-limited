@@ -86,7 +86,7 @@ public void addNewContextPack(Context ctx) {
   ContextPack newContextPack = ctx.bodyValidator(ContextPack.class)
     .check(cp -> cp.name != null && cp.name.length() > 0) //Verify that the context Pack has a name that is not blank
     .check(cp -> cp.enabled == true || cp.enabled == false)//Verify that the enabled is true or false
-    .check(cp -> cp.wordPacks != null)//Verify that the array is not empty
+    .check(cp -> cp.wordLists != null)//Verify that the array is not empty
     .get();
 
   contextPackCollection.insertOne(newContextPack);
@@ -109,7 +109,7 @@ public void deleteContextPack(Context ctx) {
  * to an already existing context pack
  * @param ctx a Javalin HTTP context
  */
-public void addNewWordPack(Context ctx) {
+public void addNewWordList(Context ctx) {
   ContextPack oldContextPack;
   //get the id of the context pack to be updated using the url path
   String cpId = ctx.pathParam("id");
@@ -122,11 +122,11 @@ public void addNewWordPack(Context ctx) {
 
   //A contextpack that contains the new word packs
   ContextPack tempContextPack = ctx.bodyValidator(ContextPack.class)
-    .check(cp -> cp.wordPacks != null)//Verify that the array is not empty
+    .check(cp -> cp.wordLists != null)//Verify that the array is not empty
     .get();
 
   //add the word lists to the old context pack
-  oldContextPack.wordPacks.addAll(tempContextPack.wordPacks);
+  oldContextPack.wordLists.addAll(tempContextPack.wordLists);
 
   //replace the old context pack with the new instance that contains the new word lists
   contextPackCollection.findOneAndReplace(Filters.eq(cpId), oldContextPack);

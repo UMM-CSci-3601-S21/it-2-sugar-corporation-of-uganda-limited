@@ -68,7 +68,7 @@ public class Server {
     // of the HTTP request
     server.post("/api/contextpacks", contextPackController::addNewContextPack);
 
-    server.post("/api/contextpacks/:id/wordpacks/new", contextPackController::addNewWordPack);
+    server.post("/api/contextpacks/:id/wordlists/new", contextPackController::addNewWordList);
 
     // Delete a context pack
     server.delete("/api/contextpack/:id", contextPackController::deleteContextPack);

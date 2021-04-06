@@ -3,7 +3,7 @@ import { ContextPack } from './contextpack';
 import { ContextpackService } from './contextpack.service';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { Input } from '@angular/core';
-import { WordPack } from './contextpack';
+import { WordList } from './contextpack';
 
 @Component({
   selector: 'app-contextpack-list',
@@ -17,7 +17,7 @@ export class ContextpackListComponent implements OnInit {
 
   public serverFilteredContextPacks: ContextPack[];
   public filteredPacks: ContextPack[];
-  public wordPacks: WordPack[];
+  public wordLists: WordList[];
 
   public contextPackName: string;
   getContextPacksSub: Subscription;
