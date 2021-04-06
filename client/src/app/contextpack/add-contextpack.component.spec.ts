@@ -10,7 +10,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { MockContextPackService } from 'src/testing/contextpack.service.mock';
 import { AddContextpackComponent } from './add-contextpack.component';
 import { ContextpackService } from './contextpack.service';
-import { componentFactoryName } from '@angular/compiler';
+import { ValidationService } from './validation.service';
 
 describe('AddContextpackComponent', () => {
   let addContextpackComponent: AddContextpackComponent;
@@ -31,7 +31,7 @@ describe('AddContextpackComponent', () => {
         BrowserAnimationsModule
       ],
       declarations: [ AddContextpackComponent ],
-      providers: [{ provide: ContextpackService, useValue: new MockContextPackService() }]
+      providers: [ValidationService, { provide: ContextpackService, useValue: new MockContextPackService() }]
     }).compileComponents().catch(error => {
       expect(error).toBeNull();
     });

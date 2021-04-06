@@ -3,14 +3,20 @@ mat-card-actions{
 }
 
 button{
-  font-family: 'Amatic SC';
+  font-family: 'Verdana';
   width: 100%;
   font-size: 15px;
 }
 
 mat-card, mat-card-title{
 text-align:left;
-font-size: 25px;
+font-size: 20px;
+}
+
+.contextpack-card-name {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 mat-card-footer{
@@ -19,14 +25,20 @@ mat-card-footer{
 }
 
 .contextpack-content{
-  font-family: 'Amatic SC';
+  font-family: 'Verdana';
   text-align: left;
   line-height: 60px;
   margin: 10px;
-  font-size: 30px;
+  font-size: 15px;
 }
 
 h1{
-  font-family: 'Amatic SC';
+  font-family: 'Verdana';
   font-size: 40px;
+}
+
+.add-wordpack-raised {
+  position: fixed;
+  bottom: 15px;
+  right: 30px;
 }

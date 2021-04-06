@@ -32,6 +32,8 @@ import { ContextpackCardComponent } from './contextpack/contextpack-card.compone
 import { ContextpackService } from './contextpack/contextpack.service';
 import { ContextpackListComponent } from './contextpack/contextpack-list.component';
 import { AddContextpackComponent } from './contextpack/add-contextpack.component';
+import { AddWordlistsComponent } from './add-wordlists/add-wordlists.component';
+import { ValidationService } from './contextpack/validation.service';
 
 
 
@@ -61,6 +63,7 @@ const MATERIAL_MODULES: any[] = [
     ContextpackContentComponent,
     ContextpackListComponent,
     AddContextpackComponent,
+    AddWordlistsComponent,
 
   ],
   imports: [
@@ -75,7 +78,8 @@ const MATERIAL_MODULES: any[] = [
     LayoutModule,
   ],
   providers: [
-    ContextpackService
+    ContextpackService,
+    ValidationService
   ],
   bootstrap: [AppComponent]
 })
