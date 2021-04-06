@@ -38,7 +38,6 @@ export class ContextpackCardComponent implements OnInit {
           word = wordList[`${pos}`][n].forms;
           str = word.toString().replace(comma, ', ');
     }
-
     return str;
   }
 }

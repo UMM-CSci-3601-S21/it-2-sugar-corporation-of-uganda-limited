@@ -108,40 +108,20 @@ describe('ContextpackCardComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  // it('should list the nouns, verbs, adjectives and misc words when displayWordLists() is called', () => {
-  //   expect(component.displayWordLists(component.contextPack.n)
-  //   expect(component.displayWordLists(component.contextPack.wordLists[0])).toContain('you, yoyo, yos, yoted');
-  //   expect(component.displayWordLists(component.contextPack.wordLists[0])).toContain('green, greener');
-  //   expect(component.displayWordLists(component.contextPack.wordLists[0])).toContain('ran, running');
-  //   expect(component.displayWordLists(component.contextPack.wordLists[0])).toContain('langerhans, langerhan');
-  //   expect(component.displayWordLists(component.contextPack.wordLists[0])).not.toContain('barbie');
-  // });
+  it('should list name and enabled when displayWordLists() is called', () => {
+    expect(component.displayWordLists(component.contextPack.wordLists[0]) === 'Name: howdy/n  Enabled: true');
+    expect(component.displayWordLists(component.contextPack.wordLists[0]) === 'Something else');
+  });
 
-  // it('should return the nouns displayAllNouns() is called', () => {
-  //   expect(component.displayAllWords(component.contextPack, 'nouns')).toContain('you, yoyo, yos, yoted');
-  // });
-  // it('should return the verbs when displayAllVerbs() is called', () => {
-  //   expect(component.displayAllWords(component.contextPack, 'verbs')).toContain('ran, running');
-  // });
-  // it('should return the adjectives when displayAllAdjectives() is called', () => {
-  //   expect(component.displayAllWords(component.contextPack, 'adjectives')).toContain('green, greener');
-  // });
-  // it('should return the misc words when displayAllMisc() is called', () => {
-  //   expect(component.displayAllWords(component.contextPack, 'misc')).toContain('langerhans, langerhan');
-  // });
+  it('should list all nouns, verbs, adjectives, and misc words when displayWord() is called', () => {
+    expect(component.displayWord(component.contextPack.wordLists[0], 'nouns', 0)).toContain('you, yoyo, yos, yoted');
+    expect(component.displayWord(component.contextPack.wordLists[0], 'verbs', 0)).toContain('ran, running');
+    expect(component.displayWord(component.contextPack.wordLists[0], 'adjectives', 0)).toContain('green, greener');
+    expect(component.displayWord(component.contextPack.wordLists[0], 'misc', 0)).toContain('langerhans, langerhan');
 
-
-  // it('should have displayNouns,ver,adjective,misc return null if undefined', () => {
-  //   expect(component.displayWords(wordList, 'nouns')).toBeNull();
-  //   expect(component.displayWords(wordList, 'verbs')).toBeNull();
-  //   expect(component.displayWords(wordList, 'adjectives')).toBeNull();
-  //   expect(component.displayWords(wordList, 'misc')).toBeNull();
-  // });
-
-  // it('should have displayNouns,ver,adjective,misc return null if undefined', () => {
-  //   expect(component2.displayAllWords(component2.contextPack, 'nouns')).toBeNull();
-  //   expect(component2.displayAllWords(component2.contextPack, 'verbs')).toBeNull();
-  //   expect(component2.displayAllWords(component2.contextPack, 'adjectives')).toBeNull();
-  //   expect(component2.displayAllWords(component2.contextPack, 'misc')).toBeNull();
-  // });
+    expect(component.displayWord(component.contextPack.wordLists[0], 'nouns', 0)).not.toContain('barbie');
+    expect(component.displayWord(component.contextPack.wordLists[0], 'verbs', 0)).not.toContain('barbie');
+    expect(component.displayWord(component.contextPack.wordLists[0], 'adjectives', 0)).not.toContain('barbie');
+    expect(component.displayWord(component.contextPack.wordLists[0], 'misc', 0)).not.toContain('barbie');
+  });
 });

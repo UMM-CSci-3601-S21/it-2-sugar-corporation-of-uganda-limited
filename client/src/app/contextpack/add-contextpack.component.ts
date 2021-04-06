@@ -107,13 +107,6 @@ export class AddContextpackComponent implements OnInit {
   setWord(ix: number, iy: number, pos: string){
     const control = ((this.addContextPackForm.controls.wordLists as FormArray).at(ix).get(`${pos}`) as FormArray)
     .at(iy).get('forms') as FormArray;
-
-    const formAdd = ((this.addContextPackForm.controls.wordLists as FormArray).at(ix).get(`${pos}`) as FormArray).at(iy).get('word');
-    console.log('didn\'t go through');
-    if(control.getRawValue()[0] !== formAdd.value  ){
-      control.insert(0,formAdd);
-      console.log(ix,iy);
-    }
   }
 
   validateForm(){
