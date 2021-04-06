@@ -28,10 +28,34 @@ export class ContextpackContentComponent implements OnInit, OnDestroy {
         this.getContextPackSub.unsubscribe();
       }
       this.getContextPackSub = this.contextPackService.getContextPackById(this.id).subscribe(contextPack => this.contextPack = contextPack);
+      if (this.contextPack) {
+        this.createDownloadLink();
+      }
     });
   }
 
   ngOnDestroy(): void {
     this.getContextPackSub.unsubscribe();
   }
+
+  convertToJson(jsonBetter: ContextPack){
+    const obj: any =
+      {
+      _id: {oid: jsonBetter._id},
+      schema: '../schema/pack.schema.json',
+      name: jsonBetter.name,
+      icon: jsonBetter.icon,
+      enabled: jsonBetter.enabled,
+      wordLists: jsonBetter.wordLists
+      };
+      return JSON.stringify(obj, null, 2);
+  }
+
+  createDownloadLink() {
+    const element = document.createElement('a');
+    element.setAttribute('href', 'data:text/json;charset=UTF-8,' + encodeURIComponent(this.convertToJson(this.contextPack)));
+    element.setAttribute('download', this.contextPack.name + '.json');
+    return element;
+  }
+
 }

@@ -2,8 +2,8 @@
   <mat-card-actions>
     <button mat-button data-test="viewWordListsButton" *ngIf=this.simple [routerLink]="['/contextpacks', this.contextPack._id]">
       <mat-card-title class="contextpack-card-name">{{ this.contextPack.name }}</mat-card-title>
-  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmHaMegkEMC35CmUXa4-vBVoncj8iQAO3xZg&usqp=CAU" width='50' height= '50'>
-  <mat-card-footer>Enabled: {{ this.contextPack.enabled }}</mat-card-footer>
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmHaMegkEMC35CmUXa4-vBVoncj8iQAO3xZg&usqp=CAU" width='50' height= '50'>
+      <mat-card-footer>Enabled: {{ this.contextPack.enabled }}</mat-card-footer>
     </button>
   </mat-card-actions>
 
@@ -45,5 +45,3 @@
         </div>
     </div>
   </mat-card-content>
-
-

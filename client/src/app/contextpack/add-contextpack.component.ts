@@ -6,6 +6,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { WordList } from './contextpack';
 import { ContextpackService } from './contextpack.service';
+import { ValidationService } from './validation.service';
 
 @Component({
   selector: 'app-add-contextpack',
@@ -22,10 +23,6 @@ export class AddContextpackComponent implements OnInit {
   enabled = true;
   optionValue ;
 
-  formErrors = {
-    wordlists: this.wordListsErrors()
-  };
-
   addContextPackValidationMessages = {
     wordLists: {
       name: [
@@ -39,8 +36,8 @@ export class AddContextpackComponent implements OnInit {
     }
   };
 
-  constructor(private fb: FormBuilder, private contextPackService: ContextpackService,
-    private snackBar: MatSnackBar, private router: Router) {}
+  constructor(private fb: FormBuilder, private contextPackService: ContextpackService, private validationService: ValidationService,
+    private snackBar: MatSnackBar, private router: Router) { }
 
     createForms() {
       this.addContextPackForm = this.fb.group({
@@ -110,40 +107,8 @@ export class AddContextpackComponent implements OnInit {
   }
 
   validateForm(){
-    this.validateWordLists();
+    this.validationService.validateWordLists(this.addContextPackForm, this.fb);
   }
-
-  validateWordLists() {
-    const wordLists = this.addContextPackForm.controls.wordLists as FormArray;
-    this.formErrors.wordlists = [];
-    for (let index = 1; index <= wordLists.length; index++) {
-      this.formErrors.wordlists.push({
-        name: [' ', [Validators.required]],
-        enabled: [' ', [Validators.required]],
-        nouns: [{
-          word: '',
-          forms: this.fb.array([
-            this.fb.control('')
-          ]),
-        }]
-      });
-    }
-  }
-
-  wordListsErrors() {
-    return [{
-      name: [' ', [Validators.required]],
-      enabled: [' ', [Validators.required]],
-      nouns: this.wordsErrors(),
-    }];
-  };
-
-  wordsErrors() {
-    return [{
-      word: '',
-      forms: this.fb.array([this.fb.control('')])
-    }];
-  };
 
   submitForm() {
     this.contextPackService.addContextPack(this.addContextPackForm.value).subscribe(newID => {

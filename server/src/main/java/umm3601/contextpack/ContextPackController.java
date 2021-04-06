@@ -1,11 +1,13 @@
 package umm3601.contextpack;
 
+import java.io.Console;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
 import com.google.common.collect.ImmutableMap;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Sorts;
 
 import org.bson.Document;
@@ -16,6 +18,7 @@ import org.mongojack.JacksonMongoCollection;
 import io.javalin.http.BadRequestResponse;
 import io.javalin.http.Context;
 import io.javalin.http.NotFoundResponse;
+import java.util.regex.Matcher;
 
 import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Filters.and;
@@ -91,4 +94,43 @@ public void addNewContextPack(Context ctx) {
   ctx.json(ImmutableMap.of("_id", newContextPack._id));
 }
 
+/**
+ *  Delete a context pack from the database
+ *
+ *  @param ctx a Javalin HTTP context
+ */
+public void deleteContextPack(Context ctx) {
+  String id = ctx.pathParam("id");
+  contextPackCollection.deleteOne(eq("_id", new ObjectId(id)));
+}
+
+/**
+ * Adds new word lists by taking a context pack with an empty name, icon, and enabled and adding the word lists
+ * to an already existing context pack
+ * @param ctx a Javalin HTTP context
+ */
+public void addNewWordList(Context ctx) {
+  ContextPack oldContextPack;
+  //get the id of the context pack to be updated using the url path
+  String cpId = ctx.pathParam("id");
+  //get the context pack using the id
+  try {
+    oldContextPack = contextPackCollection.find(eq("_id", new ObjectId(cpId))).first();
+  } catch(IllegalArgumentException e) {
+    throw new BadRequestResponse("The id is not valid");
+  }
+
+  //A contextpack that contains the new word packs
+  ContextPack tempContextPack = ctx.bodyValidator(ContextPack.class)
+    .check(cp -> cp.wordLists != null)//Verify that the array is not empty
+    .get();
+
+  //add the word lists to the old context pack
+  oldContextPack.wordLists.addAll(tempContextPack.wordLists);
+
+  //replace the old context pack with the new instance that contains the new word lists
+  contextPackCollection.findOneAndReplace(Filters.eq(cpId), oldContextPack);
+  ctx.status(201);
+  ctx.json(ImmutableMap.of("_id", oldContextPack._id));
+  }
 }
