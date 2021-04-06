@@ -314,6 +314,45 @@ public class ContextPackControllerSpec {
   }
 
   @Test
+  public void shouldUpdateContextPack() throws IOException{
+    String newWordLists = "{"
+      + " \"name\": \"Test Pack\" ,"
+      + " \"icon\": \"testIcon.png\" ,"
+      + " \"enabled\": false ,"
+      + " \"wordPacks\": [{"
+      + " \"name\": \"Test Word Pack\" ,"
+      + " \"enabled\": false ,"
+      + " \"nouns\":"
+      + "[{\"word\": \"Practice\", \"forms\": [ \"Practices\", \"Practice\" ] }],"
+      + " \"verbs\":"
+      + "[{\"word\": \"Makes\", \"forms\": [ \"Makes\", \"Make\" ] }],"
+      + " \"adjectives\":"
+      + "[{\"word\": \"Perfect\", \"forms\": [ \"Perfect\" ] }],"
+      + " \"misc\":"
+      + "[{\"word\": \"Yay\", \"forms\": [ \"Yay\"] }]"
+      + "}]}";
+
+    mockReq.setBodyContent(newWordLists);
+    mockReq.setMethod("POST");
+    String testID = testIDOne.toString();
+    Context ctx = ContextUtil.init(mockReq, mockRes, "api/contextpacks/:id/wordpacks/new", ImmutableMap.of("id", testID));
+
+
+    packController.addNewWordPack(ctx);
+    assertEquals(201, mockRes.getStatus());
+    String result = ctx.resultString();
+    String id = jsonMapper.readValue(result, ObjectNode.class).get("_id").asText();
+
+    assertNotEquals("", id);
+    assertEquals(1, db.getCollection("contextPacks").countDocuments(eq("_id", new ObjectId(id))));
+
+    Document addedPack = db.getCollection("contextPacks").find(eq("_id", new ObjectId(id))).first();
+    assertNotNull(addedPack);
+    assertEquals("Example 1", addedPack.getString("name"));
+    assertNotNull(addedPack);
+  }
+
+  @Test
   public void shouldThrowBadRequestNullName() throws IOException{
     String newContextPack = "{"
       + " \"name\": \"\","

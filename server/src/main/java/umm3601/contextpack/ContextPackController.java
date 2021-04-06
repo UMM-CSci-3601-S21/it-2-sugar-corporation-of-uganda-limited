@@ -104,18 +104,31 @@ public void deleteContextPack(Context ctx) {
   contextPackCollection.deleteOne(eq("_id", new ObjectId(id)));
 }
 
+/**
+ * Adds new word lists by taking a context pack with an empty name, icon, and enabled and adding the word lists
+ * to an already existing context pack
+ * @param ctx a Javalin HTTP context
+ */
 public void addNewWordPack(Context ctx) {
+  ContextPack oldContextPack;
+  //get the id of the context pack to be updated using the url path
   String cpId = ctx.pathParam("id");
-  System.out.println(cpId);
-  ContextPack oldContextPack = contextPackCollection.findOneById(cpId);
+  //get the context pack using the id
+  try {
+    oldContextPack = contextPackCollection.find(eq("_id", new ObjectId(cpId))).first();
+  } catch(IllegalArgumentException e) {
+    throw new BadRequestResponse("The id is not valid");
+  }
 
   //A contextpack that contains the new word packs
   ContextPack tempContextPack = ctx.bodyValidator(ContextPack.class)
     .check(cp -> cp.wordPacks != null)//Verify that the array is not empty
     .get();
 
+  //add the word lists to the old context pack
   oldContextPack.wordPacks.addAll(tempContextPack.wordPacks);
 
+  //replace the old context pack with the new instance that contains the new word lists
   contextPackCollection.findOneAndReplace(Filters.eq(cpId), oldContextPack);
   ctx.status(201);
   ctx.json(ImmutableMap.of("_id", oldContextPack._id));
