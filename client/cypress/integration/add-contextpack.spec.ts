@@ -24,7 +24,6 @@ describe('Add a Context pack', () => {
 
 
     page.addWordList();
-    page.addPosArray('noun');
     cy.get('[data-test=nameError]').should('not.exist');
     page.getFormField('name').then(els => {
       [...els].forEach(el => cy.wrap(el).click().blur());
