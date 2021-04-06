@@ -6,6 +6,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { ContextpackService } from '../contextpack/contextpack.service';
 import { stringify } from '@angular/compiler/src/util';
+import { ValidationService } from '../contextpack/validation.service';
 
 @Component({
   selector: 'app-add-wordlists',
@@ -20,10 +21,6 @@ export class AddWordlistsComponent implements OnInit {
   contextpack: ContextPack;
   enabled = true;
   id: string;
-
-  formErrors = {
-    wordpacks: this.wordPacksErrors()
-  };
 
   addContextPackValidationMessages = {
     wordPacks: {
@@ -40,7 +37,7 @@ export class AddWordlistsComponent implements OnInit {
     }
   };
 
-  constructor(private fb: FormBuilder, private contextPackService: ContextpackService,
+  constructor(private fb: FormBuilder, private contextPackService: ContextpackService, private validationService: ValidationService,
     private snackBar: MatSnackBar, private router: Router) { }
 
     createForms() {
@@ -113,40 +110,8 @@ export class AddWordlistsComponent implements OnInit {
   }
 
   validateForm(){
-    this.validateWordPacks();
+    this.validationService.validateWordPacks(this.addWordListForm, this.fb);
   }
-
-  validateWordPacks() {
-    const wordPacks = this.addWordListForm.controls.wordPacks as FormArray;
-    this.formErrors.wordpacks = [];
-    for (let index = 1; index <= wordPacks.length; index++) {
-      this.formErrors.wordpacks.push({
-        name: [' ', [Validators.required]],
-        enabled: [' ', [Validators.required]],
-        nouns: [{
-          word: '',
-          forms: this.fb.array([
-            this.fb.control('')
-          ]),
-        }]
-      });
-    }
-  }
-
-  wordPacksErrors() {
-    return [{
-      name: [' ', [Validators.required]],
-      enabled: [' ', [Validators.required]],
-      nouns: this.wordsErrors(),
-    }];
-  };
-
-  wordsErrors() {
-    return [{
-      word: '',
-      forms: this.fb.array([this.fb.control('')])
-    }];
-  };
 
   getIdFromUrl() {
     this.id = this.router.url.substring(14, 38);
