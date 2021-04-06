@@ -1,6 +1,6 @@
 import { ContextPack } from '../../src/app/contextpack/contextpack';
 
-export class AddWordPackPage {
+export class AddWordListPage {
   navigateTo() {
     return cy.visit('/contextpacks/new');
   }
@@ -24,8 +24,8 @@ export class AddWordPackPage {
     return cy.get(`mat-form-field [formcontrolname=${fieldName}]`);
   }
 
-  addWordPack(){
-    return cy.get('.add-wordPack-button').click({force: true});
+  addWordList(){
+    return cy.get('.add-wordList-button').click({force: true});
   }
   addPosArray(pos: string){
     return cy.get(`.add-${pos}-button`).click({force: true});
@@ -45,12 +45,12 @@ export class AddWordPackPage {
   addPack(newPack: ContextPack) {
     this.getFormField('name').type(newPack.name);
     this.getEnabledBox().click({force: true});
-    this.addWordPack();
+    this.addWordList();
     this.addPosArray('noun');
     this.addPosArray('verb');
     this.addPosArray('adj');
     this.addPosArray('misc');
-    if (newPack.wordPacks) {
+    if (newPack.wordLists) {
       this.getFormField('name').then(els => {
         [...els].forEach(el => cy.wrap(el).type('horsies', {force:true}));
       });

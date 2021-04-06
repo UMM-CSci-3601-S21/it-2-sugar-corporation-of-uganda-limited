@@ -10,7 +10,7 @@ const routes: Routes = [
   {path: 'contextpacks', component: ContextpackListComponent},
   {path: 'contextpacks/new', component: AddContextpackComponent },
   {path: 'contextpacks/:id', component: ContextpackContentComponent},
-  {path: 'contextpacks/:id/wordpacks/new', component: AddWordlistsComponent}
+  {path: 'contextpacks/:id/wordlists/new', component: AddWordlistsComponent}
 ];
 
 @NgModule({

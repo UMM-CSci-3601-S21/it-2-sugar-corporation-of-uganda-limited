@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ContextPack, WordPack, Words } from '../contextpack/contextpack';
+import { ContextPack, WordList, Words } from '../contextpack/contextpack';
 
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -17,13 +17,13 @@ export class AddWordlistsComponent implements OnInit {
 
   addWordListForm: FormGroup;
   shown = false;
-  wordPack: WordPack;
+  wordList: WordList;
   contextpack: ContextPack;
   enabled = true;
   id: string;
 
   addContextPackValidationMessages = {
-    wordPacks: {
+    wordLists: {
       name: [
         {type: 'required', message: 'Name is required'},
         {type: 'minLength', message: 'Name must be at least 2 characters'},
@@ -50,17 +50,17 @@ export class AddWordlistsComponent implements OnInit {
         enabled: new FormControl('', Validators.compose([
         ])),
         icon: '',
-        wordPacks: this.fb.array([])
+        wordLists: this.fb.array([])
       });
       this.addWordListForm.valueChanges.subscribe(data => this.validateForm());
     }
 
   ngOnInit(): void {
     this.createForms();
-    this.addWordPack();
+    this.addWordList();
   }
 
-  initWordPack() {
+  initWordList() {
     return this.fb.group({
       name: new FormControl('', Validators.compose([
         Validators.required,
@@ -88,29 +88,29 @@ export class AddWordlistsComponent implements OnInit {
     });
   }
 
-  addWordPack() {
-    const control = this.addWordListForm.controls.wordPacks as FormArray;
-    control.push(this.initWordPack());
+  addWordList() {
+    const control = this.addWordListForm.controls.wordLists as FormArray;
+    control.push(this.initWordList());
   }
 
   addPosArray(ix: number, pos: string){
-    const control = (this.addWordListForm.controls.wordPacks as FormArray).at(ix).get(`${pos}`) as FormArray;
+    const control = (this.addWordListForm.controls.wordLists as FormArray).at(ix).get(`${pos}`) as FormArray;
     control.push(this.initWords());
   }
 
   addForms(ix: number, iy: number, pos: string) {
-    const control = ((this.addWordListForm.controls.wordPacks as FormArray).at(ix).get(`${pos}`) as FormArray)
+    const control = ((this.addWordListForm.controls.wordLists as FormArray).at(ix).get(`${pos}`) as FormArray)
     .at(iy).get('forms') as FormArray;
     control.push(this.fb.control(''));
   }
 
   setWord(ix: number, iy: number, pos: string){
-    const control = ((this.addWordListForm.controls.wordPacks as FormArray).at(ix).get(`${pos}`) as FormArray)
+    const control = ((this.addWordListForm.controls.wordLists as FormArray).at(ix).get(`${pos}`) as FormArray)
     .at(iy).get('forms') as FormArray;
   }
 
   validateForm(){
-    this.validationService.validateWordPacks(this.addWordListForm, this.fb);
+    this.validationService.validateWordLists(this.addWordListForm, this.fb);
   }
 
   getIdFromUrl() {
@@ -120,7 +120,7 @@ export class AddWordlistsComponent implements OnInit {
   };
 
   submitForm() {
-    this.contextPackService.addWordPacks(this.addWordListForm.value, this.getIdFromUrl()).subscribe(newID => {
+    this.contextPackService.addWordLists(this.addWordListForm.value, this.getIdFromUrl()).subscribe(newID => {
       this.snackBar.open('Added List(s)', null, {
         duration: 2000,
       });

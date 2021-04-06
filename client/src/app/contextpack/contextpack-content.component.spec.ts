@@ -84,7 +84,7 @@ describe('ContextpackContentComponent', () => {
     expect(recreatedContextPack.enabled).toEqual(expectedContextPack.enabled);
     expect(recreatedContextPack.icon).toEqual(expectedContextPack.icon);
     expect(recreatedContextPack.name).toEqual(expectedContextPack.name);
-    expect(recreatedContextPack.wordPacks).toEqual(expectedContextPack.wordPacks);
+    expect(recreatedContextPack.wordLists).toEqual(expectedContextPack.wordLists);
   });
 
   it('should create a download link and button', () => {

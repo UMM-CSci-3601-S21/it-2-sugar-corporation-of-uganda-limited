@@ -1,22 +1,21 @@
 mat-card-actions{
-  width:inherit;
+   width:inherit;
 }
 
 button{
   font-family: 'Verdana';
-  width: 100%;
   font-size: 15px;
 }
 
 mat-card, mat-card-title{
 text-align:left;
-font-size: 20px;
+font-size: 16px;
 }
 
 .contextpack-card-name {
   text-overflow: ellipsis;
   overflow: hidden;
-  white-space: nowrap;
+  white-space: pre-wrap;
 }
 
 mat-card-footer{
@@ -29,7 +28,9 @@ mat-card-footer{
   text-align: left;
   line-height: 60px;
   margin: 10px;
-  font-size: 15px;
+  font-size: 14px;
+  background-color: #b6b5b5;
+  border-radius: 30px;
 }
 
 h1{
@@ -37,7 +38,29 @@ h1{
   font-size: 40px;
 }
 
-.add-wordpack-raised {
+h2{
+ font-size: 24px;
+ font-weight: bold;
+}
+
+h3{
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.bubble{
+  padding: 4px 4px 4px 6px;
+  background-color: #2196f3;
+  color: white;
+  border-radius: 10px;
+  // box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  display: inline-block;
+  margin: 2px;
+  white-space: nowrap;
+  line-height: normal;
+}
+
+.add-wordlist-raised {
   position: fixed;
   bottom: 15px;
   right: 30px;

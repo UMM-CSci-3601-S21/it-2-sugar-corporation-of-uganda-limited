@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { ContextpackService } from '../app/contextpack/contextpack.service';
-import { ContextPack, WordPack, Words } from '../app/contextpack/contextpack';
+import { ContextPack, WordList, Words } from '../app/contextpack/contextpack';
 /**
  * A "mock" version of the `ContextpackService` that can be used to test components
  * without having to create an actual service.
@@ -29,7 +29,7 @@ export class MockContextPackService extends ContextpackService {
   static testVerbs: Words[] = [MockContextPackService.verb];
   static testAdjectives: Words[] = [MockContextPackService.adjective];
   static testMisc: Words[] = [MockContextPackService.misc];
-  static testWordPacks: WordPack[] =[
+  static testWordLists: WordList[] =[
     {
       name: 'happy',
       enabled: false,
@@ -47,21 +47,21 @@ export class MockContextPackService extends ContextpackService {
         name: 'fun',
         icon: 'http://placehold.it/32x32',
         enabled: true,
-        wordPacks: MockContextPackService.testWordPacks
+        wordLists: MockContextPackService.testWordLists
       },
       {
         _id: 'sun_id',
         name: 'sun',
         icon: 'http://placehold.it/32x32',
         enabled: true,
-        wordPacks: MockContextPackService.testWordPacks
+        wordLists: MockContextPackService.testWordLists
       },
       {
         _id: 'happy_id',
         name: 'happy',
         icon: 'http://placehold.it/32x32',
         enabled: true,
-        wordPacks: MockContextPackService.testWordPacks
+        wordLists: MockContextPackService.testWordLists
       }
   ];
 

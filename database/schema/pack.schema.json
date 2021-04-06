@@ -14,7 +14,7 @@
     "enabled": {
       "type": "boolean"
     },
-    "wordpacks": {
+    "wordlists": {
       "type": "array",
       "items": {
         "type": "object",
@@ -54,7 +54,7 @@
     "name",
     "icon",
     "enabled",
-    "wordpacks"
+    "wordlists"
   ],
   "definitions": {
     "words": {

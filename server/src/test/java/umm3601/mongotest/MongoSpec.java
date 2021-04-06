@@ -63,7 +63,7 @@ public class MongoSpec {
           .append("name", "Example 1")
           .append("icon", "example.png")
           .append("enabled", false)
-          .append("wordPacks", Arrays.asList(
+          .append("wordLists", Arrays.asList(
             new Document()
             .append("name", "Example 1")
             .append("enabled", false)
@@ -93,7 +93,7 @@ public class MongoSpec {
           .append("name", "Example 2")
           .append("icon", "example.png")
           .append("enabled", true)
-          .append("wordPacks", Arrays.asList(
+          .append("wordLists", Arrays.asList(
             new Document()
             .append("name", "Example 2")
             .append("enabled", true)
@@ -123,7 +123,7 @@ public class MongoSpec {
           .append("name", "Example 3")
           .append("icon", "example.png")
           .append("enabled", false)
-          .append("wordPacks", Arrays.asList(
+          .append("wordLists", Arrays.asList(
             new Document()
             .append("name", "Example 3")
             .append("enabled", false)

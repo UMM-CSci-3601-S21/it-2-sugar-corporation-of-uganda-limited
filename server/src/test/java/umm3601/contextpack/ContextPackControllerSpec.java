@@ -95,7 +95,7 @@ public class ContextPackControllerSpec {
         .append("name", "Example 1")
         .append("icon", "example.png")
         .append("enabled", false)
-        .append("wordPacks", Arrays.asList(
+        .append("wordLists", Arrays.asList(
           new Document()
           .append("name", "Example 1")
           .append("enabled", false)
@@ -127,7 +127,7 @@ public class ContextPackControllerSpec {
         .append("name", "Example 2")
         .append("icon", "example.png")
         .append("enabled", false)
-        .append("wordPacks", Arrays.asList(
+        .append("wordLists", Arrays.asList(
           new Document()
           .append("name", "Example 2")
           .append("enabled", false)
@@ -159,7 +159,7 @@ public class ContextPackControllerSpec {
         .append("name", "Example 3")
         .append("icon", "example.png")
         .append("enabled", false)
-        .append("wordPacks", Arrays.asList(
+        .append("wordLists", Arrays.asList(
           new Document()
           .append("name", "Example 3")
           .append("enabled", false)
@@ -280,7 +280,7 @@ public class ContextPackControllerSpec {
       + " \"name\": \"Test Pack\" ,"
       + " \"icon\": \"testIcon.png\" ,"
       + " \"enabled\": false ,"
-      + " \"wordPacks\": [{"
+      + " \"wordLists\": [{"
       + " \"name\": \"Test Word Pack\" ,"
       + " \"enabled\": false ,"
       + " \"nouns\":"
@@ -319,7 +319,7 @@ public class ContextPackControllerSpec {
       + " \"name\": \"Test Pack\" ,"
       + " \"icon\": \"testIcon.png\" ,"
       + " \"enabled\": false ,"
-      + " \"wordPacks\": [{"
+      + " \"wordLists\": [{"
       + " \"name\": \"Test Word Pack\" ,"
       + " \"enabled\": false ,"
       + " \"nouns\":"
@@ -335,10 +335,10 @@ public class ContextPackControllerSpec {
     mockReq.setBodyContent(newWordLists);
     mockReq.setMethod("POST");
     String testID = testIDOne.toString();
-    Context ctx = ContextUtil.init(mockReq, mockRes, "api/contextpacks/:id/wordpacks/new", ImmutableMap.of("id", testID));
+    Context ctx = ContextUtil.init(mockReq, mockRes, "api/contextpacks/:id/wordlists/new", ImmutableMap.of("id", testID));
 
 
-    packController.addNewWordPack(ctx);
+    packController.addNewWordList(ctx);
     assertEquals(201, mockRes.getStatus());
     String result = ctx.resultString();
     String id = jsonMapper.readValue(result, ObjectNode.class).get("_id").asText();
@@ -358,7 +358,7 @@ public class ContextPackControllerSpec {
       + " \"name\": \"\","
       + " \"icon\": \"testIcon.png\" ,"
       + " \"enabled\": false ,"
-      + " \"wordPacks\": [{"
+      + " \"wordLists\": [{"
       + " \"name\": \"Test Word Pack\" ,"
       + " \"enabled\": false ,"
       + " \"nouns\":"
@@ -385,7 +385,7 @@ public class ContextPackControllerSpec {
     String newContextPack = "{"
       + " \"icon\": \"testIcon.png\","
       + " \"enabled\": false ,"
-      + " \"wordPacks\": [{"
+      + " \"wordLists\": [{"
       + " \"name\": \"Test Word Pack\" ,"
       + " \"enabled\": false ,"
       + " \"nouns\":"
@@ -414,7 +414,7 @@ public class ContextPackControllerSpec {
       + " \"name\": \"Test Pack\" ,"
       + " \"icon\": \"testIcon.png\" ,"
       + " \"enabled\": \"not a boolean\" ,"
-      + " \"wordPacks\": [{"
+      + " \"wordLists\": [{"
       + " \"name\": \"Test Word Pack\" ,"
       + " \"enabled\": false ,"
       + " \"nouns\":"
@@ -437,7 +437,7 @@ public class ContextPackControllerSpec {
   }
 
   @Test
-  public void shouldThrowBadRequestNoWordPack() throws IOException{
+  public void shouldThrowBadRequestNoWordList() throws IOException{
     String newContextPack = "{"
       + " \"name\": \"Test Pack\" ,"
       + " \"icon\": \"testIcon.png\" ,"
