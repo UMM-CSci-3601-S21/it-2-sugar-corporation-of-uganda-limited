@@ -45,3 +45,11 @@
         </div>
     </div>
   </mat-card-content>
+    <button mat-raised-button type="delete" (click)="deletePack(this.contextPack._id)"
+      mat-button
+      type="button"
+      color="primary"
+      type="delete"
+      data-test="deleteContextPackButton">
+      Delete Context Pack
+    </button>

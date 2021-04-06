@@ -44,4 +44,8 @@ export class ContextpackService {
   addWordLists(newContextPack: ContextPack, id: string): Observable<string> {
     return this.httpClient.post<{id: string }>(this.contextPacksUrl + '/' + id + '/wordlists/new', newContextPack).pipe(map(res => res.id));
   }
+
+  deleteContextPack(id: string): Observable<string> {
+    return this.httpClient.delete<{id: string}>(this.contextPacksUrl + '/' + id).pipe(map(res => res.id));
+  }
 }

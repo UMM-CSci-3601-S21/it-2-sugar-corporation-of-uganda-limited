@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatCardModule } from '@angular/material/card';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRouteStub } from 'src/testing/activated-route-stub';
 import { MockContextPackService } from 'src/testing/contextpack.service.mock';
@@ -8,6 +8,7 @@ import { ContextpackService } from './contextpack.service';
 import { ContextPack } from './contextpack';
 import { ContextpackCardComponent} from './contextpack-card.component';
 import { ContextpackContentComponent } from './contextpack-content.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 describe('ContextpackContentComponent', () => {
   let component: ContextpackContentComponent;
@@ -22,6 +23,8 @@ describe('ContextpackContentComponent', () => {
       ],
       declarations: [ ContextpackContentComponent, ContextpackCardComponent],
       providers: [
+        MatSnackBar,
+        Router,
         {provide: ContextpackService, useValue: new MockContextPackService() },
         {provide: ActivatedRoute, useValue: activatedRoute }
       ]

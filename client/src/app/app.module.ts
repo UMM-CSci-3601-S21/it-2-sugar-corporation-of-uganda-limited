@@ -64,7 +64,6 @@ const MATERIAL_MODULES: any[] = [
     ContextpackListComponent,
     AddContextpackComponent,
     AddWordlistsComponent,
-
   ],
   imports: [
     BrowserModule,
