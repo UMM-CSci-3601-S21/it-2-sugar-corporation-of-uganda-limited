@@ -8,7 +8,10 @@ import { ContextpackService } from './contextpack.service';
 import { ContextPack } from './contextpack';
 import { ContextpackCardComponent} from './contextpack-card.component';
 import { ContextpackContentComponent } from './contextpack-content.component';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 
 describe('ContextpackContentComponent', () => {
   let component: ContextpackContentComponent;
@@ -19,14 +22,17 @@ describe('ContextpackContentComponent', () => {
     TestBed.configureTestingModule({
       imports : [
         RouterTestingModule,
-        MatCardModule
+        MatCardModule,
+        MatSnackBarModule,
+        MatCardModule,
+        MatFormFieldModule,
+        MatSelectModule,
+        MatInputModule,
       ],
       declarations: [ ContextpackContentComponent, ContextpackCardComponent],
       providers: [
-        MatSnackBar,
-        Router,
         {provide: ContextpackService, useValue: new MockContextPackService() },
-        {provide: ActivatedRoute, useValue: activatedRoute }
+        {provide: ActivatedRoute, useValue: activatedRoute },
       ]
     })
     .compileComponents();

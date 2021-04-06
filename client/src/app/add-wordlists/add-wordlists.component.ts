@@ -21,6 +21,7 @@ export class AddWordlistsComponent implements OnInit {
   contextpack: ContextPack;
   enabled = true;
   id: string;
+  regEx: RegExp;
 
   addContextPackValidationMessages = {
     wordLists: {
@@ -114,8 +115,8 @@ export class AddWordlistsComponent implements OnInit {
   }
 
   getIdFromUrl() {
-    this.id = this.router.url.substring(14, 38);
-    console.log(this.id);
+    console.log(this.router.url);
+    this.id = this.router.url.split('/')[2];
     return this.id;
   };
 
@@ -124,7 +125,7 @@ export class AddWordlistsComponent implements OnInit {
       this.snackBar.open('Added List(s)', null, {
         duration: 2000,
       });
-      this.router.navigate(['/contextpacks/', newID]);
+      this.router.navigate(['/contextpacks/', this.id]);
     }, err => {
       this.snackBar.open(
         'Failed to add the context pack (check that all required fields are filled in', 'OK', {

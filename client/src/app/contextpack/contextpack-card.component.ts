@@ -45,33 +45,6 @@ export class ContextpackCardComponent implements OnInit {
     return str;
   }
 
-  displayAllWords(contextpack: ContextPack, pos: WordRole){
-      let words: WordPack[];
-      let m: number;
-      let str: string;
-      if(contextpack.wordPacks === undefined || contextpack.wordPacks[0][`${pos}`][0] === undefined){
-        words = null;
-        str = null;
-      }
-      else{
-        words = [];
-      for (m = 0; m < contextpack.wordPacks.length; m++){
-          words = words.concat(contextpack.wordPacks[m]);
-        }
-
-      let z: number;
-      str = '\n';
-      for (z = 0; z < words.length; z++){
-        str += this.displayWords(words[z], pos);
-        str = str.slice(0, -1);
-        if (z < words.length-1){
-          str += ', ';
-          }
-        }
-      }
-      return str;
-  }
-
   deletePack(id: string) {
     this.contextPackService.deleteContextPack(id).subscribe(deletedId => {
       this.snackBar.open('Deleted Context Pack', null, {duration: 2000});

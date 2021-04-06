@@ -43,13 +43,28 @@
             </span>
           </mat-card>
         </div>
+      <button
+        mat-raised-button
+        type="button"
+        type="add"
+        color="primary"
+        class="add-wordlist-raised"
+        matToolTip="Add Word List"
+        [routerLink]="['/contextpacks', this.contextPack._id, 'wordlists', 'new']"
+        data-test="addWordListButton">
+        Add Word List
+      </button>
+      <button mat-raised-button type="delete" (click)="deletePack(this.contextPack._id)"
+        mat-button
+        type="button"
+        class="deleteRaised"
+        color="primary"
+        type="delete"
+        data-test="deleteContextPackButton">
+        Delete Context Pack
+      </button>
+
     </div>
+
   </mat-card-content>
-    <button mat-raised-button type="delete" (click)="deletePack(this.contextPack._id)"
-      mat-button
-      type="button"
-      color="primary"
-      type="delete"
-      data-test="deleteContextPackButton">
-      Delete Context Pack
-    </button>
+

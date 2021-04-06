@@ -8,7 +8,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MockContextPackService } from 'src/testing/contextpack.service.mock';
 import { ActivatedRouteStub } from 'src/testing/activated-route-stub';
 import { ContextPack, WordList, Words } from './contextpack';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { RouterTestingModule } from '@angular/router/testing';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 
 describe('ContextpackCardComponent', () => {
   let component: ContextpackCardComponent;
@@ -23,14 +27,17 @@ describe('ContextpackCardComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         BrowserAnimationsModule,
-        MatCardModule
+        MatCardModule,
+        MatSnackBarModule,
+        MatFormFieldModule,
+        MatSelectModule,
+        MatInputModule,
+        RouterTestingModule
       ],
       declarations: [ ContextpackCardComponent ],
       providers: [
-        Router,
-        MatSnackBar,
         {provide: ContextpackService, useValue: new MockContextPackService() },
-        {provide: ActivatedRoute, useValue: activatedRoute }
+        {provide: ActivatedRoute, useValue: activatedRoute },
       ]
     })
     .compileComponents();
@@ -126,12 +133,5 @@ describe('ContextpackCardComponent', () => {
     expect(component.displayWord(component.contextPack.wordLists[0], 'verbs', 0)).not.toContain('barbie');
     expect(component.displayWord(component.contextPack.wordLists[0], 'adjectives', 0)).not.toContain('barbie');
     expect(component.displayWord(component.contextPack.wordLists[0], 'misc', 0)).not.toContain('barbie');
-  });
-
-  it('should have displayNouns,ver,adjective,misc return null if undefined', () => {
-    expect(component2.displayAllWords(component2.contextPack, 'nouns')).toBeNull();
-    expect(component2.displayAllWords(component2.contextPack, 'verbs')).toBeNull();
-    expect(component2.displayAllWords(component2.contextPack, 'adjectives')).toBeNull();
-    expect(component2.displayAllWords(component2.contextPack, 'misc')).toBeNull();
   });
 });

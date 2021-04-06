@@ -83,6 +83,4 @@ export class MockContextPackService extends ContextpackService {
       return of(null);
     }
   }
-
-
 }
