@@ -8,6 +8,8 @@ import { map } from 'rxjs/operators';
 @Injectable()
 export class ContextpackService {
   readonly contextPacksUrl: string = environment.apiUrl + 'contextpacks';
+  // The id needs to gets passed in here instead of the hardcoded pat_id
+  readonly wordListsUrl: string = environment.apiUrl + 'contextpacks/' + 'pat_id/' + 'wordlists/' + 'new';
 
   constructor(private httpClient: HttpClient) {
 

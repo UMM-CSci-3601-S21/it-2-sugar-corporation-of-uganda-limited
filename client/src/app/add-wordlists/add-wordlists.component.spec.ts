@@ -153,12 +153,12 @@ describe('AddWordListComponent', () => {
     });
   });
 
-  // describe('Test getIdFromUrl()', () => {
-  //   it('should get the correct mongo id from the url', () => {
-  //     const expectedContextPack: ContextPack = MockContextPackService.testContextPacks[0];
-  //     activatedRoute.setParamMap({ id: expectedContextPack._id });
-  //     // const router = TestBed.get(Router);
-  //     expect(addWordListComponent.getIdFromUrl()).toEqual(expectedContextPack._id);
-  //   });
-  // });
+  describe('Test getIdFromUrl()', () => {
+    it('should get the correct mongo id from the url', () => {
+      const expectedContextPack: ContextPack = MockContextPackService.testContextPacks[0];
+      activatedRoute.setParamMap({ id: expectedContextPack._id });
+      // const router = TestBed.get(Router);
+      expect(addWordListComponent.getIdFromUrl()).toEqual(expectedContextPack._id);
+    });
+  });
 });
