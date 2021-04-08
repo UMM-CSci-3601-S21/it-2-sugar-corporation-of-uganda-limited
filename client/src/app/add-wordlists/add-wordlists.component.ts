@@ -22,6 +22,7 @@ export class AddWordlistsComponent implements OnInit {
   enabled = true;
   id: string;
   regEx: RegExp;
+  optionValue ;
 
   addContextPackValidationMessages = {
     wordLists: {
@@ -118,7 +119,7 @@ export class AddWordlistsComponent implements OnInit {
     console.log(this.router.url);
     this.id = this.router.url.split('/')[2];
     return this.id;
-  };
+  }
 
   submitForm() {
     this.contextPackService.addWordLists(this.addWordListForm.value, this.getIdFromUrl()).subscribe(newID => {
