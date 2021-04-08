@@ -461,7 +461,7 @@ public class ContextPackControllerSpec {
     Context ctx = ContextUtil.init(mockReq, mockRes, "api/contextPacks/:id", ImmutableMap.of("id", testID));
     packController.deleteContextPack(ctx);
 
-    assertEquals(200, mockRes.getStatus());
+    assertEquals(201, mockRes.getStatus());
 
     // User is no longer in the database
     assertEquals(0, db.getCollection("contextPacks").countDocuments(eq("_id", new ObjectId(testID))));
