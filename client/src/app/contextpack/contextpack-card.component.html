@@ -9,7 +9,9 @@
 
   <mat-card-content *ngIf="!this.simple">
     <div>
-      <span><h1>WordLists:</h1></span>
+      <h1>Context Pack: {{this.contextPack.name}}</h1>
+      <h1>Enabled: {{this.contextPack.enabled}}</h1>
+      <span><h2>WordLists:</h2></span>
         <div *ngFor="let wordlists of contextPack.wordLists; let index = index">
           <mat-card class="contextpack-content">
             <span class="contextpack-card-wordlists">
