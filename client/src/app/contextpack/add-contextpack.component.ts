@@ -24,6 +24,11 @@ export class AddContextpackComponent implements OnInit {
   optionValue ;
 
   addContextPackValidationMessages = {
+    name: [
+      {type: 'required', message: 'A Name is required'},
+      {type: 'minLength', message: 'Contextpack name must be at least 2 characters'},
+      {type: 'maxLength', message: 'Contextpack name cannot be longer than 50 characters'}
+    ],
     wordLists: {
       name: [
         {type: 'required', message: 'Name is required'}
@@ -42,7 +47,9 @@ export class AddContextpackComponent implements OnInit {
     createForms() {
       this.addContextPackForm = this.fb.group({
         name: new FormControl('', Validators.compose([
-          Validators.required
+          Validators.required,
+          Validators.minLength(2),
+          Validators.maxLength(50)
         ])),
         enabled: new FormControl('true', Validators.compose([
           Validators.required,
