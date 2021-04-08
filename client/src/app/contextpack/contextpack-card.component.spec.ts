@@ -4,10 +4,15 @@ import { ContextpackCardComponent } from './contextpack-card.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule } from '@angular/material/card';
 import { ContextpackService } from './contextpack.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MockContextPackService } from 'src/testing/contextpack.service.mock';
 import { ActivatedRouteStub } from 'src/testing/activated-route-stub';
 import { ContextPack, WordList, Words } from './contextpack';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { RouterTestingModule } from '@angular/router/testing';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 
 describe('ContextpackCardComponent', () => {
   let component: ContextpackCardComponent;
@@ -22,12 +27,17 @@ describe('ContextpackCardComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         BrowserAnimationsModule,
-        MatCardModule
+        MatCardModule,
+        MatSnackBarModule,
+        MatFormFieldModule,
+        MatSelectModule,
+        MatInputModule,
+        RouterTestingModule
       ],
       declarations: [ ContextpackCardComponent ],
       providers: [
         {provide: ContextpackService, useValue: new MockContextPackService() },
-        {provide: ActivatedRoute, useValue: activatedRoute }
+        {provide: ActivatedRoute, useValue: activatedRoute },
       ]
     })
     .compileComponents();

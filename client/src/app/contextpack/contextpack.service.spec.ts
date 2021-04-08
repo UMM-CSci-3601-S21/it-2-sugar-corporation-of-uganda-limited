@@ -142,4 +142,17 @@ describe('ContextpackService', () => {
       const userName = 'u';
       expect(contextpackService.filterContextPacks(testContextPacks, { name: userName }).length).toBe(2);
     });
+
+    it('addWordLists() posts', () => {
+
+      contextpackService.addWordLists(testContextPacks[1], testContextPacks[1]._id).subscribe(
+        id => expect(id).toBe('testID/pat_id/wordlists/new'));
+
+      const req = httpTestingController.expectOne(contextpackService.contextPacksUrl + '/pat_id/' + 'wordlists/' + 'new');
+
+      expect(req.request.method).toEqual('POST');
+      expect(req.request.body).toEqual(testContextPacks[1]);
+
+      req.flush({id: 'testID/pat_id/wordlists/new'});
+    });
 });

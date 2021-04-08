@@ -11,11 +11,15 @@ import { MockContextPackService } from 'src/testing/contextpack.service.mock';
 import { AddWordlistsComponent } from './add-wordlists.component';
 import { ContextpackService } from '../contextpack/contextpack.service';
 import { ValidationService } from '../contextpack/validation.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRouteStub } from 'src/testing/activated-route-stub';
+import { ContextPack } from '../contextpack/contextpack';
 
 describe('AddWordListComponent', () => {
   let addWordListComponent: AddWordlistsComponent;
   let addWordListForm: FormGroup;
   let fixture: ComponentFixture<AddWordlistsComponent>;
+  const activatedRoute: ActivatedRouteStub = new ActivatedRouteStub();
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -31,7 +35,11 @@ describe('AddWordListComponent', () => {
         BrowserAnimationsModule
       ],
       declarations: [ AddWordlistsComponent ],
-      providers: [ValidationService, { provide: ContextpackService, useValue: new MockContextPackService() }]
+      providers: [
+        ValidationService,
+        { provide: ContextpackService, useValue: new MockContextPackService() },
+        { provide: ActivatedRoute, useValue: activatedRoute }
+      ]
     }).compileComponents().catch(error => {
       expect(error).toBeNull();
     });
@@ -89,8 +97,8 @@ describe('AddWordListComponent', () => {
     });
   });
 
-  describe('Add word pack', () => {
-    it('should add a word pack', () => {
+  describe('Add word list', () => {
+    it('should add a word list', () => {
       let formValue = addWordListComponent.addWordListForm.value;
       expect(formValue.wordLists.length).toEqual(1);
       addWordListComponent.addWordList();

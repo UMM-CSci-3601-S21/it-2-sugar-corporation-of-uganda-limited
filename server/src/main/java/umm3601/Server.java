@@ -57,21 +57,20 @@ public class Server {
 
     server.start(4567);
 
-
     // List context packs, filtered using query parameters
     server.get("/api/contextpacks", contextPackController::getContextPacks);
 
     // Get the specified context pack
     server.get("/api/contextpacks/:id", contextPackController::getContextPack);
 
+    // Delete a context pack
+    server.delete("/api/contextpacks/:id", contextPackController::deleteContextPack);
+
     // Add new context pack with the context pack info being in the JSON body
     // of the HTTP request
     server.post("/api/contextpacks", contextPackController::addNewContextPack);
 
     server.post("/api/contextpacks/:id/wordlists/new", contextPackController::addNewWordList);
-
-    // Delete a context pack
-    server.delete("/api/contextpack/:id", contextPackController::deleteContextPack);
 
     server.exception(Exception.class, (e, ctx) -> {
       ctx.status(500);

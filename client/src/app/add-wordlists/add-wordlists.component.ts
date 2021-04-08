@@ -21,6 +21,8 @@ export class AddWordlistsComponent implements OnInit {
   contextpack: ContextPack;
   enabled = true;
   id: string;
+  regEx: RegExp;
+  optionValue ;
 
   addContextPackValidationMessages = {
     wordLists: {
@@ -60,42 +62,22 @@ export class AddWordlistsComponent implements OnInit {
     this.addWordList();
   }
 
-  initWordList() {
-    return this.fb.group({
-      name: new FormControl('', Validators.compose([
-        Validators.required,
-        Validators.minLength(2),
-        Validators.maxLength(50)
-      ])),
-      enabled: new FormControl('true', Validators.compose([
-        Validators.required,
-        Validators.pattern('^(true|false|True|False)$'),
-      ])),
-      nouns: this.fb.array([]),
-      adjectives: this.fb.array([]),
-      verbs: this.fb.array([]),
-      misc: this.fb.array([])
-
-    });
+  initializeWordList() {
+    return this.validationService.initWordList(this.fb);
   }
 
-  initWords() {
-    return this.fb.group({
-      word: [''],
-      forms: this.fb.array([
-         this.fb.control('')
-      ])
-    });
+  initializeWords() {
+    return this.validationService.initWords(this.fb);
   }
 
   addWordList() {
     const control = this.addWordListForm.controls.wordLists as FormArray;
-    control.push(this.initWordList());
+    control.push(this.initializeWordList());
   }
 
   addPosArray(ix: number, pos: string){
     const control = (this.addWordListForm.controls.wordLists as FormArray).at(ix).get(`${pos}`) as FormArray;
-    control.push(this.initWords());
+    control.push(this.initializeWords());
   }
 
   addForms(ix: number, iy: number, pos: string) {
@@ -114,17 +96,17 @@ export class AddWordlistsComponent implements OnInit {
   }
 
   getIdFromUrl() {
-    this.id = this.router.url.substring(14, 38);
-    console.log(this.id);
+    console.log(this.router.url);
+    this.id = this.router.url.split('/')[2];
     return this.id;
-  };
+  }
 
   submitForm() {
     this.contextPackService.addWordLists(this.addWordListForm.value, this.getIdFromUrl()).subscribe(newID => {
       this.snackBar.open('Added List(s)', null, {
         duration: 2000,
       });
-      this.router.navigate(['/contextpacks/', newID]);
+      this.router.navigate(['/contextpacks/', this.id]);
     }, err => {
       this.snackBar.open(
         'Failed to add the context pack (check that all required fields are filled in', 'OK', {

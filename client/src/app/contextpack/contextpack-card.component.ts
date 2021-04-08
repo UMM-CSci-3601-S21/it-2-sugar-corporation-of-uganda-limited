@@ -1,6 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { reduce } from 'rxjs/operators';
 import { ContextPack, WordList, WordRole, Words } from './contextpack';
+import { ContextpackService } from './contextpack.service';
+import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 
 @Component({
   selector: 'app-contextpack-card',
@@ -12,7 +16,7 @@ export class ContextpackCardComponent implements OnInit {
   @Input() contextPack: ContextPack;
   @Input() simple?: boolean;
 
-  constructor() { }
+  constructor(private contextPackService: ContextpackService, private router: Router, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
   }
@@ -39,5 +43,16 @@ export class ContextpackCardComponent implements OnInit {
           str = word.toString().replace(comma, ', ');
     }
     return str;
+  }
+
+  deletePack(id: string) {
+    this.contextPackService.deleteContextPack(id).subscribe(deletedId => {
+      this.snackBar.open('Deleted Context Pack', null, {duration: 2000});
+      this.router.navigate(['/contextpacks']);
+    }, err => {
+      this.snackBar.open(
+        'Failed to delete the context pack', 'OK', {duration: 5000}
+      );
+    });
   }
 }

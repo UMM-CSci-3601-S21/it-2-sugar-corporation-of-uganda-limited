@@ -100,8 +100,13 @@ public void addNewContextPack(Context ctx) {
  *  @param ctx a Javalin HTTP context
  */
 public void deleteContextPack(Context ctx) {
+  System.err.println("got to 1");
   String id = ctx.pathParam("id");
+  System.out.println("got to 2");
   contextPackCollection.deleteOne(eq("_id", new ObjectId(id)));
+  System.out.println("got to 3");
+  ctx.status(201);
+  ctx.json(ImmutableMap.of("_id", id));
 }
 
 /**
