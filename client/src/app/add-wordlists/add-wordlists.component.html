@@ -1,0 +1,207 @@
+<div fxLayout="row">
+  <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10">
+<form [formGroup]="addWordListForm" (ngSubmit)="submitForm()" class="form">
+  <mat-card class="add-contextpack-card">
+    <mat-card-header>
+      <mat-card-title class="add-pack-title"><h1>Add New Word Lists</h1></mat-card-title>
+    </mat-card-header>
+    <mat-card-content fxLayout="column">
+
+	<!-- wordLists -->
+
+	<div formArrayName="wordLists">
+		<div *ngFor="let wordLists of addWordListForm['controls'].wordLists['controls']; let ix=index">
+			<div formGroupName="{{ix}}" class="word-lists">
+        <label>
+          Name:
+          <mat-form-field>
+            <mat-label>Word Pack Name</mat-label>
+            <input matInput placeholder="Name" formControlName="name"
+                  required>
+            <mat-error *ngFor="let validation of addContextPackValidationMessages.wordLists.name">
+              <mat-error class="error-message" data-test="nameError"
+                        *ngIf="addWordListForm.get('name').hasError(validation.type) && (addWordListForm.get('name').dirty || addWordListForm.get('name').touched)">
+                {{validation.message}}
+              </mat-error>
+            </mat-error>
+          </mat-form-field>
+        </label>
+
+        <div>
+          <mat-radio-group>
+            <mat-radio-button class="context-enabled-box-true" value="true">Enabled</mat-radio-button>
+            <mat-radio-button class="context-enabled-box-false" value="false">Disabled</mat-radio-button>
+          </mat-radio-group>
+        </div>
+
+				        <!-- Words -->
+            <!-- Drop down button -->
+            <div>
+              <select [(ngModel)]="optionValue" [ngModelOptions]="{standalone: true}">
+                <option value="nouns">Noun</option>
+                <option value="adjectives">Adjective</option>
+                <option value="verbs">Verb</option>
+                <option value="misc">Misc.</option>
+              </select>
+            </div>
+
+				<!-- Nouns -->
+        <ng-container *ngIf="optionValue == 'nouns'">
+          <div formArrayName="nouns" >
+            <div *ngFor="let nouns of wordLists['controls'].nouns['controls']; let iy=index">
+              <div formGroupName="{{iy}}" class="nouns">
+                <mat-form-field>
+                  <mat-label>Word:</mat-label>
+                  <input autocomplete="off" matInput placeholder="Word" formControlName="word">
+                </mat-form-field>
+
+                <div *ngFor="let forms of nouns['controls'].forms['controls']; let iz=index">
+                  <mat-form-field formArrayName="forms">
+                    <mat-label>Forms:</mat-label>
+                    <input autocomplete="off" matInput placeholder="form" [formControlName]="iz" class="formInput" (click)="setWord(ix, iy,  'nouns')">
+                  </mat-form-field>
+                </div>
+                <!--add button-->
+                <div class="add-button">
+                  <button class="add-button" type="button" (click)="addForms(ix, iy, 'nouns')">
+                    Add word form
+                  </button>
+                </div>
+                 <!--end add button-->
+
+              </div>
+            </div>
+            <button class="add-noun-button" type="button" (click)="addPosArray(ix,'nouns')" value="Add Noun">Add Noun</button>
+          </div>
+        </ng-container>
+
+
+				<!-- Nouns End -->
+        <!-- Adjectives -->
+        <ng-container *ngIf="optionValue == 'adjectives'">
+          <div formArrayName="adjectives" >
+            <div *ngFor="let adj of wordLists['controls'].adjectives['controls']; let iy=index">
+              <div formGroupName="{{iy}}" class="adjectives" >
+
+
+                <mat-form-field>
+                  <mat-label>Word:</mat-label>
+                  <input autocomplete="off" matInput placeholder="Word" formControlName="word">
+                </mat-form-field>
+                <!---Forms -->
+                <div *ngFor="let forms of adj['controls'].forms['controls']; let iz=index">
+                  <mat-form-field formArrayName="forms">
+                    <mat-label>Forms:</mat-label>
+                    <input autocomplete="off" matInput placeholder="form" [formControlName]="iz" class="formInput" (click)="setWord(ix, iy,  'adjectives')">
+                  </mat-form-field>
+
+                </div>
+
+                <div class="add-button">
+                  <button class="add-button" type="button" (click)="addForms(ix, iy, 'adjectives')">
+                    Add word form
+                  </button>
+                </div>
+
+              </div>
+            </div>
+            <button class="add-adj-button" type="button" (click)="addPosArray(ix,'adjectives')" value="Add Adjective">Add Adjective</button>
+          </div>
+        </ng-container>
+
+				<!-- Adjectives End -->
+        <!-- Verbs -->
+        <ng-container *ngIf="optionValue == 'verbs'">
+          <div formArrayName="verbs">
+            <div *ngFor="let verbs of wordLists['controls'].verbs['controls']; let iy=index">
+              <div formGroupName="{{iy}}" class="verbs" >
+
+
+
+                <mat-form-field>
+                  <mat-label>Word:</mat-label>
+                  <input autocomplete="off" matInput placeholder="Word" formControlName="word">
+                </mat-form-field>
+                <!---Forms -->
+                <div *ngFor="let forms of verbs['controls'].forms['controls']; let iz=index">
+                  <mat-form-field formArrayName="forms">
+                    <mat-label>Forms:</mat-label>
+                    <input autocomplete="off" matInput placeholder="form" [formControlName]="iz" class="formInput" (click)="setWord(ix, iy,  'verbs')">
+
+                    </mat-form-field>
+
+                </div>
+                <!--add button-->
+                <div class="add-button">
+                  <button class="add-button" type="button" (click)="addForms(ix, iy, 'verbs')">
+                    Add word form
+                  </button>
+                </div>
+                 <!--end add button-->
+
+
+              </div>
+            </div>
+            <button class="add-verb-button" type="button" (click)="addPosArray(ix,'verbs')" value="Add Verb">Add Verb</button>
+          </div>
+        </ng-container>
+
+
+				<!-- Verbs End -->
+        <!-- Misc -->
+        <ng-container *ngIf="optionValue == 'misc'">
+          <div formArrayName="misc">
+            <div *ngFor="let misc of wordLists['controls'].misc['controls']; let iy=index">
+              <div formGroupName="{{iy}}" class="misc" >
+
+
+
+                <mat-form-field>
+                  <mat-label>Word:</mat-label>
+                  <input autocomplete="off" matInput placeholder="Word" formControlName="word">
+                </mat-form-field>
+               <!---Forms -->
+               <div *ngFor="let forms of misc['controls'].forms['controls']; let iz=index">
+                <mat-form-field formArrayName="forms">
+                  <mat-label>Forms:</mat-label>
+                  <input autocomplete="off" matInput placeholder="form" [formControlName]="iz" class="formInput" (click)="setWord(ix, iy,  'misc')">
+
+                  </mat-form-field>
+                </div>
+              <!--add button-->
+              <div class="add-button">
+                <button class="add-button" type="button" (click)="addForms(ix, iy, 'misc')">
+                  Add word form
+                </button>
+              </div>
+               <!--end add button-->
+
+
+
+            </div>
+            </div>
+            <button class="add-misc-button" type="button" (click)="addPosArray(ix,'misc')" value="Add Misc"> Add Misc</button>
+          </div>
+        </ng-container>
+
+				<!-- Misc End -->
+      </div>
+		</div>
+    <div>
+		<button class="add-wordList-button" type="button" (click)="addWordList()" value="Add word list">Add word list</button>
+    </div>
+  </div>
+
+</mat-card-content>
+</mat-card>
+	<!-- X End -->
+</form>
+<div class="buttons-div">
+  <button type="submit" (click)="submitForm()"
+    mat-button
+    type="button"
+    type="submit"
+  >
+    ADD WORD LISTS
+  </button>
+</div>

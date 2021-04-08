@@ -1,0 +1,71 @@
+<mat-card class="contextpack-card" *ngIf="this.contextPack">
+  <mat-card-actions>
+    <button mat-button data-test="viewWordListsButton" *ngIf=this.simple [routerLink]="['/contextpacks', this.contextPack._id]">
+      <mat-card-title class="contextpack-card-name">{{ this.contextPack.name }}</mat-card-title>
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmHaMegkEMC35CmUXa4-vBVoncj8iQAO3xZg&usqp=CAU" width='50' height= '50'>
+      <mat-card-footer>Enabled: {{ this.contextPack.enabled }}</mat-card-footer>
+    </button>
+  </mat-card-actions>
+
+  <mat-card-content *ngIf="!this.simple">
+    <div>
+      <h1>Context Pack: {{this.contextPack.name}}</h1>
+      <h1>Enabled: {{this.contextPack.enabled}}</h1>
+      <span><h2>WordLists:</h2></span>
+        <div *ngFor="let wordlists of contextPack.wordLists; let index = index">
+          <mat-card class="contextpack-content">
+            <span class="contextpack-card-wordlists">
+              <div>
+                <h2> {{displayWordLists(this.contextPack.wordLists[index])}} </h2>
+                <div>
+                  <h3> Nouns: </h3>
+                  <div *ngFor="let words of this.contextPack.wordLists[index]['nouns']; let index2 = index" class="bubble">
+                    {{displayWord(this.contextPack.wordLists[index], 'nouns', index2)}}
+                  </div>
+                </div>
+                <div>
+                  <h3> Adjectives: </h3>
+                  <div *ngFor="let words of this.contextPack.wordLists[index]['adjectives']; let index2 = index" class="bubble">
+                      {{displayWord(this.contextPack.wordLists[index], 'adjectives', index2)}}
+                  </div>
+                </div>
+                <div>
+                  <h3> Verbs: </h3>
+                  <div *ngFor="let words of this.contextPack.wordLists[index]['verbs']; let index2 = index" class="bubble">
+                    {{displayWord(this.contextPack.wordLists[index], 'verbs', index2)}}
+                  </div>
+                </div>
+                <div>
+                  <h3> Misc: </h3>
+                  <div *ngFor="let words of this.contextPack.wordLists[index]['misc']; let index2 = index" class="bubble">
+                    {{displayWord(this.contextPack.wordLists[index], 'misc', index2)}}
+                  </div>
+                </div>
+              </div>
+            </span>
+          </mat-card>
+        </div>
+      <button
+        mat-raised-button
+        type="button"
+        type="add"
+        color="primary"
+        class="add-wordlist-raised"
+        matToolTip="Add Word List"
+        [routerLink]="['/contextpacks', this.contextPack._id, 'wordlists', 'new']"
+        data-test="addWordListButton">
+        Add Word List
+      </button>
+      <button mat-raised-button type="delete" (click)="deletePack(this.contextPack._id)"
+        mat-button
+        type="button"
+        class="deleteRaised"
+        type="delete"
+        data-test="deleteContextPackButton">
+        Delete Context Pack
+      </button>
+
+    </div>
+
+  </mat-card-content>
+

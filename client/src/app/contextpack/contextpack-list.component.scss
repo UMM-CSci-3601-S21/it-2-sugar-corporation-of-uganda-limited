@@ -1,0 +1,42 @@
+.packs-cards-container{
+  position:relative;
+  width: 100%;
+  margin: 20px;
+}
+
+.packs-card{
+  height: fit-content;
+  margin: 10px;
+  box-shadow: 10px 5px 5px #64ceff;
+}
+
+mat-card-title{
+  font-family: 'Verdana';
+  font-size: 30px;
+  margin: 20px;
+
+}
+
+mat-card{
+  margin:20px;
+  background-color: #64ceff;
+}
+
+.mat-fab.mat-accent{
+  background-color:#64ceff
+}
+
+button{
+  position: fixed;
+  bottom: 15px;
+  right: 30px;
+  background-color:#64ceff;
+  font-family: "Verdana";
+  font-size: 15px;
+  width: max-content;
+  border-radius: 4px;
+}
+
+.add-contextPacks-fab {
+  width: max-content;
+}

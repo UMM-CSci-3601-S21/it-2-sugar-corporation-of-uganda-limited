@@ -1,0 +1,9 @@
+
+<div fxLayout="row">
+  <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10">
+    <button mat-raised-button color="accent" class="contextpack-download-button" (click)='createDownloadLink().click()'>
+      Download This Context Pack
+    </button>
+    <app-contextpack-card [contextPack]="this.contextPack"></app-contextpack-card>
+  </div>
+</div>

@@ -1,3 +1,4 @@
+
 .sidenav-container {
   height: 100%;
 }
@@ -18,12 +19,17 @@
 
 .app-title {
   padding-left: 16px;
+  font-size:40px;
+  font-family: 'Verdana';
 }
 
 
-.main-content {
-  margin: 24px;
+.main-content{
   @media (max-width: 599px) {
     margin: 16px;
   }
+}
+
+.icon-image {
+  cursor: pointer;
 }
