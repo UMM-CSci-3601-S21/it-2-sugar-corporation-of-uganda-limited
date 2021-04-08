@@ -66,40 +66,22 @@ export class AddContextpackComponent implements OnInit {
     this.createForms();
   }
 
-  initWordList() {
-    return this.fb.group({
-      name: new FormControl('', Validators.compose([
-        Validators.required,
-      ])),
-      enabled: new FormControl('true', Validators.compose([
-        Validators.required,
-        Validators.pattern('^(true|false)$'),
-      ])),
-      nouns: this.fb.array([]),
-      adjectives: this.fb.array([]),
-      verbs: this.fb.array([]),
-      misc: this.fb.array([])
-
-    });
+  initializeWordList() {
+    return this.validationService.initWordList(this.fb);
   }
 
-  initWords() {
-    return this.fb.group({
-      word: [''],
-      forms: this.fb.array([
-         this.fb.control('')
-      ])
-    });
+  initializeWords() {
+    return this.validationService.initWords(this.fb);
   }
 
   addWordList() {
     const control = this.addContextPackForm.controls.wordLists as FormArray;
-    control.push(this.initWordList());
+    control.push(this.initializeWordList());
   }
 
   addPosArray(ix: number, pos: string){
     const control = (this.addContextPackForm.controls.wordLists as FormArray).at(ix).get(`${pos}`) as FormArray;
-    control.push(this.initWords());
+    control.push(this.initializeWords());
   }
 
   addForms(ix: number, iy: number, pos: string) {
