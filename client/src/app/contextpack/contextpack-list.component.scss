@@ -30,11 +30,13 @@ button{
   position: fixed;
   bottom: 15px;
   right: 30px;
-  color:#64ceff;
+  background-color:#64ceff;
+  font-family: "Verdana";
+  font-size: 15px;
+  width: max-content;
+  border-radius: 4px;
 }
 
 .add-contextPacks-fab {
-  position: fixed;
-  bottom: 15px;
-  right: 30px;
+  width: max-content;
 }
